@@ -1,0 +1,17 @@
+ui:
+  menu:
+    users: Utilisateurs
+    agencies: Agences
+    buses: Les bus
+    agency_paths: Trajets d'agence
+    paths: Trajets
+    info_state: Infos d'etat
+    info_contact: Infos de contact
+    info_general: Infos generale
+
+  buttons:
+    save: Sauvegarder
+
+  forms:
+    email: Adresse E-mail
+    
