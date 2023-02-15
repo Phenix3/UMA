@@ -17,7 +17,7 @@ security:
             security: false
         
         admin:
-            # lazy: true
+            lazy: true
             pattern: ^/admin
             # provider: app_admin_provider
             # custom_authenticator: App\Security\AppAdminAuthenticator
@@ -45,7 +45,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

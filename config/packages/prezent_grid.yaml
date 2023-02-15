@@ -1,0 +1,4 @@
+prezent_grid:
+    themes:
+        # - '@PrezentGrid/grid/grid.html.twig'
+        - 'includes/grid_theme.html.twig'

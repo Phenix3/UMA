@@ -1,0 +1,42 @@
+{% extends 'grid.html.twig' %}
+
+{% block grid_header_label %}
+    {% if label_translation_domain %}
+        {% set label = (label|trans({}, label_translation_domain)) %}
+    {% endif %}
+    {% if sort_route is defined and sort_route_parameters is defined %}
+        <a
+            href="{{ path(sort_route, sort_route_parameters) }}"
+            class="prezent-grid-sortable"{% if sort_active %} data-sort-dir="{{ sort_order|lower }}"{% endif %}
+        >
+            {{ parent() }}
+        </a>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{%- block grid_widget -%}
+    {% if value_translation_domain %}
+        {% set value = (value|trans({}, value_translation_domain)) %}
+    {% endif %}
+    {% if route is defined and route %}
+        {% set url = path(route, route_parameters) %}
+    {% endif %}
+    {{ parent()|raw }}
+{%- endblock -%}
+
+{%- block grid_boolean_widget -%}
+    {% set value = (value|trans({}, 'PrezentGrid')) %}
+    {{ block('grid_widget')|raw }}
+{%- endblock -%}
+
+{%- block grid_action -%}
+    {% if visible %}
+        {% if route is defined and route %}
+            {% set url = path(route, route_parameters) %}
+        {% endif %}
+        {% set label = (label|trans({}, label_translation_domain)) %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock -%}

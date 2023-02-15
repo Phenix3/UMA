@@ -14,4 +14,14 @@ ui:
 
   forms:
     email: Adresse E-mail
+
+
+  posts: Articles
+  posts_list: Lite des articles
+  new_post: Creer un article
+
+edit: Modifier
+delete: Supprimer
+id: ID
+title: Titre
     

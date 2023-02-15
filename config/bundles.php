@@ -29,5 +29,6 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     APY\BreadcrumbTrailBundle\APYBreadcrumbTrailBundle::class => ['all' => true],
     Nucleos\AntiSpamBundle\NucleosAntiSpamBundle::class => ['all' => true],
-    Sylius\Bundle\GridBundle\SyliusGridBundle::class => ['all' => true],
+    Fidry\PsyshBundle\PsyshBundle::class => ['dev' => true, 'test' => true],
+    Prezent\GridBundle\PrezentGridBundle::class => ['all' => true],
 ];

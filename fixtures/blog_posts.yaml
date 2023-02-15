@@ -1,0 +1,7 @@
+App\Domain\Blog\Entity\Post:
+  blog_posts_{1..50}:
+    title: <words(3, true)>
+    content: <paragraphs(3, true)>
+#    categories: '@blog_categories_*'
+    createdAt: <dateTimeBetween('-1 weeks', '-4 days')>
+    publishedAt: <dateTimeBetween('-1 weeks', '-2 days')>

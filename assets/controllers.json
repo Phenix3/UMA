@@ -1,7 +1,7 @@
 {
     "controllers": {
         "@symfony/ux-live-component": {
-            "typed": {
+            "live": {
                 "enabled": true,
                 "fetch": "eager",
                 "autoimport": {
@@ -17,6 +17,16 @@
         },
         "@symfony/ux-turbo": {
             "turbo-core": {
+                "enabled": false,
+                "fetch": "eager"
+            },
+            "mercure-turbo-stream": {
+                "enabled": false,
+                "fetch": "eager"
+            }
+        },
+        "@symfony/ux-typed": {
+            "typed": {
                 "enabled": true,
                 "fetch": "eager"
             }

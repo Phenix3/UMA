@@ -1,0 +1,59 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title post.title %}
+
+{% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %}
+{% set postTitle = post.title|capitalize %}
+
+{% block body %}
+    
+    <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay" data-background="{{ imgSrc }}" style="background-image: url({{ imgSrc }});">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xxl-12">
+                     <div class="breadcrumb__content text-center p-relative z-index-1">
+                        <h3 class="breadcrumb__title">Our Blog</h3>
+                        <div class="breadcrumb__list">
+                           <span><a href="index.html">Home</a></span>
+                           <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
+                           <span>Blog</span>
+                           <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
+                           <span>{{ postTitle }}</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+        <div class="blog__area pt-120 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xxl-8 col-xl-8 col-lg-8">
+                        <article class="postbox__item format-image mb-50 transition-3">
+                            <div class="postbox__thumb w-img">
+                                <a href="blog-details.html">
+                                    <img src="{{ imgSrc }}" alt="{{ postTitle }}">
+                                </a>
+                            </div>
+                            <div class="postbox__content">
+                                <div class="postbox__meta">
+                                    <span><i class="far fa-calendar-check"></i> {{ post.createdAt|format_date }} </span>
+                                    <span><a href="#"><i class="far fa-user"></i> Shahnewaz</a></span>
+                                    <span><a href="#"><i class="fal fa-comments"></i> 02 Comments</a></span>
+                                </div>
+                                <h3 class="postbox__title">
+                                    <a href="blog-details.html">{{ postTitle }}</a>
+                                </h3>
+                                <div class="postbox__text">
+                                    <p>{{ post.content|raw }}</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% include 'front/blog/_sidebar.html.twig' %}
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

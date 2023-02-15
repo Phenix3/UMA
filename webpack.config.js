@@ -23,11 +23,18 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('app-front', './assets/front/js/app-front.js')
+    .addEntry('app-admin', './assets/admin/js/app-admin.js')
     
     .addAliases({
         "@@": path.resolve(__dirname, "assets"),
         "@front": path.resolve(__dirname, "assets/front"),
+        "@admin": path.resolve(__dirname, "assets/admin"),
     })
+
+    // .copyFiles({
+    //     from: './assets/front/img',
+    //     pattern: /\.(png|jpg|jpeg|svg)/
+    // })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -51,36 +58,20 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
     .enableVersioning(Encore.isProduction())
-
-    // configure Babel
     // .configureBabel((config) => {
     //     config.plugins.push('@babel/a-babel-plugin');
     // })
-
-    // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
-
-    // enables Sass/SCSS support
     .enableSassLoader(options => {
 
     }, {
         resolveUrlLoader: false
     })
-
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
-    // uncomment if you use React
     .enableReactPreset()
-
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
     //.enableIntegrityHashes(Encore.isProduction())
-
-    // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 ;
 

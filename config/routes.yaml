@@ -1,20 +1,14 @@
-# admin_controllers:
-#     resource: ../src/Controller/Admin/
-#     type: attribute
-#     prefix: /admin
-#     # name_prefix: app_admin_
-    
-# front_controllers:
-#     resource: ../src/Controller/Front/
-#     type: attribute
-#     name_prefix: app_front_
-    
-# agency_controllers:
-#     resource: ../src/Controller/Agency/
-#     type: attribute
-#     prefix: /agency
-#     name_prefix: app_agency_
-
 controllers:
-    resource: ../src/Controller/
-    type: attribute
+  resource: ../src/Http/Controller/
+  type: attribute
+  # name_prefix: app_
+admin_controllers:
+  name_prefix: admin_
+  prefix: '%admin_prefix%'
+  resource: ../src/Http/Admin/Controller/
+  type: attribute
+api_controllers:
+  name_prefix: api_
+  prefix: /api
+  resource: ../src/Http/Api/Controller/
+  type: attribute

@@ -1,0 +1,24 @@
+{% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %}
+<article class="postbox__item format-image mb-50 transition-3">
+    <div class="postbox__thumb w-img">
+        <a href="{{ path('blog_show', {slug: post.slug}) }}">
+            <img src="{{ imgSrc }}" alt="{{ post.title }}">
+        </a>
+    </div>
+    <div class="postbox__content">
+        <div class="postbox__meta">
+            <span><i class="far fa-calendar-check"></i> {{ post.createdAt|format_date }} </span>
+            <span><a href="#"><i class="far fa-user"></i> Shahnewaz</a></span>
+            <span><a href="#"><i class="fal fa-comments"></i> 02 Comments</a></span>
+        </div>
+        <h3 class="postbox__title">
+            <a href="{{ path('blog_show', {slug: post.slug}) }}">{{ post.title }}</a>
+        </h3>
+        <div class="postbox__text">
+            <p>{{ post.excerpt }}</p>
+        </div>
+        <div class="postbox__read-more">
+            <a href="{{ path('blog_show', {slug: post.slug}) }}" class="tp-btn">read more</a>
+        </div>
+    </div>
+</article>

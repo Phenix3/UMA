@@ -1,0 +1,149 @@
+{%- block grid -%}
+    <table {{ block('grid_attributes') }} class="nk-tb-list nk-tb-ulist">
+        <thead>
+            {{- grid_header_row(grid) -}}
+        </thead>
+        <tbody>
+            {% for item in data %}
+                {{- grid_row(grid, item) -}}
+            {% endfor %}
+        </tbody>
+    </table>
+{%- endblock grid -%}
+
+{%- block grid_header_row -%}
+    <tr class="nk-tb-item nk-tb-head">
+        {% for column in grid.columns %}
+            {{- grid_header_column(column) -}}
+        {% endfor %}
+        {% if grid.actions|length %}
+            <th class="nk-tb-col"></th>
+        {% endif %}
+    </tr>
+{%- endblock grid_header_row -%}
+
+{%- block grid_header_column -%}
+    <th class="nk-tb-col">{{ grid_header_widget(column) }}</th>
+{%- endblock -%}
+
+{%- block grid_row -%}
+    <tr class="nk-tb-item">
+        {% for column in grid.columns %}
+            {{- grid_column(column, data) -}}
+        {% endfor %}
+        {% if grid.actions|length %}
+            {{ grid_actions(grid, data) }}
+        {% endif %}
+    </tr>
+{%- endblock grid_row -%}
+
+{%- block grid_column -%}
+    <td {{ block('grid_attributes') }} class="nk-tb-col">{{ grid_widget(column, item) }}</td>
+{%- endblock -%}
+
+{%- block grid_actions -%}
+    <td class="nk-tb-col nk-tb-col-tools">
+        <ul class="nk-tb-actions gx-1">
+            {% for action in grid.actions %}
+                {{ grid_action(action, data) }}
+            {% endfor %}
+        </ul>
+    </td>
+{%- endblock -%}
+
+{%- block grid_header_widget -%}
+    {{- block('grid_header_label') -}}
+{%- endblock -%}
+
+{% block grid_header_label %}
+    {% if label_translation_domain %}
+        {% set label = (label|trans({}, label_translation_domain)) %}
+    {% endif %}
+    {% if sort_route is defined and sort_route_parameters is defined %}
+        <a
+            href="{{ path(sort_route, sort_route_parameters) }}"
+            class="prezent-grid-sortable"{% if sort_active %} data-sort-dir="{{ sort_order|lower }}"{% endif %}
+        >
+            {{ label}}
+        </a>
+    {% else %}
+        {{ label }}
+    {% endif %}
+{% endblock %}
+
+{%- block grid_widget -%}
+    {% if value_translation_domain %}
+        {% set value = (value|trans({}, value_translation_domain)) %}
+    {% endif %}
+    {% if route is defined and route %}
+        {% set url = path(route, route_parameters) %}
+    {% endif %}
+    {% if url is defined %}
+        <a href="{{ url }}">{{ value }}</a>
+    {% else %}
+        {{ value }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block grid_string_widget -%}
+    {% if truncate %}
+        {{ block('grid_widget')|trim|truncate(truncate is same as (true) ? 32 : truncate, truncate_word, truncate_separator)|raw }}
+    {% else %}
+        {{ block('grid_widget')|raw }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block grid_action -%}
+    
+    {% if visible %}
+        {% if content is not defined %}
+            {# {% set content = label %} #}
+            {% set content = (label|trans({}, label_translation_domain)) %}
+        {% endif %}
+        {% if route is defined and route %}
+            {% set url = path(route, route_parameters) %}
+        {% endif %}
+        
+        <li class="nk-tb-action">
+        {% if url is defined and label == 'delete' %}
+            <action-button data-uri="{{ url }}" class="btn btn-sm btn-danger" data-method="DELETE" data-csrf-token="{{ csrf_token('delete'~item.id) }}">{{ content }}</action-button>
+        {% elseif url is defined and label == 'edit' %}
+            <a href="{{ url }}" {{ block('grid_attributes') }} class="btn btn-sm btn-warning">{{ content }}</a>
+        {% elseif url is defined and label == 'show' %}
+            <a href="{{ url }}" {{ block('grid_attributes') }} class="btn btn-sm btn-info">{{ content }}</a>
+        {% elseif url is defined %}
+            <a href="{{ url }}" {{ block('grid_attributes') }} class="btn btn-primary btn-sm">{{ content }}</a>
+        {% else %}
+            <span {{ block('grid_attributes') }}>{{ content }}</span>
+        {% endif %}
+        </li>
+    {% endif %}
+    
+{%- endblock -%}
+
+{%- block grid_attributes -%}
+    {% if attr is defined %}
+        {%- for attrname, attrvalue in attr -%}
+            {{- " " -}}
+            {%- if attrvalue is same as(true) -%}
+                {{- attrname }}="{{ attrname }}"
+            {%- elseif attrvalue is not same as(false) -%}
+                {{- attrname }}="{{ attrvalue }}"
+            {%- endif -%}
+        {%- endfor -%}
+    {% endif %}
+{%- endblock -%}
+
+{%- block grid_collection_widget -%}
+    {% if value is iterable %}
+        {{ value|join(item_separator) }}
+    {% else %}
+        {{ value }}
+    {% endif %}
+{%- endblock -%}
+
+{%- block grid_boolean_widget -%}
+    {% set value = (value|trans({}, 'PrezentGrid')) %}
+    {{ block('grid_widget')|raw }}
+{%- endblock -%}
+

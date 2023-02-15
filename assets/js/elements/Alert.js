@@ -1,4 +1,5 @@
 import { slideUp } from '@@/js/functions/animation.js'
+import '@@/styles/modules/_alert.scss';
 
 export class Alert extends HTMLElement {
     constructor({ type, message } = {}) {
@@ -25,23 +26,23 @@ export class Alert extends HTMLElement {
             progressBar = `<div class="alert__progress" style="animation-duration: ${duration}s">`
             window.setTimeout(this.close, duration * 1000)
         }
-        this.classList.add('alert')
-        this.classList.add(`alert-${this.type}`)
-        this.innerHTML = `<svg class="icon icon-${this.icon}">
-          <use xlink:href="/sprite.svg#${this.icon}"></use>
-        </svg>
-        <div>
-          ${this.message || text}
+        // this.classList.add('alert');
+        // this.classList.add('alert-dismissible');
+        // this.classList.add(`alert-${this.type}`);
+        this.innerHTML = `<div class="alert alert-${this.type} alert-fill alert-dismissible">
+        <div class="alert-text">
+            <h6>${this.type.toUpperCase()}</h6>
+            <p>${this.message || text}</p>
         </div>
         <button class="alert-close">
-          <svg class="icon">
-            <use xlink:href="/sprite.svg#cross"></use>
-          </svg>
+            &times;
         </button>
-        ${progressBar}`
+        ${progressBar}
+        </div>`;
+        console.log(this.innerHTML);
         this.querySelector('.alert-close').addEventListener('click', e => {
-            e.preventDefault()
-            this.close()
+            e.preventDefault();
+            this.close();
         })
     }
 

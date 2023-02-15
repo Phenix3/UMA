@@ -1,0 +1,4 @@
+App\Domain\Blog\Entity\Category:
+    blog_categories_{1..6}:
+        name: <words(2, true)>
+
