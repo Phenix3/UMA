@@ -8,10 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Prezent\Grid\GridFactory;
 use App\Http\Grid\SettingGrid;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-/**
- * @Route("/setting", name="setting_")
- */
+#[Route("/setting", name: "setting_")]
 class SettingController extends CrudController
 {
     protected string $templatePath = 'setting';
@@ -20,9 +19,7 @@ class SettingController extends CrudController
     protected string $routePrefix = 'admin_setting';
     protected string $searchField = 'name';
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route("/", name: "index")]
     public function index(GridFactory $gridFactory): Response
     {
         $query = $this->getRepository()
@@ -34,9 +31,7 @@ class SettingController extends CrudController
         return $this->crudIndex($query);
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
+    #[Route("/new", name: "new")]
     public function new(): Response
     {
         $setting = new Setting();
@@ -45,17 +40,15 @@ class SettingController extends CrudController
         return $this->crudNew($data);
     }
 
-    /**
-     * @Route("/{keyName}", name="delete", methods={"DELETE"})
-     */
+    #[Route("/{id}", name: "delete", methods: ["DELETE"])]
+    #[ParamConverter('setting', options: ['keyName' => 'id'])]
     public function delete(Setting $setting): Response
     {
         return $this->crudDelete($setting);
     }
 
-    /**
-     * @Route("/{keyName}", name="edit")
-     */
+    #[Route("/{id}", name: "edit")]
+    #[ParamConverter('setting', options: ['keyName' => 'id'])]
     public function edit(Setting $setting): Response
     {
         $data = new SettingCrudData($setting);

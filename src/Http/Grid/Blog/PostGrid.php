@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PostGrid extends BaseGridType
 {
-	public function buildGrid(GridBuilder $builder, array $options = [])
+	public function buildGrid(GridBuilder $builder, array $options = []): void
 	{
 		$builder
 			->addColumn('id', StringType::class, [
@@ -31,7 +31,7 @@ class PostGrid extends BaseGridType
 			;
 	}
 
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver
 			->setRequired('routePrefix')

@@ -3,6 +3,8 @@
 namespace App\Domain\Application;
 
 use App\Domain\Application\Entity\Setting;
+use App\Domain\Application\Event\SettingCreatedEvent;
+use App\Domain\Application\Event\SettingDeletedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
@@ -30,6 +32,7 @@ class SettingManager
         }
 
         $this->entityManager->flush();
+        $this->eventDispatcher->dispatch(new SettingCreatedEvent($setting));
     }
 
     public function delete(string $keyName): void
@@ -39,6 +42,7 @@ class SettingManager
             $this->entityManager->remove($setting);
         }
         $this->entityManager->flush();
+        $this->eventDispatcher->dispatch(new SettingDeletedEvent($setting));
     }
 
     public function all(?array $keys = null): array

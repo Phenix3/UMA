@@ -1,4 +1,4 @@
-{{ ("
+
 {% extends 'admin/base.html.twig' %}
 
 {% block title %}
@@ -7,6 +7,6 @@
 {% endblock %}
 
 {% block content %}
-  {% include 'admin/" | raw ~ slug ~ "/_form.html.twig' %}
+  {% include 'admin/slider_item/_form.html.twig' %}
 {% endblock %}
-" | raw) | raw}}
+

@@ -10,22 +10,25 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SettingGrid extends BaseGridType
 {
 
-	public function buildGrid(GridBuilder $builder, array $options = [])
+	public function buildGrid(GridBuilder $builder, array $options = []): void
 	{
 		$builder
 			->addColumn('keyName', StringType::class, [
 				'sortable' => true
 			])
+			->addColumn('value', StringType::class, [
+				'sortable' => false
+			])
 			->addAction('delete', [
 				'route' => $options['routePrefix'] . '_delete',
 				'route_parameters' => [
-					'keyName' => '{keyName}'
+					'id' => '{id}'
 				]
 			])
 			;
 	}
 
-	public function configureOptions(OptionsResolver $resolver)
+	public function configureOptions(OptionsResolver $resolver): void
 	{
 		$resolver
 			->setRequired('routePrefix')

@@ -100,7 +100,7 @@
                     <div class="nk-menu-content menu-active" data-content="navHospital">
                         <h5 class="title">Hospital Manegment</h5>
                         <ul class="nk-menu">
-                            <li class="nk-menu-item active current-page">
+                            <li class="nk-menu-item current-page">
                                 <a href="html/hospital/index.html" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
                                     <span class="nk-menu-text">Dashboard</span>
@@ -129,14 +129,17 @@
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-plus-medi-fill"></em></span>
-                                    <span class="nk-menu-text">Doctors / Nurses</span>
+                                    <span class="nk-menu-text">{{ 'ui.sliders'|trans }}</span>
                                 </a>
                                 <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="html/hospital/doctor-nurse-add.html" class="nk-menu-link"><span class="nk-menu-text">Add Doctor / Nurses</span></a>
+                                    <li class="nk-menu-item {{ menu_active([path('admin_slider_slider_index')]) }}">
+                                        <a href="{{ path('admin_slider_slider_index') }}" class="nk-menu-link"><span class="nk-menu-text">{{ 'ui.sliders_list'|trans }}</span></a>
                                     </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/hospital/doctor-nurse-list.html" class="nk-menu-link"><span class="nk-menu-text">Doctors / Nurses</span></a>
+                                    <li class="nk-menu-item {{ menu_active([path('admin_slider_slider_new')]) }}">
+                                        <a href="{{ path('admin_slider_slider_new') }}" class="nk-menu-link"><span class="nk-menu-text">{{ 'ui.add_slider'|trans }}</span></a>
+                                    </li>
+                                    <li class="nk-menu-item {{ menu_active([path('admin_slider_slider_item_new')]) }}">
+                                        <a href="{{ path('admin_slider_slider_item_new') }}" class="nk-menu-link"><span class="nk-menu-text">{{ 'ui.add_slider_item'|trans }}</span></a>
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->

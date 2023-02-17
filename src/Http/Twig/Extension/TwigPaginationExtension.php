@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Twig;
+namespace App\Http\Twig\Extension;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;

@@ -11,6 +11,7 @@ ui:
 
   buttons:
     save: Sauvegarder
+    items: Elements
 
   forms:
     email: Adresse E-mail

@@ -1,4 +1,6 @@
 liip_imagine:
+        twig:
+            mode: lazy
         # configure webp
         webp:
             generate: true

@@ -5,15 +5,8 @@ namespace App\Http\Form;
 use App\Domain\Attachment\Entity\Attachment;
 use App\Domain\Attachment\Type\AttachmentType;
 use App\Domain\Auth\User;
-//use App\Domain\Course\Entity\CursusCategory;
-//use App\Domain\Course\Entity\Formation;
-//use App\Domain\Forum\Entity\Tag;
-//use App\Http\Admin\Form\Field\CursusCategoryChoiceType;
-//use App\Http\Admin\Form\Field\ForumTagChoiceType;
-//use App\Http\Admin\Form\Field\IntervenantsType;
-//use App\Http\Admin\Form\Field\TechnologiesType;
-//use App\Http\Admin\Form\Field\TechnologyChoiceType;
 use App\Http\Admin\Form\Field\CategoryChoiceType;
+use App\Http\Admin\Form\Field\SliderChoiceType;
 use App\Http\Admin\Form\Field\UserChoiceType;
 use App\Http\Type\DateTimeType;
 use App\Http\Type\EditorType;
@@ -27,8 +20,11 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 /**
  * Génère un formulaire de manière automatique en lisant les propriété d'un objet.
@@ -42,10 +38,8 @@ class AutomaticForm extends AbstractType
         'float' => NumberType::class,
         Attachment::class => AttachmentType::class,
         User::class => UserChoiceType::class,
-//        Tag::class => ForumTagChoiceType::class,
         DateTimeInterface::class => DateTimeType::class,
-        UploadedFile::class => FileType::class,
-//        CursusCategory::class => CursusCategoryChoiceType::class,
+        UploadedFile::class => VichFileType::class,
     ];
 
     final public const NAMES = [
@@ -58,6 +52,9 @@ class AutomaticForm extends AbstractType
         'color' => ColorType::class,
         'links' => TextareaType::class,
         'categories' => CategoryChoiceType::class,
+        'image' => VichImageType::class,
+        'link' => UrlType::class,
+        'slider' => SliderChoiceType::class,
     ];
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

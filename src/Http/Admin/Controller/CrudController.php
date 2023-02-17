@@ -91,7 +91,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function crudNew(CrudDataInterface $data): Response
+    public function crudNew(CrudDataInterface $data, ?string $redirectRoute = null): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -108,7 +108,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_edit'), ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
