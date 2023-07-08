@@ -39,7 +39,7 @@ abstract class CrudController extends BaseController
     public function __construct(
         protected EntityManagerInterface $em,
         protected PaginatorInterface $paginator,
-        private readonly EventDispatcherInterface $dispatcher,
+        protected readonly EventDispatcherInterface $dispatcher,
         private readonly RequestStack $requestStack
     ) {
     }

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Blog\Entity;
 
+use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Blog\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table('`blog_category`')]
 class Category implements \Stringable
 {
+    use ToggleableTrait;
+
     #[ORM\Id()]
     #[ORM\GeneratedValue()]
     #[ORM\Column()]
@@ -98,7 +101,7 @@ class Category implements \Stringable
      */
     public function getPostsCount(): int
     {
-        return $this->ostsCount;
+        return $this->postsCount;
     }
 
     /**
@@ -106,7 +109,7 @@ class Category implements \Stringable
      */
     public function setPostsCount(int $ostsCount): self
     {
-        $this->ostsCount = $ostsCount;
+        $this->postsCount = $ostsCount;
 
         return $this;
     }

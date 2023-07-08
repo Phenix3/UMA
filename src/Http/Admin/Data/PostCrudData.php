@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Admin\Data;
 
-use App\Validator\Slug;
-use App\Domain\Blog\Entity\Post;
 use App\Domain\Attachment\Entity\Attachment;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Domain\Blog\Entity\Post;
+use App\Validator\Slug;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @property Post $entity
  */
-class PostCrudData extends AutomaticCrudData
+// [Vich\Uploadable()]
+class PostCrudData extends ContentData
 {
-    public ?string $title;
-
-    public ?string $content;
-
-    public ?Attachment $image;
+    // [Vich\UploadableField(mapping: 'blog_posts', fileNameProperty: 'image')]
+    // public ?Attachment $image = null;
 
     public ?Collection $categories;
 }

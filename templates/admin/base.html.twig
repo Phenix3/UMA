@@ -1,62 +1,107 @@
 <!Doctype html />
 <html>
-    <head>
-        <title>{% block title 'Admin' %} | UMA</title>
-        {{ encore_entry_link_tags('app') }}
-        {{ encore_entry_link_tags('app-admin') }}
-        {% block css %}{% endblock %}
+	<head>
+		<title>
+			{% block title 'Admin' %}
+			| UMA
+		</title>
+		{{ encore_entry_link_tags('app') }}
+		{{ encore_entry_link_tags('app-admin') }}
+		{% block css %}
+		{% endblock %}
 
-        <script type="text/javascript" src="{{ asset('assets/js/bundle.js?ver=3.1.0') }}"></script>
-        {{ encore_entry_script_tags('app') }}
-        {{ encore_entry_script_tags('app-admin') }}
-        {% block js %}{% endblock %}
-    </head>
-    <body class="nk-body ui-rounder npc-default has-sidebar no-touch nk-nio-theme">
+		<script type="text/javascript" src="{{ asset('assets/js/bundle.js?ver=3.1.0') }}"></script>
+		{{ encore_entry_script_tags('app') }}
+		{{ encore_entry_script_tags('app-admin') }}
+		{% block js %}
+		{% endblock %}
+	</head>
+	<body class="nk-body ui-rounder npc-default has-sidebar no-touch nk-nio-theme">
 
-        <div class="nk-app-root">
-            {% include 'admin/includes/_sidebar.html.twig' %}
+		<div class="nk-app-root">
+			{% include 'admin/includes/_sidebar.html.twig' %}
 
-            <div class="nk-main">
-                <div class="nk-wrap">
-                    {% include 'admin/includes/_main_header.html.twig' %}
-                    <div class="nk-content">
-                        <div class="container-fluid">
-                            <div class="nk-content-inner">
-                                <div class="nk-content-body">
-                                    <div class="nk-block-head nk-block-head-sm">
-                                        {% include 'admin/includes/_flash.html.twig' %}
-                                        {% block head %}{% endblock %}
-                                    </div>
+			<div class="nk-main">
+				<div class="nk-wrap">
+					{% include 'admin/includes/_main_header.html.twig' %}
+					<div class="nk-content">
+						<div class="container-fluid">
+							<div class="nk-content-inner">
+								<div class="nk-content-body">
+									<div class="nk-block-head nk-block-head-sm">
+										{% include 'admin/includes/_flash.html.twig' %}
+										<div class="nk-block-head nk-block-head-sm">
+											<div class="nk-block-between">
+												<div class="nk-block-head-content">
+													<h3 class="nk-block-title page-title">
+														{{ page.title }}
+													</h3>
+													<div class="nk-block-des text-soft">
+														<p>
+															{{ page.subtitle ?? '' }}
+														</p>
+													</div>
+												</div>
+												<!-- .nk-block-head-content -->
+												{% if page.actions is not empty %}
+													<div class="nk-block-head-content">
+														<ul class="nk-block-tools g-3">
+															{% for k, v in page.actions %}
+																<li class="nk-block-tools-opt">
+																	<a href="{{ v.target }}" class="btn btn-icon btn-primary d-md-none">
+																		<em class="icon ni ni-plus"></em>
+																	</a>
+																	<a href="{{ v.target }}" class="btn btn-primary d-none d-md-inline-flex">
 
-                                    <div class="nk-block">
-                                        <div class="card card-bordered card-stretch">
-                                            <div class="card-inner-group">
-                                                <div class="card-inner position-relative card-tools-toggle">
-                                                    
-                                                    {% block actions %}{% endblock %}
-                                                    <div class="card-search search-wrap" data-search="search">
-                                                    <div class="card-body">
-                                                        <div class="search-content">
-                                                            <a href="#" class="search-back btn btn-icon toggle-search" data-target="search"><em class="icon ni ni-arrow-left"></em></a>
-                                                            <input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by name or patient id">
-                                                            <button class="search-submit btn btn-icon"><em class="icon ni ni-search"></em></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                                <div class="card-inner">
-                                                    {% block content %}{% endblock %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
+																		<em class="icon ni ni-plus"></em>
+																		<span>
+																			{{ v.label }}
+																		</span>
+																	</a>
+																</li>
+															{% endfor %}
 
-    </body>
-</html>
+														</ul>
+													</div>
+												{% endif %}
+
+
+											</div>
+											<!-- .nk-block-between -->
+										</div>
+
+									</div>
+
+									<div class="nk-block">
+										<div class="card card-bordered card-stretch">
+											<div class="card-inner-group">
+												<div class="card-inner position-relative card-tools-toggle"> {% block actions %}{% endblock %}
+													<div class="card-search search-wrap" data-search="search">
+														<div class="card-body">
+															<div class="search-content">
+																<a href="#" class="search-back btn btn-icon toggle-search" data-target="search">
+																	<em class="icon ni ni-arrow-left"></em>
+																</a>
+																<input type="text" class="form-control border-transparent form-focus-none" placeholder="Search by name or patient id">
+																<button class="search-submit btn btn-icon">
+																	<em class="icon ni ni-search"></em>
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="card-inner"> {% block content %}{% endblock %}
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</body>
+	</html>

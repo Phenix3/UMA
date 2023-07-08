@@ -2,6 +2,8 @@
 
 namespace App\Domain\Application\Entity;
 
+use App\Domain\Application\Entity\Traits\HasSeoMetaTrait;
+use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Application\Repository\ContentRepository;
 use App\Domain\Attachment\Entity\Attachment;
 use Doctrine\DBAL\Types\Types;
@@ -18,6 +20,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 abstract class Content
 {
     use TimestampableEntity;
+    use ToggleableTrait;
+    use HasSeoMetaTrait;
+    
 
     #[ORM\Id]
     #[ORM\GeneratedValue()]
@@ -47,16 +52,6 @@ abstract class Content
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * Set the value of id
-     */
-    public function setId(?int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

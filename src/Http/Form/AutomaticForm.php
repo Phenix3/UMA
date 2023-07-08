@@ -23,8 +23,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 /**
  * Génère un formulaire de manière automatique en lisant les propriété d'un objet.
@@ -78,9 +78,13 @@ class AutomaticForm extends AbstractType
             if ('level' === $name) {
                 $builder->add($name, ChoiceType::class, [
                     'required' => true,
-                    'choices' => array_flip(Formation::$levels),
+                    'choices' => array_flip([]),
                 ]);
             // Input spécifique au nom du champs
+            } elseif ($name === 'image') {
+                $builder->add('image', AttachmentType::class, [
+                    'required' => false,
+                ]);
             } elseif (array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
                     'required' => false,

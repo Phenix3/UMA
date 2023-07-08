@@ -4,11 +4,11 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Slider\Entity\SliderItem;
 use App\Http\Admin\Data\SliderItemCrudData;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Prezent\Grid\GridFactory;
 use App\Http\Grid\Slider\SliderItemGrid;
+use Prezent\Grid\GridFactory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/slider/slider-item", name: "slider_slider_item_")]
 class SliderItemController extends CrudController
@@ -28,6 +28,13 @@ class SliderItemController extends CrudController
             ;
         $grid = $gridFactory->createGrid(SliderItemGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
+
+        $this->pageVariable
+            ->setTitle('Slider Item list')
+            ->setSubtitle('La liste de tous les elements d\'un slider')
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_new');
+
+
         return $this->crudIndex($query);
     }
 
@@ -51,7 +58,14 @@ class SliderItemController extends CrudController
             return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $sliderItem->getId()]);
         }
 
-        return $this->renderForm('admin/slider_item/new.html.twig', compact('form', 'sliderItem'));
+        
+        $this->pageVariable
+           ->setTitle('Add new Slider Item')
+           ->setSubtitle('La liste de tous les elements d\'un slider')
+           ->addAction('slider_item_list', 'Add Slider', 'admin_slider_slider_item_index');
+
+
+        return $this->render('admin/slider_item/new.html.twig', compact('form', 'sliderItem'));
     }
 
     #[Route("/{id<\d+>}", name: "delete", methods: ["DELETE"])]
@@ -64,6 +78,12 @@ class SliderItemController extends CrudController
     public function edit(SliderItem $sliderItem): Response
     {
         $data = new SliderItemCrudData($sliderItem);
+
+        $this->pageVariable
+           ->setTitle('Edit Slider Item')
+           ->setSubtitle('La liste de tous les elements d\'un slider')
+           ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index');
+
 
         return $this->crudEdit($data);
     }

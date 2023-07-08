@@ -39,7 +39,7 @@ export class Alert extends HTMLElement {
         </button>
         ${progressBar}
         </div>`;
-        console.log(this.innerHTML);
+        // console.log(this.innerHTML);
         this.querySelector('.alert-close').addEventListener('click', e => {
             e.preventDefault();
             this.close();

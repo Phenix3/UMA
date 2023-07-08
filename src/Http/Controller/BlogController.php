@@ -28,8 +28,11 @@ class BlogController extends AbstractController
     public function index(Request $request)
     {
         $title = 'Blog';
+
+        $this->pageVariable->setTitle($title);
+
         $query = $this->postRepository->queryAll();
-        return $this->renderListing($title, $query, $request);
+        return $this->renderListing($query, $request);
     }
 
     #[Route('/category/{slug}', name: 'category')]
@@ -37,7 +40,7 @@ class BlogController extends AbstractController
     {
         $title = $category->getName();
         $query = $this->postRepository->queryAll($category);
-        return $this->renderListing($title, $query, $request, ['category' => $category]);
+        return $this->renderListing($query, $request, ['category' => $category]);
     }
 
     #[Route('/{slug<[a-z0-9\-.]+>}', name: 'show')]
@@ -58,7 +61,7 @@ class BlogController extends AbstractController
      * @param array $params
      * @return Response
      */
-    private function renderListing(string $title, Query $query, Request $request, array $params = []): Response
+    private function renderListing(Query $query, Request $request, array $params = []): Response
     {
         $page = $request->query->getInt('page', 1);
         $posts = $this->paginator->paginate(
@@ -68,9 +71,9 @@ class BlogController extends AbstractController
         );
 
 
-        if ($page > 1) {
+        /* if ($page > 1) {
             $title .= ", page {$page}";
-        }
+        } */
         if (0 === $posts->count()) {
             throw new NotFoundHttpException("No post corresponding to this page");
         }
@@ -81,7 +84,6 @@ class BlogController extends AbstractController
             'posts' => $posts,
             'categories' => $categories,
             'page' => $page,
-            'title' => $title
         ], $params));
     }
 }

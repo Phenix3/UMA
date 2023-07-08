@@ -3,16 +3,16 @@
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Slider\Entity\Slider;
+use App\Domain\Slider\Repository\SliderItemRepository;
 use App\Http\Admin\Data\SliderCrudData;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Prezent\Grid\GridFactory;
 use App\Http\Grid\SettingGrid;
 use App\Http\Grid\Slider\SliderGrid;
 use App\Http\Grid\Slider\SliderItemGrid;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Domain\Slider\Repository\SliderItemRepository;
+use Prezent\Grid\GridFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route("/slider/slider", name: "slider_slider_")]
 class SliderController extends CrudController
@@ -32,6 +32,14 @@ class SliderController extends CrudController
             ;
         $grid = $gridFactory->createGrid(SliderGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
+        
+        
+        $this->pageVariable
+            ->setTitle('Sliders list')
+            ->setSubtitle('La liste de tous les sliders')
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_new');
+
+
         return $this->crudIndex($query);
     }
 
@@ -40,6 +48,13 @@ class SliderController extends CrudController
     {
         $slider = new Slider();
         $data = new SliderCrudData($slider);
+
+        
+        $this->pageVariable
+            ->setTitle('Add new slider')
+            ->setSubtitle('Ajouter un nouveau slider')
+            ->addAction('add_list', 'Slides List', 'admin_slider_slider_index');
+
 
         return $this->crudNew($data);
     }
@@ -51,6 +66,14 @@ class SliderController extends CrudController
     {
         $grid = $gridFactory->createGrid(SliderItemGrid::class, ['routePrefix' => $this->routePrefix]);
         $gridData = $grid->createView();
+
+        
+        $this->pageVariable
+            ->setTitle('Slider Item list')
+            ->setSubtitle('La liste de tous les elements d\'un slider')
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_new');
+
+
         return $this->render('admin/slider/items.html.twig', compact('slider', 'gridData'));
     }
 

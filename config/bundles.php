@@ -31,4 +31,5 @@ return [
     Nucleos\AntiSpamBundle\NucleosAntiSpamBundle::class => ['all' => true],
     Fidry\PsyshBundle\PsyshBundle::class => ['dev' => true, 'test' => true],
     Prezent\GridBundle\PrezentGridBundle::class => ['all' => true],
+    Symfony\UX\React\ReactBundle::class => ['all' => true],
 ];

@@ -16,8 +16,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentType extends TextType implements DataTransformerInterface
 {
-    public function __construct(private readonly EntityManagerInterface $em, private readonly UploaderHelper $uploaderHelper, private readonly string $adminPrefix)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly UploaderHelper $uploaderHelper,
+        private readonly string $adminPrefix
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -41,7 +44,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
             'required' => false,
             'attr' => [
                 'is' => 'input-attachment',
-                'data-endpoint' => '/'.trim($this->adminPrefix, '/').'/attachment',
+                'data-endpoint' => '/' . trim($this->adminPrefix, '/') . '/attachment',
             ],
             'constraints' => [
                 new AttachmentExist(),

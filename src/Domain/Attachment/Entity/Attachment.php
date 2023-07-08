@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\DBAL\Types\Types;
 use App\Domain\Attachment\Repository\AttachmentRepository;
 
-#[ORM\Entity(repositoryClass: AttachmentRepository::class)]
-#[ORM\Table('`attachment_attachment`')]
-#[Vich\Uploadable()]
 /**
  * @Vich\Uploadable()
  */
+#[ORM\Entity(repositoryClass: AttachmentRepository::class)]
+#[ORM\Table('`attachment_attachment`')]
+#[Vich\Uploadable()]
 class Attachment implements \Stringable
 {
 
@@ -25,10 +25,10 @@ class Attachment implements \Stringable
     #[ORM\Column(length: 255)]
     private ?string $fileName = '';
 
-    #[Vich\UploadableField(mapping: 'attachments', fileNameProperty: 'fileName', size: 'fileSize')]
     /**
      * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize") 
      */
+    #[Vich\UploadableField(mapping: 'attachments', fileNameProperty: 'fileName', size: 'fileSize')]
     private ?File $file = null;
 
     #[ORM\Column(options: ['unsigned' => true])]

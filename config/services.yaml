@@ -39,6 +39,11 @@ services:
         resource: '../src/Http/Api/Controller'
         tags: ['controller.service_arguments']
 
+    # app_page_variable:
+    #     class: Twig\Environment
+    #     calls:
+    #         - addGlobal: ['page', '@App\Http\Twig\PageVariable']
+
     App\Helper\Paginator\PaginatorInterface:
         class: App\Helper\Paginator\KnpPaginator
 
