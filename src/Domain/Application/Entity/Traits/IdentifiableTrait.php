@@ -15,7 +15,6 @@ trait IdentifiableTrait
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private ?Uuid $id = null;
 
-
     public function getId(): ?Uuid
     {
         return $this->id;

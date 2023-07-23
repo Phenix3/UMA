@@ -48,6 +48,7 @@ class BlogController extends AbstractController
     #[IsGranted('show', subject: 'post')]
     public function show(Post $post): Response
     {
+        dump($post);
         return $this->render('front/blog/show.html.twig', [
             'post' => $post
         ]);
@@ -80,6 +81,8 @@ class BlogController extends AbstractController
         }
 
         $categories = $this->categoryRepository->findWithCount();
+
+        dump($posts);
 
         return $this->render('front/blog/index.html.twig', array_merge([
             'posts' => $posts,

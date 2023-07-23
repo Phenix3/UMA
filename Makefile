@@ -80,6 +80,10 @@ sf-dc: ## Create symfony database.
 	$(SYMFONY_CONSOLE) doctrine:database:create --if-not-exists
 .PHONY: sf-dc
 
+sf-dsv: ## Validating database schema.
+	$(SYMFONY_CONSOLE) doctrine:schema:validate
+.PHONY: sf-dsv
+
 sf-dd: ## Drop symfony database.
 	$(SYMFONY_CONSOLE) doctrine:database:drop --if-exists --force
 .PHONY: sf-dd

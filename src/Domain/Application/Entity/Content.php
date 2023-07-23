@@ -40,7 +40,7 @@ abstract class Content
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $publishedAt = null;
 
-    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isCommentable = true;
 
 
