@@ -27,11 +27,12 @@ class BlogController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request)
     {
-        $title = 'Blog';
-
-        $this->pageVariable->setTitle($title);
-
         $query = $this->postRepository->queryAll();
+        $this->pageVariable
+            ->setTitle('Blog')
+            ->setSubtitle('')
+            ->setMetaDescription('');
+
         return $this->renderListing($query, $request);
     }
 
@@ -83,7 +84,7 @@ class BlogController extends AbstractController
         return $this->render('front/blog/index.html.twig', array_merge([
             'posts' => $posts,
             'categories' => $categories,
-            'page' => $page,
+            // 'page' => $page,
         ], $params));
     }
 }

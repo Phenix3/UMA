@@ -1,0 +1,23 @@
+
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+  {{ icon('pen') }}
+  Créer
+{% endblock %}
+
+{% block head %}
+  <div class="nk-block-between g-3">
+    <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">Appointment List</h3>
+        <div class="nk-block-des text-soft d-none d-md-inline-flex">
+          Description
+        </div>
+    </div>
+</div>
+{% endblock head %}
+
+{% block content %}
+  {% include 'admin/slider/sliders/_form.html.twig' %}
+{% endblock %}
+

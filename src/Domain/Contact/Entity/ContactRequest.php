@@ -2,19 +2,18 @@
 
 namespace App\Domain\Contact\Entity;
 
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Contact\Repository\ContactRequestRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use geertw\IpAnonymizer\IpAnonymizer;
 
 #[ORM\Entity(repositoryClass: ContactRequestRepository::class)]
-#[ORM\Table('`contact_contact_request`')]
+#[ORM\Table('`contact_contact_requests`')]
 class ContactRequest
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdentifiableTrait;
+
 
     #[ORM\Column(length: 255)]
     private ?string $ip = null;
@@ -34,11 +33,6 @@ class ContactRequest
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getIp(): ?string

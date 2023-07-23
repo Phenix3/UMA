@@ -6,7 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity()]
-#[ORM\Table('`application_setting`')]
+#[ORM\Table('`application_settings`')]
 #[ORM\Index(name: 'key_idx', columns: ['key_name'])]
 class Setting
 {

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Slider\Entity;
 
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Slider\Repository\SliderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,13 +12,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SliderRepository::class)]
-#[ORM\Table('`slider_slider`')]
+#[ORM\Table('`slider_sliders`')]
 class Slider
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdentifiableTrait;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank()]
@@ -41,11 +39,6 @@ class Slider
     public function __toString(): string
     {
         return $this->name;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getName(): ?string

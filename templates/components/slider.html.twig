@@ -1,35 +1,48 @@
-<div {{ attributes }}>
-    <!-- slider area start -->
-    <section class="slider__area">
-    <div class="slider__active swiper-container swiper-container-fade swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-        <div class="swiper-wrapper" style="transition-duration: 0ms;">
-            {% for item in computed.slider.items %}
-                {% set img = vich_uploader_asset(item, 'imageFile') %}
-                <div class="slider__item swiper-slide p-relative slider__height d-flex align-items-center z-index-1 swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="0" style="width: 1351px; transition-duration: 0ms; opacity: 1; transform: translate3d(-1351px, 0px, 0px);">
-                <div class="slider__bg slider__overlay include-bg" data-background="{{ img }}" style="background-image: url({{ img }});"></div>
-                <div class="container">
-                <div class="row">
-                    <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10 col-sm-10">
-                        <div class="slider__content p-relative z-index-1">
-                            <span data-animation="fadeInUp" data-delay=".3s" class="" style="animation-delay: 0.3s;">Educal University</span>
-                            <h2 class="slider__title" data-animation="fadeInUp" data-delay=".6s" style="animation-delay: 0.6s;">{{ item.title }}</h2>
-                            <p data-animation="fadeInUp" data-delay=".9s" class="" style="animation-delay: 0.9s;">{{ item.description }}.</p>
-                            <div class="slider__btn" data-animation="fadeInUp" data-delay="1.1s" style="animation-delay: 1.1s;">
-                            <a href="{{ item.link }}" class="tp-btn">Find Courses</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-          
-            {% endfor %}
-        </div>
-        <div class="main-slider-paginations">
-            <button class="slider-button-next"><i class="fa-regular fa-arrow-right"></i></button>
-            <button class="slider-button-prev"><i class="fa-regular fa-arrow-left"></i></button>
-        </div>
-    </div>
-    </section>
-    <!-- slider area end -->
+<div
+	{{ attributes }}>
+	<!-- slider area start -->
+	<section class="slider__area">
+		<div class="slider__active swiper-container">
+			<div class="swiper-wrapper">
+				{% for item in computed.slider.items %}
+					{% set img = vich_uploader_asset(item, 'imageFile') %}
+
+					<div class="slider__item swiper-slide p-relative slider__height d-flex align-items-center z-index-1">
+						<div class="slider__bg slider__overlay include-bg" data-background="{{ img }}"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10 col-sm-10">
+									<div class="slider__content p-relative z-index-1">
+										<span data-animation="fadeInUp" data-delay=".3s">
+											Educal University
+										</span>
+										<h2 class="slider__title" data-animation="fadeInUp" data-delay=".6s">
+											{{ item.title }}
+										</h2>
+										<p data-animation="fadeInUp" data-delay=".9s">
+											{{ item.description }}
+										</p>
+										<div class="slider__btn" data-animation="fadeInUp" data-delay="1.1s">
+											<a href="{{ item.link }}" class="tp-btn">
+												Find Courses
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="main-slider-paginations">
+				<button class="slider-button-next">
+					<i class="fa-regular fa-arrow-right"></i>
+				</button>
+				<button class="slider-button-prev">
+					<i class="fa-regular fa-arrow-left"></i>
+				</button>
+			</div>
+		</div>
+	</section>
+	<!-- slider area end -->
 </div>

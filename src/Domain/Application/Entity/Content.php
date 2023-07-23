@@ -3,6 +3,7 @@
 namespace App\Domain\Application\Entity;
 
 use App\Domain\Application\Entity\Traits\HasSeoMetaTrait;
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Application\Repository\ContentRepository;
 use App\Domain\Attachment\Entity\Attachment;
@@ -10,24 +11,17 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
-#[ORM\Table("`application_content`")]
+#[ORM\Table("`application_contents`")]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 abstract class Content
 {
+    use IdentifiableTrait;
     use TimestampableEntity;
     use ToggleableTrait;
     use HasSeoMetaTrait;
-    
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue()]
-    #[ORM\Column()]
-    private ?int $id;
 
     #[ORM\Column(length: 255)]
     private ?string $title = '';
@@ -46,13 +40,9 @@ abstract class Content
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $publishedAt = null;
 
-    /**
-     * Get the value of id
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    private ?bool $isCommentable = true;
+
 
     /**
      * Get the value of title
@@ -149,6 +139,26 @@ abstract class Content
     public function setImage(?Attachment $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of isCommentable
+     */ 
+    public function getIsCommentable(): bool
+    {
+        return $this->isCommentable;
+    }
+
+    /**
+     * Set the value of isCommentable
+     *
+     * @return  self
+     */ 
+    public function setIsCommentable(?bool $isCommentable): self
+    {
+        $this->isCommentable = $isCommentable;
 
         return $this;
     }

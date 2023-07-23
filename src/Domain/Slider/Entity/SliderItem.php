@@ -2,25 +2,23 @@
 
 namespace App\Domain\Slider\Entity;
 
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Slider\Repository\SliderItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SliderItemRepository::class)]
-#[ORM\Table('`slider_slider_item`')]
+#[ORM\Table('`slider_slider_items`')]
 #[Vich\Uploadable()]
 /**
  * @Vich\Uploadable() 
  */
 class SliderItem
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use IdentifiableTrait;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
@@ -44,10 +42,6 @@ class SliderItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Slider $slider = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTitle(): ?string
     {

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Blog\Entity;
 
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Blog\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,15 +10,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ORM\Table('`blog_category`')]
+#[ORM\Table('`blog_categories`')]
 class Category implements \Stringable
 {
+    use IdentifiableTrait;
     use ToggleableTrait;
-
-    #[ORM\Id()]
-    #[ORM\GeneratedValue()]
-    #[ORM\Column()]
-    private ?int $id;
 
     #[ORM\Column(length: 255)]
     private string $name = '';
@@ -40,14 +37,6 @@ class Category implements \Stringable
     public function __toString(): string
     {
         return $this->name;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

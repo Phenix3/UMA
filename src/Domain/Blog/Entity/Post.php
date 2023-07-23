@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[ORM\Table('`blog_post`')]
+#[ORM\Table('`blog_posts`')]
 class Post extends Content
 {
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'posts')]

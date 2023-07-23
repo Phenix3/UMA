@@ -4,25 +4,30 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>
+			{% block title page.title|trans  %} | UMA
+		</title>
+
+
+		{% block css %}
+			{{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('app-front') }}
+		{% endblock %}
+
 	</head>
+	<body>
+		{% include "front/includes/_header.html.twig" %}
+		<main>
 
-	<title>
-		{% block title page.title %} | UMA
-	</title>
+			{% block body %}
+			{% endblock %}
+		</main>
+		{% include "front/includes/_footer.html.twig" %}
 
-
-	{{ encore_entry_link_tags('app') }}
-	{{ encore_entry_link_tags('app-front') }}
-
-
-	{{ encore_entry_script_tags('app') }}
-	{{ encore_entry_script_tags('app-front') }}
-</html></head><body>
-
-{% include "front/includes/_header.html.twig" %}
-<main>
-
-	{% block body %}
-	{% endblock %}
-</main>
-{% include "front/includes/_footer.html.twig" %}</body></html>
+		{% block js %}
+			{{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('app-front') }}
+		{% endblock js %}
+</body>
+</html>

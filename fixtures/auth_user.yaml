@@ -1,0 +1,6 @@
+App\Domain\Auth\Entity\User:
+  user_admin:
+   username: 'admin'
+   email: 'admin@email.com'
+   password: '123456'
+   roles: ['ROLE_ADMIN']

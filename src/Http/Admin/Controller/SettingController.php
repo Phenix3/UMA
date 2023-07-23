@@ -4,11 +4,11 @@ namespace App\Http\Admin\Controller;
 
 use App\Domain\Application\Entity\Setting;
 use App\Http\Admin\Data\SettingCrudData;
+use App\Http\Grid\SettingGrid;
+use Prezent\Grid\GridFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Prezent\Grid\GridFactory;
-use App\Http\Grid\SettingGrid;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route("/setting", name: "setting_")]
 class SettingController extends CrudController
@@ -24,10 +24,16 @@ class SettingController extends CrudController
     {
         $query = $this->getRepository()
             ->createQueryBuilder('row')
-            ->orderBy('row.keyName', 'DESC')
-            ;
+            ->orderBy('row.keyName', 'DESC');
+            
         $grid = $gridFactory->createGrid(SettingGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
+
+        $this->pageVariable
+            ->setTitle('Manage Settings')
+            ->setSubtitle('Manage all settings')
+            ->addAction('add_setting', 'Add new settting', 'admin_setting_new');
+            
         return $this->crudIndex($query);
     }
 
@@ -36,6 +42,11 @@ class SettingController extends CrudController
     {
         $setting = new Setting();
         $data = new SettingCrudData($setting);
+
+        $this->pageVariable
+            ->setTitle('Add Setting')
+            ->setSubtitle('Add new settings')
+            ->addAction('add_setting', 'Manage setttings', 'admin_setting_index');
 
         return $this->crudNew($data);
     }

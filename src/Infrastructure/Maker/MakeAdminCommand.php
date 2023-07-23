@@ -39,6 +39,7 @@ class MakeAdminCommand extends AbstractMakeCommand
 
         $this->createFile('admin/controller', $params, "src/Http/Admin/Controller/{$entityName}Controller.php");
         $this->createFile('admin/CrudData.php', $params, "src/Http/Admin/Data/{$entityName}CrudData.php");
+        $this->createFile('admin/Grid.php', $params, "src/Http/Grid/{$entityName}Grid.php");
 
         $paths = ['_form', 'edit', 'new', 'index'];
         foreach ($paths as $path) {

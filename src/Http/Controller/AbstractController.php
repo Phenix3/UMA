@@ -20,8 +20,6 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
 {
     public PageVariable $pageVariable;
 
-
-
     #[Required]
     public function setPageVariable(PageVariable $pageVariable)
     {

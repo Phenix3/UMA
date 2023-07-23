@@ -30,9 +30,9 @@ class PageVariable
      */
     public function getTitle(): ?string
     {
-        /* if (!$this->title) {
+        if (!$this->title) {
             throw new \RuntimeException("The 'page.title' is not available and should be set");
-        } */
+        }
         return $this->title;
     }
 
@@ -105,7 +105,7 @@ class PageVariable
         $this->extra[$key] = $value;
     }
 
-    public function getExtra(?string $key = null, ?string $default = null): string|array
+    public function getExtra(?string $key = null, ?string $default = null): null|string|array
     {
         if ($key) {
             return $this->extra[$key] ?? $default;

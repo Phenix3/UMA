@@ -1,0 +1,7 @@
+App\Domain\Application\Entity\Setting:
+  site_email:
+   keyName: 'site_email'
+   value: 'info@email.com'
+  site_name:
+   keyName: 'site_name'
+   value: 'UMA'

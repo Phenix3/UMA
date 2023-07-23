@@ -2,9 +2,9 @@
 
 namespace App\Http\Twig\Components;
 
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use App\Domain\Slider\Entity\Slider;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent('slider')]
 final class SliderComponent

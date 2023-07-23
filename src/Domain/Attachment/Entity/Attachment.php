@@ -2,25 +2,22 @@
 
 namespace App\Domain\Attachment\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\DBAL\Types\Types;
+use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Attachment\Repository\AttachmentRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @Vich\Uploadable()
  */
 #[ORM\Entity(repositoryClass: AttachmentRepository::class)]
-#[ORM\Table('`attachment_attachment`')]
+#[ORM\Table('`attachment_attachments`')]
 #[Vich\Uploadable()]
 class Attachment implements \Stringable
 {
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue()]
-    #[ORM\Column()]
-    private ?int $id;
+    use IdentifiableTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $fileName = '';
@@ -37,10 +34,6 @@ class Attachment implements \Stringable
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
 
-    public function getId(): int
-    {
-        return $this->id ?: 0;
-    }
 
     public function getFileName(): string
     {
