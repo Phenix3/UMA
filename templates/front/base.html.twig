@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>
-			{% block title page.title|trans  %} | UMA
+			{% block title page.title|trans  %}
+			| UMA
 		</title>
 
 
@@ -25,9 +26,18 @@
 		</main>
 		{% include "front/includes/_footer.html.twig" %}
 
+
+		<script>
+			window.loggedIn = {
+				...( window.loggedIn || {} ),
+				ADMIN: {{ is_granted('ROLE_ADMIN') ? 'true' : 'false' }},
+				USER: '{{ app.user ? app.user.id : 'null' }}'
+				};
+		</script>
+
 		{% block js %}
 			{{ encore_entry_script_tags('app') }}
 			{{ encore_entry_script_tags('app-front') }}
 		{% endblock js %}
-</body>
+	</body>
 </html>

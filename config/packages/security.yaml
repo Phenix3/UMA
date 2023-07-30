@@ -26,18 +26,18 @@ security:
                 
         main:
             lazy: true
-            form_login:
-                login_path: security_login
-                check_path: security_login
-                default_target_path: home_index
+            # form_login:
+            #     login_path: security_login
+            #     check_path: security_login
+            #     default_target_path: home_index
 
-                username_parameter: _email
-                password_parameter: _password
+            #     username_parameter: _email
+            #     password_parameter: _password
 
-                use_referer: true
-                enable_csrf: true
-            # provider: app_customer_provider
-            # custom_authenticator: App\Security\AppCustomerAuthenticator
+            #     use_referer: true
+            #     enable_csrf: true
+            provider: app_user_provider
+            custom_authenticator: App\Domain\Auth\AppUserAuthenticator
             # user_checker: App\Security\UserChecker
             logout:
                 path: security_logout

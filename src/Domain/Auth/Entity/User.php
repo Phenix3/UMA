@@ -7,6 +7,7 @@ use App\Domain\Application\Entity\Traits\TimestampableTrait;
 use App\Domain\Auth\Repository\UserRepository;
 use App\Domain\Profile\Entity\Profile;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table('`auth_users`')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface
 {
     use IdentifiableTrait;
     use TimestampableTrait;
@@ -71,6 +72,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $data['email'] ?? null;
         $this->password = $data['password'] ?? null;
         // $this->verified = $data['verified'] ?? false;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param  self $user
+     * @return boolean
+     */
+    public function isEqualTo(UserInterface $user): bool
+    {
+        return $this->getEmail() === $user->getEmail();
     }
 
     public function getUserIdentifier(): string

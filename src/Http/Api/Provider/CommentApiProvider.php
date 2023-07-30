@@ -72,7 +72,7 @@ class CommentApiProvider implements ProviderInterface
             throw new RuntimeException('id as array not expected');
         }
 
-        $comment = $this->commentRepository->findPartial((int) $id);
+        $comment = $this->commentRepository->findPartial($id);
 
         return $comment ? CommentResource::fromComment($comment, $this->uploaderHelper) : null;
     }

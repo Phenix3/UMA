@@ -6,6 +6,7 @@ use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Uid\Uuid;
 
 class CommentService
 {
@@ -22,7 +23,8 @@ class CommentService
         /** @var Content $target */
         $target = $this->em->getRepository(Content::class)->find($data->target);
         /** @var Comment|null $parent */
-        $parent = $data->parent ? $this->em->getReference(Comment::class, uuid_parse($data->parent)) : null;
+        $parent = $data->parent ? $this->em->getRepository(Comment::class)->findPartial($data->parent) : null;//$this->em->getReference(Comment::class, Uuid::fromString($data->parent)) : null;
+        
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)
@@ -30,6 +32,9 @@ class CommentService
             ->setContent($data->content)
             ->setParent($parent)
             ->setTarget($target);
+        /* if ($data->parent && is_string($data->parent)) {
+            $comment->setParent($data->parent);
+        } */
         $this->em->persist($comment);
         $this->em->flush();
         $this->dispatcher->dispatch(new CommentCreatedEvent($comment));
@@ -45,10 +50,10 @@ class CommentService
         return $comment;
     }
 
-    public function delete(int $commentId): void
+    public function delete(mixed $commentId): void
     {
         /** @var Comment $comment */
-        $comment = $this->em->getReference(Comment::class, $commentId);
+        $comment = $this->em->getReference(Comment::class, Uuid::fromString($commentId));
         $this->em->remove($comment);
         $this->em->flush();
     }

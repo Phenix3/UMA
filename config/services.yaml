@@ -39,6 +39,11 @@ services:
         resource: '../src/Http/Api/Controller'
         tags: ['controller.service_arguments']
 
+    App\Http\Api\Processor\CommentProcessor:
+        bind:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+            $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
+
     # app_page_variable:
     #     class: Twig\Environment
     #     calls:

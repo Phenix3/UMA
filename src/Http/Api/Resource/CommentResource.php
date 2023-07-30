@@ -16,7 +16,7 @@ use App\Http\Api\Processor\CommentProcessor;
 use App\Http\Api\Provider\CommentApiProvider;
 use App\Http\Security\CommentVoter;
 use App\Validator\NotExists;
-use Parsedown;
+// use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
@@ -36,10 +36,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
         new Get(read: false, output: false),
         new Delete(
             processor: CommentProcessor::class,
-            security: "is_granted(constant(CommentVoter::DELETE), object)"
+            security: "is_granted('ROLE_ADMIN') or object.userId == user"
         ),
         new Put(
-            security: "is_granted(constant(CommentVoter::UPDATE), object)"
+            processor: CommentProcessor::class,
+            security: "is_granted('update', object)"
         )
     ]
 )]
@@ -98,7 +99,7 @@ class CommentResource extends CommentData
             '<p><pre><code><ul><ol><li>'
         ); */
         $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
-        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : null;
+        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : '0';
         /* if ($author && $uploaderHelper && $author->getAvatarName()) {
             $resource->avatar = $uploaderHelper->asset($author, 'avatarFile');
         } else {

@@ -6,6 +6,7 @@ use App\Domain\Blog\Entity\Category;
 use App\Domain\Blog\Entity\Post;
 use App\Domain\Blog\Repository\CategoryRepository;
 use App\Domain\Blog\Repository\PostRepository;
+use App\Domain\Comment\CommentRepository;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,9 +19,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     public function __construct(
+        private CommentRepository $commentRepository,
         private PostRepository $postRepository,
         private CategoryRepository $categoryRepository,
-        private PaginatorInterface $paginator
+        private PaginatorInterface $paginator,
     ) {
     }
 
@@ -48,7 +50,6 @@ class BlogController extends AbstractController
     #[IsGranted('show', subject: 'post')]
     public function show(Post $post): Response
     {
-        dump($post);
         return $this->render('front/blog/show.html.twig', [
             'post' => $post
         ]);
@@ -81,8 +82,6 @@ class BlogController extends AbstractController
         }
 
         $categories = $this->categoryRepository->findWithCount();
-
-        dump($posts);
 
         return $this->render('front/blog/index.html.twig', array_merge([
             'posts' => $posts,

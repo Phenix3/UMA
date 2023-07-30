@@ -10,10 +10,13 @@ use App\Domain\Auth\Entity\User;
 use App\Domain\Comment\CommentService;
 use App\Http\Api\Resource\CommentResource;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CommentProcessor implements ProcessorInterface
 {
     public function __construct(
+        private ProcessorInterface $persistProcessor,
+        private ProcessorInterface $removeProcessor,
         private readonly ValidatorInterface $validator,
         private readonly Security $security,
         private readonly CommentService $service
@@ -22,10 +25,13 @@ class CommentProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
+        // dd($data);
         if ($operation instanceof DeleteOperationInterface) {
             return $this->remove($data, $context);
+            // return $this->removeProcessor->process($data, $operation, $uriVariables, $context);
         }
 
+        // $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
         return $this->persist($data, $context);
     }
 
@@ -39,8 +45,10 @@ class CommentProcessor implements ProcessorInterface
         /** @var User $user */
         $user = $this->security->getUser();
         $groups = [];
-        if (!$user instanceof User) {
+        if (!$user instanceof UserInterface) {
             $groups = ['anonymous'];
+        } else {
+            $groups = ['Default'];
         }
         $this->validator->validate($data, ['groups' => $groups]);
 
@@ -49,7 +57,6 @@ class CommentProcessor implements ProcessorInterface
         } else {
             $comment = $this->service->create($data);
         }
-        // dd($data);
 
         return CommentResource::fromComment($comment);
     }

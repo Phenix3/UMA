@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/', name: 'home_')]

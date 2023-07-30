@@ -2,6 +2,12 @@
 GIT = git
 #---------#
 
+#---Systemctl---#
+SYSTEMCTL = sudo systemctl
+#---------#
+
+
+
 #---SYMFONY--#
 SYMFONY = symfony
 SYMFONY_SERVER_START = $(SYMFONY) serve -d
@@ -17,11 +23,11 @@ COMPOSER_UPDATE = $(COMPOSER) update
 #------------#
 
 #---NPM-----#
-NPM = npm
+NPM = pnpm
 NPM_INSTALL = $(NPM) install --force
 NPM_UPDATE = $(NPM) update
 NPM_BUILD = $(NPM) run build
-NPM_DEV = $(NPM) run dev
+NPM_DEV = $(NPM) run dev --progress
 NPM_WATCH = $(NPM) run watch
 #------------#
 
@@ -212,3 +218,8 @@ reset-db: ## Reset database.
 gst:
 	$(GIT) status
 .PHONY: gst
+
+# Systemctl
+.PHONY: mysql
+mysql:
+	$(SYSTEMCTL) $(command) mysql

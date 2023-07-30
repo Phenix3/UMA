@@ -4,6 +4,7 @@ namespace App\Domain\Comment;
 
 use App\Domain\Auth\Entity\User;
 use App\Infrastructure\ORM\AbstractRepository;
+use DateTime;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Types\UuidType;
@@ -24,32 +25,34 @@ class CommentRepository extends AbstractRepository
      *
      * @return array<Comment>
      */
-    public function findForApi(mixed $content): array
+    public function findForApi(mixed $contentId): array
     {
-        // dd(Uuid::fromRfc4122($content));
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
-        $this->_em->getReference(\App\Domain\Blog\Entity\Post::class, Uuid::fromRfc4122($content));
+        $this->_em->getReference(\App\Domain\Blog\Entity\Post::class, Uuid::fromString($contentId));
 
         return $this->createQueryBuilder('c')
-            ->select('c, u')
+            ->select('partial c.{id, username, email, content, createdAt, parent}', 'partial u.{id, username, email}', 't', 'p')
             ->orderBy('c.createdAt', 'ASC')
-            ->where('c.target = :content')
+            ->where('t = :content')
             ->leftJoin('c.author', 'u')
-            ->setParameter('content', Uuid::fromString($content)->toBinary())
+            ->leftJoin('c.target', 't')
+            ->leftJoin('c.parent', 'p')
+            ->setParameter('content', Uuid::fromString($contentId)->toBinary())
             ->getQuery()
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
     }
 
     /**
      * Renvoie un commentaire en évitant la liaison content.
      */
-    public function findPartial(int $id): ?Comment
+    public function findPartial($id): ?Comment
     {
         return $this->createQueryBuilder('c')
             ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
             ->where('c.id = :id')
             ->leftJoin('c.author', 'u')
-            ->setParameter('id', $id)
+            ->setParameter('id', Uuid::fromString($id)->toBinary())
             ->setMaxResults(1)
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)

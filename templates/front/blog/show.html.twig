@@ -50,6 +50,10 @@
                                 </div>
                             </div>
                         </article>
+
+                        {% if post.isCommentable %}
+                            {% include 'front/includes/_comments.html.twig' with {target: post} only %}
+                        {% endif %}
                     </div>
                     {% include 'front/blog/_sidebar.html.twig' %}
                 </div>

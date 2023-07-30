@@ -33,7 +33,7 @@ class Comment
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?User $author = null;
 
-    #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: 'replies')]
+    #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: 'replies', fetch: 'LAZY')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
     

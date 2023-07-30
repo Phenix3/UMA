@@ -25,4 +25,10 @@ class SecurityController extends BaseController
             'error' => $authenticationUtils->getLastAuthenticationError()
         ]);
     }
+
+    #[Route('/logout', 'logout')]
+    public function logout()
+    {
+        
+    }
 }

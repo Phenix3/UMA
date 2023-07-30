@@ -2,6 +2,7 @@
 
 namespace App\Domain\Auth;
 
+use App\Infrastructure\Manager\FlashManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class AppUserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
-        private FlashBagInterface $flashBag
+        private FlashManager $flashBag
     )
     {
         
@@ -47,7 +48,7 @@ class AppUserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        $this->flashBag->add('success', 'alerts.logged_in_success');
+        $this->flashBag->flash('success', 'alerts.logged_in_success');
         if ($path = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($path);
         }
