@@ -2,9 +2,9 @@
 
 namespace App\Domain\Application\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Domain\Application\Event\SettingCreatedEvent;
 use App\Domain\Application\Event\SettingDeletedEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 

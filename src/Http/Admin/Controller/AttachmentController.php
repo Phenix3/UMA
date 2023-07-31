@@ -57,7 +57,7 @@ class AttachmentController extends BaseController
         return $this->json($attachments);
     }
 
-    #[Route("/{attachment<\d+>?}", name: "show", methods: ["POST"])]
+    #[Route("/{attachment?}", name: "show", methods: ["POST"])]
     public function update(?Attachment $attachment, Request $request, EntityManagerInterface $em): JsonResponse
     {
         [$valid, $response] = $this->validateRequest($request);
@@ -75,7 +75,7 @@ class AttachmentController extends BaseController
         return $this->json($attachment);
     }
 
-    #[Route("/{attachment<\d+>}", methods: ["DELETE"])]
+    #[Route("/{attachment}", methods: ["DELETE"])]
     public function delete(Attachment $attachment, EntityManagerInterface $em): JsonResponse
     {
         $em->remove($attachment);

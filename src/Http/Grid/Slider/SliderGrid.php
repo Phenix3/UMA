@@ -3,8 +3,8 @@
 namespace App\Http\Grid\Slider;
 
 use Prezent\Grid\BaseGridType;
-use Prezent\Grid\GridBuilder;
 use Prezent\Grid\Extension\Core\Type\StringType;
+use Prezent\Grid\GridBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -16,7 +16,7 @@ class SliderGrid extends BaseGridType
     public function buildGrid(GridBuilder $builder, array $options = []): void
     {
         $builder
-            ->addColumn('id', StringType::class)
+            // ->addColumn('id', StringType::class)
             ->addColumn('name', StringType::class)
             ->addColumn('slug', StringType::class)
             ->addAction('items', [

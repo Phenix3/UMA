@@ -3,9 +3,12 @@
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Application\Entity\Setting;
+use App\Domain\Application\Event\SettingCreatedEvent;
+use App\Domain\Application\Event\SettingDeletedEvent;
 use App\Http\Admin\Data\SettingCrudData;
 use App\Http\Grid\SettingGrid;
 use Prezent\Grid\GridFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +21,12 @@ class SettingController extends CrudController
     protected string $entity = Setting::class;
     protected string $routePrefix = 'admin_setting';
     protected string $searchField = 'name';
+
+    protected array $events = [
+        'update' => SettingCreatedEvent::class,
+        'delete' => SettingDeletedEvent::class,
+        'create' => SettingCreatedEvent::class,
+    ];
 
     #[Route("/", name: "index")]
     public function index(GridFactory $gridFactory): Response
@@ -58,11 +67,17 @@ class SettingController extends CrudController
         return $this->crudDelete($setting);
     }
 
+    // #[ParamConverter('setting', class: Setting::class, options: ['keyName' => 'id'])]
     #[Route("/{id}", name: "edit")]
-    #[ParamConverter('setting', options: ['keyName' => 'id'])]
+    #[Entity('setting', expr: "repository.find(id)")]
     public function edit(Setting $setting): Response
     {
         $data = new SettingCrudData($setting);
+
+        $this->pageVariable
+            ->setTitle('Edit Setting')
+            ->setSubtitle('Edit settings')
+            ->addAction('edit_setting', 'Manage setttings', 'admin_setting_index');
 
         return $this->crudEdit($data);
     }

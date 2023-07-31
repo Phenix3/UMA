@@ -6,6 +6,7 @@ use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Application\Entity\Traits\TimestampableTrait;
 use App\Domain\Auth\Repository\UserRepository;
 use App\Domain\Profile\Entity\Profile;
+use App\Validator\Unique;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table('`auth_users`')]
+#[Unique(field: 'email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, EquatableInterface
 {
     use IdentifiableTrait;

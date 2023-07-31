@@ -2,16 +2,16 @@
     "controllers": {
         "@symfony/ux-live-component": {
             "live": {
-                "enabled": true,
+                "enabled": false,
                 "fetch": "eager",
                 "autoimport": {
-                    "@symfony/ux-live-component/styles/live.css": true
+                    "@symfony/ux-live-component/dist/live.min.css": true
                 }
             }
         },
         "@symfony/ux-react": {
             "react": {
-                "enabled": true,
+                "enabled": false,
                 "fetch": "eager"
             }
         },
@@ -27,7 +27,7 @@
         },
         "@symfony/ux-typed": {
             "typed": {
-                "enabled": true,
+                "enabled": false,
                 "fetch": "eager"
             }
         }

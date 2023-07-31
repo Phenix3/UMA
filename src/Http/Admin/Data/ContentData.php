@@ -12,6 +12,8 @@ class ContentData extends AutomaticCrudData
 {
     public ?string $title;
 
+    public ?string $slug;
+
     public ?string $content;
 
     public ?Attachment $image = null;

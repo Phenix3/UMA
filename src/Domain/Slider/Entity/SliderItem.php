@@ -3,6 +3,7 @@
 namespace App\Domain\Slider\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
+use App\Domain\Application\Entity\Traits\TimestampableTrait;
 use App\Domain\Slider\Repository\SliderItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +20,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class SliderItem
 {
     use IdentifiableTrait;
+    use TimestampableTrait;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
@@ -41,6 +43,11 @@ class SliderItem
     #[ORM\ManyToOne(inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Slider $slider = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
 
     public function getTitle(): ?string
@@ -84,7 +91,7 @@ class SliderItem
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 

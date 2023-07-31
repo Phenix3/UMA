@@ -5,3 +5,6 @@ App\Domain\Application\Entity\Setting:
   site_name:
    keyName: 'site_name'
    value: 'UMA'
+  site_adress:
+   keyName: 'site_adress'
+   value: 'Kongola, Maroua, Cameroun, 2013 MRA CMR'

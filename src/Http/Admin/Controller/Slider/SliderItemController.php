@@ -8,6 +8,7 @@ use App\Http\Admin\Controller\CrudController;
 use App\Http\Admin\Data\SliderItemCrudData;
 use App\Http\Grid\Slider\SliderItemGrid;
 use Prezent\Grid\GridFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,12 +77,14 @@ class SliderItemController extends CrudController
     }
 
     #[Route("/{id}", name: "delete", methods: ["DELETE"])]
-    public function delete(SliderItem $sliderItem): Response
+    #[Entity('item', class: SliderItem::class, expr: 'repository.find(id)')]
+    public function delete(SliderItem $item): Response
     {
-        return $this->crudDelete($sliderItem);
+        return $this->crudDelete($item);
     }
 
     #[Route("/{id}", name: "edit")]
+    #[Entity('sliderItem', expr: 'repository.find(id)')]
     public function edit(SliderItem $sliderItem): Response
     {
         $data = new SliderItemCrudData($sliderItem);

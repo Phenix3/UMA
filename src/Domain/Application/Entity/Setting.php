@@ -4,18 +4,23 @@ namespace App\Domain\Application\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity()]
 #[ORM\Table('`application_settings`')]
 #[ORM\Index(name: 'key_idx', columns: ['key_name'])]
+#[UniqueEntity(fields: ['keyName'])]
 class Setting
 {
 
     #[ORM\Id]
     #[ORM\Column()]
+    #[Assert\NotBlank()]
     private ?string $keyName = '';
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
     private ?string $value = '';
 
     public function getId(): string

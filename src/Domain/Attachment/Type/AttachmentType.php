@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Uid\Uuid;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentType extends TextType implements DataTransformerInterface
@@ -56,7 +57,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
     /**
      * @param ?Attachment $attachment
      */
-    public function transform($attachment): ?int
+    public function transform($attachment): ?Uuid
     {
         if ($attachment instanceof Attachment) {
             return $attachment->getId();

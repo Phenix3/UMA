@@ -65,7 +65,7 @@ class SliderController extends CrudController
     #[Entity('slider', expr: 'repository.findWithItems(id)')]
     public function items(Slider $slider, EntityManagerInterface $manager, GridFactory $gridFactory): Response
     {
-        $grid = $gridFactory->createGrid(SliderItemGrid::class, ['routePrefix' => $this->routePrefix]);
+        $grid = $gridFactory->createGrid(SliderItemGrid::class, ['routePrefix' => 'admin_slider_slider_item']);
         $gridData = $grid->createView();
 
         

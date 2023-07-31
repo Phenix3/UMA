@@ -5,6 +5,7 @@ namespace App\Domain\Slider\Repository;
 use App\Domain\Slider\Entity\Slider;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Slider>
@@ -45,7 +46,7 @@ class SliderRepository extends ServiceEntityRepository
             ->leftJoin('s.items', 'items')
             ->addSelect('items')
             ->where('s.id = :id')
-            ->setParameter('id', $id)
+            ->setParameter('id', Uuid::fromString($id)->toBinary())
             ->getQuery()
             ->getOneOrNullResult()
             ;

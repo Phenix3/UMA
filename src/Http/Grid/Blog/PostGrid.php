@@ -16,6 +16,7 @@ class PostGrid extends BaseGridType
 				'sortable' => true
 			])
 			->addColumn('title', StringType::class)
+			->addColumn('slug', StringType::class)
 			->addAction('edit', [
 				'route' => $options['routePrefix'].'_edit',
 				'route_parameters' => [

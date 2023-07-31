@@ -4,7 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    container.dumper.inline_factories: true
     app.locale: 'fr'
+    app.allowed_locales: ['fr', 'en']
+    app.locales: fr|en
     admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
 
 services:

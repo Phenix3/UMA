@@ -11,6 +11,7 @@ SYSTEMCTL = sudo systemctl
 #---SYMFONY--#
 SYMFONY = symfony
 SYMFONY_SERVER_START = $(SYMFONY) serve -d
+SYMFONY_SERVER_SERVE = $(SYMFONY) serve
 SYMFONY_SERVER_STOP = $(SYMFONY) server:stop
 SYMFONY_CONSOLE = $(SYMFONY) console
 SYMFONY_LINT = $(SYMFONY_CONSOLE) lint:
@@ -69,6 +70,10 @@ sf: ## List and Use All Symfony commands (make sf command="commande-name").
 sf-start: ## Start symfony server.
 	$(SYMFONY_SERVER_START)
 .PHONY: sf-start
+
+sf-serve: ## Start symfony server.
+	$(SYMFONY_SERVER_SERVE)
+.PHONY: sf-serve
 
 sf-stop: ## Stop symfony server.
 	$(SYMFONY_SERVER_STOP)

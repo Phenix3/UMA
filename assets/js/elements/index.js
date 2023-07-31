@@ -7,6 +7,7 @@ import BookmarkButton from '@@/js/elements/BookmarkButton.js';
 import {Alert, FloatingAlert} from '@@/js/elements/Alert.js';
 import InputAttachment from '@admin/js/elements/InputAttachment.js';
 import { CommentsElement } from '../../react/controllers/Comments.jsx';
+import { ContactFormElement } from '../../react/controllers/ContactForm.jsx';
 
 customElements.get('input-attachment') || customElements.define('input-attachment', InputAttachment, { extends: 'input' });
 
@@ -20,3 +21,4 @@ customElements.get('bookmark-button') || customElements.define('bookmark-button'
 customElements.get('alert-message') || customElements.define('alert-message', Alert);
 customElements.get('alert-floating') || customElements.define('alert-floating', FloatingAlert);
 customElements.define('comments-area', CommentsElement);
+customElements.define('contact-form', ContactFormElement);

@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraint;
  *
  * @Annotation
  */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class Unique extends Constraint
 {
     public string $message = 'Cette valeur est déjà utilisée';
@@ -21,6 +22,13 @@ class Unique extends Constraint
     public ?string $entityClass = null;
 
     public string $field = '';
+
+    public function __construct(string $field, ?string $entityClass = null, ?string $message = null)
+    {
+        $this->field = $field;
+        $this->entityClass = $entityClass ?? $this->entityClass;
+        $this->message = $message ?? $this->message;
+    }
 
     public function getRequiredOptions(): array
     {
