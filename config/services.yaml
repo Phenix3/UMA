@@ -9,6 +9,7 @@ parameters:
     app.allowed_locales: ['fr', 'en']
     app.locales: fr|en
     admin_prefix: '%env(resolve:ADMIN_PREFIX)%'
+    image_resize_key: '%env(resolve:IMAGE_RESIZE_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -59,6 +60,9 @@ services:
 
     App\Http\Grid\Blog\PostGrid:
         tags: ['prezent_grid.grid']
+
+    App\Infrastructure\Image\ImageResizer:
+        arguments: ['%image_resize_key%']
 
 
 

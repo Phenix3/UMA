@@ -1,12 +1,10 @@
-<div
-	{{ attributes }}>
+<div {{ attributes }}>
 	<!-- slider area start -->
 	<section class="slider__area">
 		<div class="slider__active swiper-container">
 			<div class="swiper-wrapper">
 				{% for item in computed.slider.items %}
 					{% set img = vich_uploader_asset(item, 'imageFile') %}
-
 					<div class="slider__item swiper-slide p-relative slider__height d-flex align-items-center z-index-1">
 						<div class="slider__bg slider__overlay include-bg" data-background="{{ img }}"></div>
 						<div class="container">
@@ -22,11 +20,13 @@
 										<p data-animation="fadeInUp" data-delay=".9s">
 											{{ item.description }}
 										</p>
+										{% if item.link is defined %}
 										<div class="slider__btn" data-animation="fadeInUp" data-delay="1.1s">
 											<a href="{{ item.link }}" class="tp-btn">
 												Find Courses
 											</a>
 										</div>
+										{% endif %}
 									</div>
 								</div>
 							</div>

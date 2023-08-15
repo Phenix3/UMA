@@ -1,0 +1,177 @@
+{% set recentPost0 = recentPosts[0] ?? null %}
+{% set recentPost1 = recentPosts[1] ?? null %}
+{% set recentPost2 = recentPosts[2] ?? null %}
+
+{% if recentPost0 is defined %}
+
+	{% set imgSrc0 = recentPost0.image ? vich_uploader_asset(recentPost0.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %}
+	<!-- blog area start -->
+	<section class="blog__area pt-120 pb-85 p-relative">
+		<div class="blog__shape">
+			<img class="blog__shape-1" src="assets/img/blog/blog-shape-1.png" alt="">
+			<img class="blog__shape-2" src="assets/img/blog/blog-shape-2.png" alt="">
+			<img class="blog__shape-3" src="assets/img/blog/blog-shape-3.png" alt="">
+			<img class="blog__shape-4" src="assets/img/blog/blog-shape-4.png" alt="">
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xxl-12">
+					<div class="section__title-wrapper mb-60 text-center">
+						<span class="section__title-pre">
+							Latest News
+						</span>
+						<h2 class="section__title section__title-44">
+							The latest news from Educal
+						</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xxl-6 col-xl-6">
+					<div class="blog__item-float blog__item-float-overlay p-relative fix transition-3 mb-30 d-flex align-items-end">
+						<div class="blog__thumb-bg w-img fix" data-background="{{ imgSrc0 }}" style="background-image: url(&quot;{{ imgSrc0 }}&quot;);"></div>
+						<div class="blog__content-float">
+							<div class="blog__tag-float mb-15">
+								<a href="#">
+									Uncategorized
+								</a>
+							</div>
+							<h3 class="blog__title-float">
+								<a href="{{ path('blog_show', {slug: recentPost0.slug}) }}">
+									{{ recentPost0.title }}
+								</a>
+							</h3>
+							<div class="blog__meta-float">
+								<ul>
+									<li>
+										<span>
+											<svg width="18" height="18" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<a href="#">
+												Dec 28, 2022
+											</a>
+										</span>
+									</li>
+									<li>
+										<span>
+											<svg width="16" height="14" viewbox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+												<path d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+											<a href="#">
+												1,526 views
+											</a>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if recentPost1 is defined %}
+					{% set imgSrc1 = recentPost1.image ? vich_uploader_asset(recentPost1.image, 'file') : asset('assets/img/blog/blog-2.jpg') %}
+					<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+						<div class="blog__item mb-30 white-bg transition-3 mb-30">
+							<div class="blog__thumb w-img fix">
+								<a href="blog-details.html">
+									<img src="{{ imgSrc1 }}" alt="">
+								</a>
+							</div>
+							<div class="blog__content">
+								<div class="blog__tag">
+									<a href="#">
+										University
+									</a>
+								</div>
+								<h3 class="blog__title">
+									<a href="blog-details.html">
+										{{ recentPost1.title }}
+									</a>
+								</h3>
+								<div class="blog__meta">
+									<ul>
+										<li>
+											<span>
+												<svg width="18" height="18" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+													<path d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+												<a href="#">
+													{{ recentPost1.publishedAt|format_date('medium') }}
+												</a>
+											</span>
+										</li>
+										<li>
+											<span>
+												<svg width="16" height="14" viewbox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+													<path d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+												<a href="#">
+													1,526 views
+												</a>
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				{% if recentPost2 is defined %}
+					{% set imgSrc2 = recentPost2.image ? vich_uploader_asset(recentPost2.image, 'file') : asset('assets/img/blog/blog-2.jpg') %}
+					<div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6">
+						<div class="blog__item mb-30 white-bg transition-3 mb-30">
+							<div class="blog__thumb w-img fix">
+								<a href="blog-details.html">
+									<img src="{{ imgSrc2 }}" alt="">
+								</a>
+							</div>
+							<div class="blog__content">
+								<div class="blog__tag">
+									<a href="#">
+										HR and L&amp;D
+									</a>
+								</div>
+								<h3 class="blog__title">
+									<a href="blog-details.html">
+										{{ recentPost2.title }}
+									</a>
+								</h3>
+								<div class="blog__meta">
+									<ul>
+										<li>
+											<span>
+												<svg width="18" height="18" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M16.4998 9C16.4998 13.14 13.1398 16.5 8.99976 16.5C4.85976 16.5 1.49976 13.14 1.49976 9C1.49976 4.86 4.85976 1.5 8.99976 1.5C13.1398 1.5 16.4998 4.86 16.4998 9Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+													<path d="M11.7822 11.3848L9.45723 9.99732C9.05223 9.75732 8.72223 9.17982 8.72223 8.70732V5.63232" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+												<a href="#">
+													{{ recentPost2.publishedAt|format_date('medium') }}
+												</a>
+											</span>
+										</li>
+										<li>
+											<span>
+												<svg width="16" height="14" viewbox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M10.6848 6.99994C10.6848 8.48494 9.48476 9.68494 7.99976 9.68494C6.51476 9.68494 5.31476 8.48494 5.31476 6.99994C5.31476 5.51494 6.51476 4.31494 7.99976 4.31494C9.48476 4.31494 10.6848 5.51494 10.6848 6.99994Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+													<path d="M7.99976 13.2025C10.6473 13.2025 13.1148 11.6425 14.8323 8.94254C15.5073 7.88504 15.5073 6.10754 14.8323 5.05004C13.1148 2.35004 10.6473 0.790039 7.99976 0.790039C5.35226 0.790039 2.88476 2.35004 1.16726 5.05004C0.492261 6.10754 0.492261 7.88504 1.16726 8.94254C2.88476 11.6425 5.35226 13.2025 7.99976 13.2025Z" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path>
+												</svg>
+												<a href="#">
+													1,526 views
+												</a>
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!-- blog area end -->
+{% endif %}

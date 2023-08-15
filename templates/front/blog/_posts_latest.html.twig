@@ -1,0 +1,34 @@
+<div class="sidebar__widget mb-55">
+	<div class="sidebar__widget-head mb-35">
+		<h3 class="sidebar__widget-title">
+			Recent posts
+		</h3>
+	</div>
+	<div class="sidebar__widget-content">
+		<div class="rc__post-wrapper">
+			{% for post in recentPosts %}
+				{# {% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %} #}
+                {% set imgSrc = image_url(post.image, 70, 70) %}
+				<div class="rc__post d-flex align-items-start">
+					<div class="rc__thumb mr-20">
+						<a href="blog-details.html">
+							<img src="{{ imgSrc }}" alt="">
+						</a>
+					</div>
+					<div class="rc__content">
+						<div class="rc__meta">
+							<span>
+								{{ post.publishedAt|format_date('medium') }}
+							</span>
+						</div>
+						<h6 class="rc__title">
+							<a href="blog-details.html">
+								{{ post.title|capitalize }}
+							</a>
+						</h6>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

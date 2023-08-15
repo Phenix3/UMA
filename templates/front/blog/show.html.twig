@@ -2,11 +2,11 @@
 
 {% block title post.title %}
 
-{% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %}
+{# {% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %} #}
+{% set imgSrc = image_url(post.image, 760, 405) %}
 {% set postTitle = post.title|capitalize %}
 
-{% block body %}
-    
+{% block body %}    
     <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay" data-background="{{ imgSrc }}" style="background-image: url({{ imgSrc }});">
             <div class="container">
                <div class="row">
@@ -55,7 +55,7 @@
                             {% include 'front/includes/_comments.html.twig' with {target: post} only %}
                         {% endif %}
                     </div>
-                    {% include 'front/blog/_sidebar.html.twig' %}
+                    {% include 'front/blog/_sidebar.html.twig' with {recentPosts} only %}
                 </div>
             </div>
         </div>

@@ -28,6 +28,7 @@ specifiers:
   isotope-layout: ^3.0.6
   jquery: ^3.7.0
   magnific-popup: ^1.1.0
+  moment: ^2.29.4
   nice-select2: ^2.1.0
   owl-carousel-2: ^0.0.3
   parallax-js: ^3.1.0
@@ -61,6 +62,7 @@ dependencies:
   isotope-layout: 3.0.6
   jquery: 3.7.0
   magnific-popup: 1.1.0
+  moment: 2.29.4
   nice-select2: 2.1.0_webpack@5.88.2
   owl-carousel-2: 0.0.3
   parallax-js: 3.1.0
@@ -3713,6 +3715,10 @@ packages:
 
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
+    dev: false
+
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
     dev: false
 
   /morphdom/2.7.0:

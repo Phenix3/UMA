@@ -1,4 +1,4 @@
-{% set imgSrc = post.image ? vich_uploader_asset(post.image, 'file') : asset('assets/img/blog/blog-big-1.jpg') %}
+{% set imgSrc = post.image ? image_url(post.image, 760, 405) : asset('assets/img/blog/blog-big-1.jpg') %}
 <article class="postbox__item format-image mb-50 transition-3">
     <div class="postbox__thumb w-img">
         <a href="{{ path('blog_show', {slug: post.slug}) }}">

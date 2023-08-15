@@ -19,48 +19,10 @@
             </div>
         </div>
     </div>
-    <div class="sidebar__widget mb-55">
-        <div class="sidebar__widget-head mb-35">
-            <h3 class="sidebar__widget-title">Recent posts</h3>
-        </div>
-        <div class="sidebar__widget-content">
-            <div class="rc__post-wrapper">
-                <div class="rc__post d-flex align-items-start">
-                <div class="rc__thumb mr-20">
-                    <a href="blog-details.html"><img src="{{ asset('assets/img/blog/sm/blog-sm-1.jpg') }}" alt=""></a>
-                </div>
-                <div class="rc__content">
-                    <div class="rc__meta">
-                        <span>October 15, 2021</span>
-                    </div>
-                    <h6 class="rc__title"><a href="blog-details.html">The Importance  Intrinsic Motivation.</a></h6>
-                </div>
-                </div>
-                <div class="rc__post d-flex align-items-start">
-                <div class="rc__thumb mr-20">
-                    <a href="blog-details.html"><img src="{{ asset('assets/img/blog/sm/blog-sm-2.jpg') }}" alt=""></a>
-                </div>
-                <div class="rc__content">
-                    <div class="rc__meta">
-                        <span>March 26, 2021</span>
-                    </div>
-                    <h6 class="rc__title"><a href="blog-details.html">A Better Alternative To Grading Student.</a></h6>
-                </div>
-                </div>
-                <div class="rc__post d-flex align-items-start">
-                <div class="rc__thumb mr-20">
-                    <a href="blog-details.html"><img src="{{ asset('assets/img/blog/sm/blog-sm-3.jpg') }}" alt=""></a>
-                </div>
-                <div class="rc__content">
-                    <div class="rc__meta">
-                        <span>October 15, 2021</span>
-                    </div>
-                    <h6 class="rc__title"><a href="blog-details.html">Strategic Social Media &amp; Evolution of Visual</a></h6>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+    {% if recentPosts is defined %}
+        {% include 'front/blog/_posts_latest.html.twig' with {recentPosts} only %}
+    {% endif %}
     <div class="sidebar__widget mb-55">
         <div class="sidebar__widget-head mb-35">
             <h3 class="sidebar__widget-title">Category</h3>

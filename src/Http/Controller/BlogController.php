@@ -38,6 +38,21 @@ class BlogController extends AbstractController
         return $this->renderListing($query, $request);
     }
 
+    #[Route('/latest/{count?}', name: 'latest')]
+    public function latest(?int $count = 3, ?string $layout = 'home')
+    {
+        // dump($count, $layout);
+        $tpl = 'front/';
+        if ($layout === 'blog_show') {
+            $tpl .= 'blog/_posts_latest.html.twig';
+        } else {
+            $tpl .= 'home/_posts_latest.html.twig';
+        }
+        return $this->render($tpl, [
+            'recentPosts' => $this->postRepository->findRecent($count),
+        ]);
+    }
+
     #[Route('/category/{slug}', name: 'category')]
     public function category(Category $category, Request $request)
     {
@@ -51,7 +66,8 @@ class BlogController extends AbstractController
     public function show(Post $post): Response
     {
         return $this->render('front/blog/show.html.twig', [
-            'post' => $post
+            'post' => $post,
+            'recentPosts' => $this->postRepository->findRecent(3)
         ]);
     }
 
