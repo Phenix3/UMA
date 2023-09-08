@@ -27,7 +27,7 @@ final class FlashManager
         string $message,
         array $parameters = [],
         ?string $translationDomain = 'messages',
-        ?string $locale = null
+        string $locale = null
     ): void {
         /** @var Session */
         $session = $this->requestStack->getSession();

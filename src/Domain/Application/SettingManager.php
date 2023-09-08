@@ -11,11 +11,13 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 class SettingManager
 {
     public function __construct(private EntityManagerInterface $entityManager, private EventDispatcherInterface $eventDispatcher)
-    {}
+    {
+    }
 
-    public function get(string $keyName, ?string $default = null): ?string
+    public function get(string $keyName, string $default = null): ?string
     {
         $setting = $this->entityManager->getRepository(Setting::class)->find($keyName);
+
         return null === $setting ? $default : $setting->getValue();
     }
 
@@ -23,7 +25,7 @@ class SettingManager
     {
         $setting = $this->entityManager->getRepository(Setting::class)->find($keyName);
         if (null === $setting) {
-            $setting = (new Setting)
+            $setting = (new Setting())
                 ->setKeyName($keyName)
                 ->setValue($value);
             $this->entityManager->persist($setting);
@@ -45,18 +47,19 @@ class SettingManager
         $this->eventDispatcher->dispatch(new SettingDeletedEvent($setting));
     }
 
-    public function all(?array $keys = null): array
+    public function all(array $keys = null): array
     {
         if (null === $keys) {
             $settings = $this->entityManager->getRepository(Setting::class)->findAll();
         } else {
             $settings = $this->entityManager->getRepository(Setting::class)->findBy([
-                'keyName' => $keys
+                'keyName' => $keys,
             ]);
         }
 
-        $settingsByKey = array_reduce($settings, function(array $acc, Setting  $setting) {
+        $settingsByKey = array_reduce($settings, function (array $acc, Setting $setting) {
             $acc[$setting->getKeyName()] = $setting->getValue();
+
             return $acc;
         }, []);
 
@@ -64,8 +67,9 @@ class SettingManager
             return $settingsByKey;
         }
 
-        return array_reduce($keys, function(array $acc, string $key) use ($settingsByKey) {
+        return array_reduce($keys, function (array $acc, string $key) use ($settingsByKey) {
             $acc[$key] = $settingsByKey[$key] ?? null;
+
             return $acc;
         }, []);
     }

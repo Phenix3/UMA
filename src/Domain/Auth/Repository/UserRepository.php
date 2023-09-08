@@ -6,7 +6,6 @@ use App\Domain\Auth\Entity\User;
 use App\Infrastructure\ORM\AbstractRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-
 /**
  * @extends ServiceEntityRepository<ContactRequest>
  *

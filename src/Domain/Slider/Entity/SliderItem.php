@@ -7,7 +7,6 @@ use App\Domain\Application\Entity\Traits\TimestampableTrait;
 use App\Domain\Slider\Repository\SliderItemRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -15,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Table('`slider_slider_items`')]
 #[Vich\Uploadable()]
 /**
- * @Vich\Uploadable() 
+ * @Vich\Uploadable()
  */
 class SliderItem
 {
@@ -33,11 +32,11 @@ class SliderItem
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
-    
+
     /**
      * @Vich\UploadableField(mapping="sliders", fileNameProperty="image")
      */
-    #[Vich\UploadableField(mapping: "sliders", fileNameProperty: "image")]
+    #[Vich\UploadableField(mapping: 'sliders', fileNameProperty: 'image')]
     private ?File $imageFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'items')]
@@ -48,7 +47,6 @@ class SliderItem
     {
         $this->createdAt = new \DateTime();
     }
-
 
     public function getTitle(): ?string
     {
@@ -97,7 +95,7 @@ class SliderItem
 
         return $this;
     }
-    
+
     public function getImageFile(): ?File
     {
         return $this->imageFile;

@@ -36,7 +36,7 @@ class MakeSubscriberCommand extends AbstractMakeCommand
             throw new \RuntimeException('subscriberPath doit être une chaine de caractère');
         }
         $parts = explode('/', $subscriberPath);
-        $namespace = '\\'.implode('\\', array_slice($parts, 0, -1));
+        $namespace = '\\' . implode('\\', array_slice($parts, 0, -1));
         $className = $parts[count($parts) - 1];
         $basePath = 'src/';
         $params = [
@@ -46,7 +46,7 @@ class MakeSubscriberCommand extends AbstractMakeCommand
         ];
 
         $this->createFile('eventSubscriber', $params, "{$basePath}{$subscriberPath}.php");
-        $this->createFile('eventSubscriber.test', $params, str_replace('src/', 'tests/', $basePath)."{$subscriberPath}Test.php");
+        $this->createFile('eventSubscriber.test', $params, str_replace('src/', 'tests/', $basePath) . "{$subscriberPath}Test.php");
 
         $io->success('Le subscriber a bien été créé');
 

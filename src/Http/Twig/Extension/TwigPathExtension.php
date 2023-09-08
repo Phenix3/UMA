@@ -28,10 +28,10 @@ class TwigPathExtension extends AbstractExtension
 
     public function uploadsPath(string $path): string
     {
-        return '/uploads/'.trim($path, '/');
+        return '/uploads/' . trim($path, '/');
     }
 
-    public function imageUrl(?object $entity, ?int $width = null, ?int $height = null): ?string
+    public function imageUrl(?object $entity, int $width = null, int $height = null): ?string
     {
         if (null === $entity || $entity instanceof NonExistingAttachment) {
             return null;
@@ -59,7 +59,7 @@ class TwigPathExtension extends AbstractExtension
         return $this->helper->asset($entity) ?: '';
     }
 
-    public function imageTag(?object $entity, ?int $width = null, ?int $height = null): ?string
+    public function imageTag(?object $entity, int $width = null, int $height = null): ?string
     {
         $url = $this->imageUrl($entity, $width, $height);
         if (null !== $url) {

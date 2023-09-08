@@ -13,7 +13,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ORM\Table("`comment_comments`")]
+#[ORM\Table('`comment_comments`')]
 class Comment
 {
     use IdentifiableTrait;
@@ -36,13 +36,13 @@ class Comment
     #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: 'replies', fetch: 'LAZY')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
-    
+
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'parent')]
     /**
      * @var Collection<string, Comment>
      */
     private Collection $replies;
-    
+
     #[ORM\ManyToOne(targetEntity: Content::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true, name: 'content_id')]
     private Content $target;
@@ -52,7 +52,6 @@ class Comment
         $this->createdAt = new \DateTime();
         $this->replies = new ArrayCollection();
     }
-
 
     public function getUsername(): string
     {

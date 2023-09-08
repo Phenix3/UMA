@@ -6,9 +6,7 @@ namespace App\Http\Admin\Data;
 
 use App\Domain\Attachment\Entity\Attachment;
 use App\Domain\Blog\Entity\Post;
-use App\Validator\Slug;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**

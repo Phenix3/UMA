@@ -20,6 +20,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         if (null === $entity) {
             throw EntityNotFoundException::fromClassNameAndIdentifier($this->_entityName, [(string) $id]);
         }
+
         return $entity;
     }
 
@@ -36,6 +37,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
     public function createIterableQuery(string $alias, $indexBy = null): IterableQueryBuilder
     {
         $queryBuilder = new IterableQueryBuilder($this->_em);
+
         return $queryBuilder->select($alias)->from($this->_entityName, $alias, $indexBy);
     }
 

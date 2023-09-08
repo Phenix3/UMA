@@ -2,16 +2,17 @@
 
 namespace App\Http\Twig\Extension;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class TwigExtension extends AbstractExtension
 {
     public function __construct(private UrlMatcherInterface $urlMatcher, private UrlGeneratorInterface $urlGenerator)
-    {}
+    {
+    }
 
     public function getFunctions(): array
     {
@@ -24,7 +25,7 @@ class TwigExtension extends AbstractExtension
     /**
      * Génère le code HTML pour une icone SVG.
      */
-    public function svgIcon(string $name, ?int $size = null): string
+    public function svgIcon(string $name, int $size = null): string
     {
         $attrs = '';
         if ($size) {
@@ -49,10 +50,11 @@ class TwigExtension extends AbstractExtension
     public function menuActive(array $context, array $patterns, ?string $activeClass = 'active current-page'): string
     {
         $request = $context['app']->getRequest();
+
         return $this->matchRoute($request, $patterns) ? $activeClass : '';
-       /* if (($context['menu'] ?? null) === $name) {
-            return ' aria-current="page"';
-        }
+        /* if (($context['menu'] ?? null) === $name) {
+             return ' aria-current="page"';
+         }
 */
         // return '';
     }
@@ -64,7 +66,6 @@ class TwigExtension extends AbstractExtension
 
     private function isRoute()
     {
-
     }
 
     private function decodedPath(Request $request)
@@ -76,16 +77,15 @@ class TwigExtension extends AbstractExtension
     {
         $pattern = trim($request->getPathInfo(), '/');
 
-        return $pattern === '' ? '/' : $pattern;
+        return '' === $pattern ? '/' : $pattern;
     }
 
-     /**
+    /**
      * Determine if a given string contains a given substring.
      *
-     * @param  string  $haystack
-     * @param  string|iterable<string>  $needles
-     * @param  bool  $ignoreCase
-     * @return bool
+     * @param string                  $haystack
+     * @param string|iterable<string> $needles
+     * @param bool                    $ignoreCase
      */
     public static function contains($haystack, $needles, $ignoreCase = false): bool
     {
@@ -93,7 +93,7 @@ class TwigExtension extends AbstractExtension
             $haystack = mb_strtolower($haystack);
         }
 
-        if (! is_iterable($needles)) {
+        if (!is_iterable($needles)) {
             $needles = (array) $needles;
         }
 
@@ -102,7 +102,7 @@ class TwigExtension extends AbstractExtension
                 $needle = mb_strtolower($needle);
             }
 
-            if ($needle !== '' && str_contains($haystack, $needle)) {
+            if ('' !== $needle && str_contains($haystack, $needle)) {
                 return true;
             }
         }
@@ -113,15 +113,14 @@ class TwigExtension extends AbstractExtension
     /**
      * Determine if a given string matches a given pattern.
      *
-     * @param  string|iterable<string>  $pattern
-     * @param  string  $value
-     * @return bool
+     * @param string|iterable<string> $pattern
+     * @param string                  $value
      */
     public static function strIs($pattern, $value): bool
     {
         $value = (string) $value;
 
-        if (! is_iterable($pattern)) {
+        if (!is_iterable($pattern)) {
             $pattern = [$pattern];
         }
 
@@ -142,7 +141,7 @@ class TwigExtension extends AbstractExtension
             // pattern such as "library/*", making any string check convenient.
             $pattern = str_replace('\*', '.*', $pattern);
 
-            if (preg_match('#^'.$pattern.'\z#u', $value) === 1) {
+            if (1 === preg_match('#^' . $pattern . '\z#u', $value)) {
                 return true;
             }
         }
@@ -154,9 +153,8 @@ class TwigExtension extends AbstractExtension
     {
         $path = $this->decodedPath($request);
         $is = collect($patterns)->contains(fn ($pattern) => $this->strIs($pattern, $path));
+
         // dd($path);
         return $is;
     }
-
-
 }

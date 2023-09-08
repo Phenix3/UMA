@@ -7,16 +7,14 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class TwigSettingExtension extends AbstractExtension implements GlobalsInterface
 {
-
     public function __construct(private SettingManager $settingManager, private TagAwareCacheInterface $cache)
-    {}
+    {
+    }
 
-    
     public function getFunctions(): array
     {
         return [
@@ -33,14 +31,14 @@ class TwigSettingExtension extends AbstractExtension implements GlobalsInterface
 
     public function getGlobals(): array
     {
-        $settings = $this->cache->get('global_settings', function(ItemInterface $item) {
+        $settings = $this->cache->get('global_settings', function (ItemInterface $item) {
             $item->tag('global_settings_tag');
+
             return $this->settingManager->all();
         });
+
         return [
-            'global_settings' => $settings
+            'global_settings' => $settings,
         ];
     }
-
-    
 }

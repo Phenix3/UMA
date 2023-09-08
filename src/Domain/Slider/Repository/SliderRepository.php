@@ -39,7 +39,7 @@ class SliderRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    
+
     public function findWithItems(mixed $id): ?object
     {
         return $this->createQueryBuilder('s')
@@ -49,25 +49,24 @@ class SliderRepository extends ServiceEntityRepository
             ->setParameter('id', Uuid::fromString($id)->toBinary())
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
-    
+
     public function findWithItemsBy(array $criterias): ?object
     {
         $q = $this->createQueryBuilder('s')
             ->leftJoin('s.items', 'items')
             ->addSelect('items')
-            ;
-        
-        foreach($criterias as $k => $v) {
+        ;
+
+        foreach ($criterias as $k => $v) {
             $q = $q->andWhere("s.{$k} = :{$k}")
                 ->setParameter("{$k}", $v)
-                ;
+            ;
         }
-        
-        
+
         return $q->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
     }
 }

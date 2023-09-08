@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/setting", name: "setting_")]
+#[Route('/setting', name: 'setting_')]
 class SettingController extends CrudController
 {
     protected string $templatePath = 'setting';
@@ -28,13 +28,13 @@ class SettingController extends CrudController
         'create' => SettingCreatedEvent::class,
     ];
 
-    #[Route("/", name: "index")]
+    #[Route('/', name: 'index')]
     public function index(GridFactory $gridFactory): Response
     {
         $query = $this->getRepository()
             ->createQueryBuilder('row')
             ->orderBy('row.keyName', 'DESC');
-            
+
         $grid = $gridFactory->createGrid(SettingGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
 
@@ -42,11 +42,11 @@ class SettingController extends CrudController
             ->setTitle('Manage Settings')
             ->setSubtitle('Manage all settings')
             ->addAction('add_setting', 'Add new settting', 'admin_setting_new');
-            
+
         return $this->crudIndex($query);
     }
 
-    #[Route("/new", name: "new")]
+    #[Route('/new', name: 'new')]
     public function new(): Response
     {
         $setting = new Setting();
@@ -60,7 +60,7 @@ class SettingController extends CrudController
         return $this->crudNew($data);
     }
 
-    #[Route("/{id}", name: "delete", methods: ["DELETE"])]
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     #[ParamConverter('setting', options: ['keyName' => 'id'])]
     public function delete(Setting $setting): Response
     {
@@ -68,8 +68,8 @@ class SettingController extends CrudController
     }
 
     // #[ParamConverter('setting', class: Setting::class, options: ['keyName' => 'id'])]
-    #[Route("/{id}", name: "edit")]
-    #[Entity('setting', expr: "repository.find(id)")]
+    #[Route('/{id}/edit', name: 'edit')]
+    #[Entity('setting', expr: 'repository.find(id)')]
     public function edit(Setting $setting): Response
     {
         $data = new SettingCrudData($setting);

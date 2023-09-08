@@ -23,8 +23,8 @@ class CommentService
         /** @var Content $target */
         $target = $this->em->getRepository(Content::class)->find($data->target);
         /** @var Comment|null $parent */
-        $parent = $data->parent ? $this->em->getRepository(Comment::class)->findPartial($data->parent) : null;//$this->em->getReference(Comment::class, Uuid::fromString($data->parent)) : null;
-        
+        $parent = $data->parent ? $this->em->getRepository(Comment::class)->findPartial($data->parent) : null; // $this->em->getReference(Comment::class, Uuid::fromString($data->parent)) : null;
+
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
             ->setUsername($data->username)

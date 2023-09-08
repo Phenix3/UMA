@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class AttachmentExistValidator extends ConstraintValidator
 {
     /**
-     * @param Attachment           $value
+     * @param Attachment      $value
      * @param AttachmentExist $constraint
      */
     public function validate($value, Constraint $constraint): void

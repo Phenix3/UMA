@@ -19,6 +19,4 @@ class PostVoter extends Voter
     {
         return $subject->getCreatedAt() < new \DateTime('-2 hours');
     }
-
 }
-

@@ -4,8 +4,6 @@ namespace App\Http\Admin\Data;
 
 use App\Http\Form\AutomaticForm;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use ReflectionClass;
-use ReflectionProperty;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -20,15 +18,17 @@ abstract class AutomaticCrudData implements CrudDataInterface
 {
     public function __construct(protected object $entity)
     {
-        $reflexion = new ReflectionClass($this);
-        $properties = $reflexion->getProperties(ReflectionProperty::IS_PUBLIC);
+        $reflexion = new \ReflectionClass($this);
+        $properties = $reflexion->getProperties(\ReflectionProperty::IS_PUBLIC);
         $accessor = new PropertyAccessor();
         foreach ($properties as $property) {
             $name = $property->getName();
             /** @var \ReflectionNamedType|null $type */
             $type = $property->getType();
-            if ($type &&
-                UploadedFile::class === $type->getName()) {
+            if (
+                $type
+                && UploadedFile::class === $type->getName()
+            ) {
                 continue;
             }
             $accessor->setValue($this, $name, $accessor->getValue($entity, $name));
@@ -42,8 +42,8 @@ abstract class AutomaticCrudData implements CrudDataInterface
 
     public function hydrate(): void
     {
-        $reflexion = new ReflectionClass($this);
-        $properties = $reflexion->getProperties(ReflectionProperty::IS_PUBLIC);
+        $reflexion = new \ReflectionClass($this);
+        $properties = $reflexion->getProperties(\ReflectionProperty::IS_PUBLIC);
         $accessor = new PropertyAccessor();
         foreach ($properties as $property) {
             $name = $property->getName();

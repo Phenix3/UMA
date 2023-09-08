@@ -14,7 +14,6 @@ class ContactRequest
 {
     use IdentifiableTrait;
 
-
     #[ORM\Column(length: 255)]
     private ?string $ip = null;
 
@@ -27,7 +26,7 @@ class ContactRequest
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(type: "datetime")]
+    #[ORM\Column(type: 'datetime')]
     private \DateTime $createdAt;
 
     public function __construct()

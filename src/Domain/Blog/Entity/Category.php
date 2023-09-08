@@ -40,7 +40,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Set the value of id
+     * Set the value of id.
      */
     public function setId(?int $id): self
     {
@@ -50,7 +50,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Get the value of name
+     * Get the value of name.
      */
     public function getName(): string
     {
@@ -58,7 +58,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Set the value of name
+     * Set the value of name.
      */
     public function setName(string $name): self
     {
@@ -68,7 +68,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Get the value of slug
+     * Get the value of slug.
      */
     public function getSlug(): string
     {
@@ -76,7 +76,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Set the value of slug
+     * Set the value of slug.
      */
     public function setSlug(string $slug): self
     {
@@ -86,7 +86,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Get the value of ostsCount
+     * Get the value of ostsCount.
      */
     public function getPostsCount(): int
     {
@@ -94,7 +94,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Set the value of ostsCount
+     * Set the value of ostsCount.
      */
     public function setPostsCount(int $ostsCount): self
     {
@@ -104,7 +104,7 @@ class Category implements \Stringable
     }
 
     /**
-     * Get the value of posts
+     * Get the value of posts.
      */
     public function getPosts(): Collection
     {
@@ -116,12 +116,14 @@ class Category implements \Stringable
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
         }
+
         return $this;
     }
 
     public function removePost(Post $post): self
     {
         $this->posts->removeElement($post);
+
         return $this;
     }
 }

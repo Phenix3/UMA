@@ -10,7 +10,7 @@ use Prezent\Grid\GridFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/blog/categories", name: "blog_category_")]
+#[Route('/blog/categories', name: 'blog_category_')]
 class CategoryController extends CrudController
 {
     protected string $templatePath = 'blog/categories';
@@ -19,10 +19,9 @@ class CategoryController extends CrudController
     protected string $routePrefix = 'admin_blog_category';
     protected string $searchField = 'name';
 
-    #[Route("/", name: "index")]
+    #[Route('/', name: 'index')]
     public function index(GridFactory $gridFactory): Response
     {
-        
         $query = $this->getRepository()
             ->createQueryBuilder('row')
             ->orderBy('row.id', 'DESC');
@@ -38,39 +37,35 @@ class CategoryController extends CrudController
         return $this->crudIndex($query);
     }
 
-    #[Route("/new", name: "new")]
+    #[Route('/new', name: 'new')]
     public function new(): Response
     {
         $categories = new Category();
         $data = new CategoryCrudData($categories);
 
-        
         $this->pageVariable
             ->setTitle('Add Blog Categories')
             ->setSubtitle('Add a blog category')
             ->addAction('list_category', 'List categories', 'admin_blog_category_index');
 
-
         return $this->crudNew($data);
     }
 
-    #[Route("/{id}", name: "delete", methods: ["DELETE"])]
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     public function delete(Category $categories): Response
     {
         return $this->crudDelete($categories);
     }
 
-    #[Route("/{id}", name: "edit")]
+    #[Route('/{id}/edit', name: 'edit')]
     public function edit(Category $categories): Response
     {
         $data = new CategoryCrudData($categories);
 
-        
         $this->pageVariable
             ->setTitle('Edit Blog Categories')
             ->setSubtitle('Edit a blog category')
             ->addAction('list_category', 'List categories', 'admin_blog_category_index');
-
 
         return $this->crudEdit($data);
     }

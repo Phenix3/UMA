@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 // [IsGranted("ATTACHMENT")]
-#[Route("/attachment", name: "attachment_")]
+#[Route('/attachment', name: 'attachment_')]
 class AttachmentController extends BaseController
 {
     public function __construct(private readonly ValidatorInterface $validator)
@@ -36,13 +36,13 @@ class AttachmentController extends BaseController
         return [false, new JsonResponse(['error' => $errors->get(0)->getMessage()], 422)];
     }
 
-    #[Route("/folders", name: "folders")]
+    #[Route('/folders', name: 'folders')]
     public function folders(AttachmentRepository $repository): JsonResponse
     {
         return new JsonResponse($repository->findYearsMonths());
     }
 
-    #[Route("/files", name: "files")]
+    #[Route('/files', name: 'files')]
     public function files(AttachmentRepository $repository, Request $request): JsonResponse
     {
         ['path' => $path, 'q' => $q] = $this->getFilterParams($request);
@@ -57,7 +57,7 @@ class AttachmentController extends BaseController
         return $this->json($attachments);
     }
 
-    #[Route("/{attachment?}", name: "show", methods: ["POST"])]
+    #[Route('/{attachment?}', name: 'show', methods: ['POST'])]
     public function update(?Attachment $attachment, Request $request, EntityManagerInterface $em): JsonResponse
     {
         [$valid, $response] = $this->validateRequest($request);
@@ -75,7 +75,7 @@ class AttachmentController extends BaseController
         return $this->json($attachment);
     }
 
-    #[Route("/{attachment}", methods: ["DELETE"])]
+    #[Route('/{attachment}', methods: ['DELETE'])]
     public function delete(Attachment $attachment, EntityManagerInterface $em): JsonResponse
     {
         $em->remove($attachment);

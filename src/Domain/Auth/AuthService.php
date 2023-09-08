@@ -44,7 +44,7 @@ class AuthService
         return $user;
     }
 
-    public function logout(?Request $request = null): void
+    public function logout(Request $request = null): void
     {
         $request = $request ?: new Request();
         $this->eventDispatcher->dispatch(new LogoutEvent($request, $this->tokenStorage->getToken()));

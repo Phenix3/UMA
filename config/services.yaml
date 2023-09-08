@@ -6,6 +6,7 @@
 parameters:
     container.dumper.inline_factories: true
     app.locale: 'fr'
+    locale: 'fr'
     app.allowed_locales: ['fr', 'en']
     app.locales: fr|en
     admin_prefix: '%env(resolve:ADMIN_PREFIX)%'

@@ -40,7 +40,7 @@ class MakeControllerCommand extends AbstractMakeCommand
             $namespace = '';
             $className = $parts[0];
         } else {
-            $namespace = '\\'.implode('\\', array_slice($parts, 0, -1));
+            $namespace = '\\' . implode('\\', array_slice($parts, 0, -1));
             $className = $parts[count($parts) - 1];
         }
 
@@ -58,7 +58,7 @@ class MakeControllerCommand extends AbstractMakeCommand
         ];
 
         $this->createFile('controller', $params, "{$basePath}{$controllerPath}.php");
-        $this->createFile('controller.test', $params, str_replace('src/', 'tests/', $basePath)."{$controllerPath}Test.php");
+        $this->createFile('controller.test', $params, str_replace('src/', 'tests/', $basePath) . "{$controllerPath}Test.php");
 
         $io->success('Le controller a bien été créé');
 

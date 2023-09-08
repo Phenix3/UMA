@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['keyName'])]
 class Setting
 {
-
     #[ORM\Id]
     #[ORM\Column()]
     #[Assert\NotBlank()]
@@ -29,7 +28,7 @@ class Setting
     }
 
     /**
-     * Get the value of key
+     * Get the value of key.
      */
     public function getKeyName(): string
     {
@@ -37,7 +36,7 @@ class Setting
     }
 
     /**
-     * Set the value of key
+     * Set the value of key.
      */
     public function setKeyName(string $keyName): self
     {
@@ -47,7 +46,7 @@ class Setting
     }
 
     /**
-     * Get the value of value
+     * Get the value of value.
      */
     public function getValue(): string
     {
@@ -55,7 +54,7 @@ class Setting
     }
 
     /**
-     * Set the value of value
+     * Set the value of value.
      */
     public function setValue(string $value): self
     {

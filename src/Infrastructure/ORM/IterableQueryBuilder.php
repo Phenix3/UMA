@@ -3,11 +3,9 @@
 namespace App\Infrastructure\ORM;
 
 use Doctrine\ORM\QueryBuilder;
-use Traversable;
 
 class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \ArrayAccess
 {
-
     private bool $firstResultFetched = false;
 
     private ?object $firstResult = null;
@@ -20,6 +18,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
             $this->firstResultFetched = true;
             $this->firstResult = $this->getQuery()->setMaxResults(1)->getOneOrNullResult();
         }
+
         return $this->firstResult;
     }
 
@@ -32,7 +31,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
         return $this->results;
     }
 
-    public function getIterator(): Traversable
+    public function getIterator(): \Traversable
     {
         if (null === $this->results) {
             $this->results = $this->getQuery()->getResult();
@@ -60,5 +59,4 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
     {
         unset($this->getResults()[$offset]);
     }
-    
 }

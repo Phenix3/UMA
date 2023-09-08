@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Domain\Profile\Repository;
-
 
 use App\Domain\Profile\Entity\Profile;
 use App\Infrastructure\ORM\AbstractRepository;

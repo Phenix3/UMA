@@ -35,7 +35,7 @@ class Slider
     {
         $this->items = new ArrayCollection();
     }
-    
+
     public function __toString(): string
     {
         return $this->name;

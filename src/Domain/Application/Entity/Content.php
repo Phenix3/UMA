@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
-#[ORM\Table("`application_contents`")]
+#[ORM\Table('`application_contents`')]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 abstract class Content
@@ -43,9 +43,8 @@ abstract class Content
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $isCommentable = true;
 
-
     /**
-     * Get the value of title
+     * Get the value of title.
      */
     public function getTitle(): ?string
     {
@@ -53,7 +52,7 @@ abstract class Content
     }
 
     /**
-     * Set the value of title
+     * Set the value of title.
      */
     public function setTitle(?string $title): self
     {
@@ -63,7 +62,7 @@ abstract class Content
     }
 
     /**
-     * Get the value of slug
+     * Get the value of slug.
      */
     public function getSlug(): ?string
     {
@@ -71,7 +70,7 @@ abstract class Content
     }
 
     /**
-     * Set the value of slug
+     * Set the value of slug.
      */
     public function setSlug(?string $slug): self
     {
@@ -81,7 +80,7 @@ abstract class Content
     }
 
     /**
-     * Get the value of content
+     * Get the value of content.
      */
     public function getContent(): ?string
     {
@@ -89,7 +88,7 @@ abstract class Content
     }
 
     /**
-     * Set the value of content
+     * Set the value of content.
      */
     public function setContent(?string $content): self
     {
@@ -104,11 +103,12 @@ abstract class Content
             return '';
         }
         $parts = preg_split("/(\r\n|\r|\n){2}/", $this->content);
+
         return false === $parts ? '' : strip_tags($parts[0]);
     }
 
     /**
-     * Get the value of publishedAt
+     * Get the value of publishedAt.
      */
     public function getPublishedAt(): ?\DateTimeInterface
     {
@@ -116,7 +116,7 @@ abstract class Content
     }
 
     /**
-     * Set the value of publishedAt
+     * Set the value of publishedAt.
      */
     public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
@@ -126,7 +126,7 @@ abstract class Content
     }
 
     /**
-     * Get the value of image
+     * Get the value of image.
      */
     public function getImage(): ?Attachment
     {
@@ -134,7 +134,7 @@ abstract class Content
     }
 
     /**
-     * Set the value of image
+     * Set the value of image.
      */
     public function setImage(?Attachment $image): self
     {
@@ -144,18 +144,16 @@ abstract class Content
     }
 
     /**
-     * Get the value of isCommentable
-     */ 
+     * Get the value of isCommentable.
+     */
     public function getIsCommentable(): bool
     {
         return $this->isCommentable;
     }
 
     /**
-     * Set the value of isCommentable
-     *
-     * @return  self
-     */ 
+     * Set the value of isCommentable.
+     */
     public function setIsCommentable(?bool $isCommentable): self
     {
         $this->isCommentable = $isCommentable;

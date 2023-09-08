@@ -23,7 +23,7 @@ class Unique extends Constraint
 
     public string $field = '';
 
-    public function __construct(string $field, ?string $entityClass = null, ?string $message = null)
+    public function __construct(string $field, string $entityClass = null, string $message = null)
     {
         $this->field = $field;
         $this->entityClass = $entityClass ?? $this->entityClass;

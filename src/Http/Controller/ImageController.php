@@ -28,12 +28,12 @@ class ImageController extends AbstractController
         if (!is_string($resizeKey)) {
             throw new \RuntimeException('Parameter image_resize_key is not a string');
         }
-        $this->cachePath = $projectDir.'/var/images';
-        $this->publicPath = $projectDir.'/public';
+        $this->cachePath = $projectDir . '/var/images';
+        $this->publicPath = $projectDir . '/public';
         $this->resizeKey = $resizeKey;
     }
 
-    #[Route("/media/resize/{width}/{height}/{path}", requirements: ["width" => "\d+", "height" => "\d+", "path" => ".+"], name: "image_resizer")]
+    #[Route('/media/resize/{width}/{height}/{path}', requirements: ['width' => "\d+", 'height' => "\d+", 'path' => '.+'], name: 'image_resizer')]
     public function image(int $width, int $height, string $path, Request $request): Response
     {
         $server = ServerFactory::create([
@@ -57,7 +57,7 @@ class ImageController extends AbstractController
         }
     }
 
-    #[Route("/media/convert/{path}", requirements: ["path" => ".+"], name: "image_jpg")]
+    #[Route('/media/convert/{path}', requirements: ['path' => '.+'], name: 'image_jpg')]
     public function convert(string $path, Request $request): Response
     {
         $server = ServerFactory::create([

@@ -23,7 +23,7 @@ class Attachment implements \Stringable
     private ?string $fileName = '';
 
     /**
-     * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize") 
+     * @Vich\UploadableField(mapping="attachments", fileNameProperty="fileName", size="fileSize")
      */
     #[Vich\UploadableField(mapping: 'attachments', fileNameProperty: 'fileName', size: 'fileSize')]
     private ?File $file = null;
@@ -33,7 +33,6 @@ class Attachment implements \Stringable
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
-
 
     public function getFileName(): string
     {
@@ -87,6 +86,4 @@ class Attachment implements \Stringable
     {
         return $this->fileName;
     }
-
 }
-

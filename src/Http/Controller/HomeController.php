@@ -3,7 +3,6 @@
 namespace App\Http\Controller;
 
 use App\Domain\Blog\Repository\PostRepository;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/', name: 'home_')]

@@ -8,7 +8,6 @@ class ContentDeletedEvent
 {
     public function __construct(private Content $content)
     {
-        
     }
 
     public function getContent(): Content

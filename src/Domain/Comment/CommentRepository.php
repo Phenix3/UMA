@@ -4,10 +4,8 @@ namespace App\Domain\Comment;
 
 use App\Domain\Auth\Entity\User;
 use App\Infrastructure\ORM\AbstractRepository;
-use DateTime;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Uid\Uuid;
 
 /**

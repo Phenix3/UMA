@@ -7,7 +7,6 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class PageVariable
 {
-
     private ?string $title;
 
     private ?string $metaKeywords;
@@ -20,26 +19,26 @@ class PageVariable
 
     public function __construct(
         private UrlMatcherInterface $urlMatcher,
-        private UrlGeneratorInterface $urlGenerator)
-    {
+        private UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
-
     /**
-     * Get the value of title
+     * Get the value of title.
      */
     public function getTitle(): ?string
     {
         if (!$this->title) {
             throw new \RuntimeException("The 'page.title' is not available and should be set");
         }
+
         return $this->title;
     }
 
     /**
-     * Set the value of title
+     * Set the value of title.
      *
-     * @return  self
+     * @return self
      */
     public function setTitle(string $title)
     {
@@ -49,7 +48,7 @@ class PageVariable
     }
 
     /**
-     * Get the value of metaKeywords
+     * Get the value of metaKeywords.
      */
     public function getMetaKeywords()
     {
@@ -57,9 +56,9 @@ class PageVariable
     }
 
     /**
-     * Set the value of metaKeywords
+     * Set the value of metaKeywords.
      *
-     * @return  self
+     * @return self
      */
     public function setMetaKeywords($metaKeywords)
     {
@@ -69,7 +68,7 @@ class PageVariable
     }
 
     /**
-     * Get the value of metaDescription
+     * Get the value of metaDescription.
      */
     public function getMetaDescription()
     {
@@ -77,9 +76,9 @@ class PageVariable
     }
 
     /**
-     * Set the value of metaDescription
+     * Set the value of metaDescription.
      *
-     * @return  self
+     * @return self
      */
     public function setMetaDescription($metaDescription)
     {
@@ -89,9 +88,9 @@ class PageVariable
     }
 
     /**
-     * Set the value of extra
+     * Set the value of extra.
      *
-     * @return  self
+     * @return self
      */
     public function setExtra(array $extra)
     {
@@ -105,17 +104,19 @@ class PageVariable
         $this->extra[$key] = $value;
     }
 
-    public function getExtra(?string $key = null, ?string $default = null): null|string|array
+    public function getExtra(string $key = null, string $default = null): null|string|array
     {
         if ($key) {
             return $this->extra[$key] ?? $default;
         }
+
         return $this->extra;
     }
 
     public function setSubtitle(string $value): self
     {
         $this->addExtra('subtitle', $value);
+
         return $this;
     }
 
@@ -125,7 +126,7 @@ class PageVariable
     }
 
     /**
-     * Get the value of actions
+     * Get the value of actions.
      */
     public function getActions(): array
     {
@@ -133,9 +134,9 @@ class PageVariable
     }
 
     /**
-     * Set the value of actions
+     * Set the value of actions.
      *
-     * @return  self
+     * @return self
      */
     public function setActions(array $actions)
     {
@@ -145,13 +146,9 @@ class PageVariable
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param  string     $key
-     * @param  string     $label
-     * @param  string     $target http link or routeName
-     * @param  array|null $routeParams
-     * @return self
+     * @param string $target http link or routeName
      */
     public function addAction(string $key, string $label, string $target, ?array $routeParams = []): self
     {
@@ -166,9 +163,10 @@ class PageVariable
                 throw $th;
             }
         }
-            
+
         $data['label'] = $label;
         $this->actions[$key] = $data;
+
         return $this;
     }
 }

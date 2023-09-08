@@ -8,11 +8,12 @@ use Prezent\Grid\GridBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-
 class SliderGrid extends BaseGridType
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator){}
-    
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    {
+    }
+
     public function buildGrid(GridBuilder $builder, array $options = []): void
     {
         $builder
@@ -22,33 +23,33 @@ class SliderGrid extends BaseGridType
             ->addAction('items', [
                 'label' => 'ui.buttons.items',
                 'route' => $options['routePrefix'] . '_items',
-				'route_parameters' => [
-					'id' => '{id}'
-				]
+                'route_parameters' => [
+                    'id' => '{id}',
+                ],
                 ])
             ->addAction('edit', [
                 'route' => $options['routePrefix'] . '_edit',
-				'route_parameters' => [
-					'id' => '{id}'
-				]
+                'route_parameters' => [
+                    'id' => '{id}',
+                ],
             ])
             ->addAction('delete', [
                 'route' => $options['routePrefix'] . '_delete',
-				'route_parameters' => [
-					'id' => '{id}'
-				]
+                'route_parameters' => [
+                    'id' => '{id}',
+                ],
             ])
-            
-            ;
+
+        ;
     }
-    
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-			->setRequired('routePrefix')
-			->setAllowedTypes('routePrefix', 'string')
+            ->setRequired('routePrefix')
+            ->setAllowedTypes('routePrefix', 'string')
             /*->setRequired('itemsRoute')
-			->setAllowedTypes('itemsRoute', 'string')*/
-			;
+            ->setAllowedTypes('itemsRoute', 'string')*/
+        ;
     }
 }

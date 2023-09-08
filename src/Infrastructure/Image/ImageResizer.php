@@ -20,7 +20,7 @@ class ImageResizer
     ) {
     }
 
-    public function resize(?string $url, ?int $width = null, ?int $height = null): string
+    public function resize(?string $url, int $width = null, int $height = null): string
     {
         if (null === $url || empty($url)) {
             return '';

@@ -65,7 +65,7 @@ class TwigPaginationExtension extends AbstractExtension
         string $key,
         array $options = [],
         array $params = [],
-        ?string $template = null
+        string $template = null
     ): string {
         return $env->render(
             $template ?: (string) $pagination->getSortableTemplate(),

@@ -14,7 +14,6 @@ use App\Domain\Comment\Comment;
 use App\Domain\Comment\CommentData;
 use App\Http\Api\Processor\CommentProcessor;
 use App\Http\Api\Provider\CommentApiProvider;
-use App\Http\Security\CommentVoter;
 use App\Validator\NotExists;
 // use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -25,10 +24,10 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
     provider: CommentApiProvider::class,
     shortName: 'Comment',
     normalizationContext: [
-        'group' => ['read']
+        'group' => ['read'],
     ],
     denormalizationContext: [
-        'group' => ['write']
+        'group' => ['write'],
     ],
     operations: [
         new GetCollection(),
@@ -41,39 +40,38 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
         new Put(
             processor: CommentProcessor::class,
             security: "is_granted('update', object)"
-        )
+        ),
     ]
 )]
 class CommentResource extends CommentData
 {
-
-    #[Groups(["read"])]
+    #[Groups(['read'])]
     #[ApiProperty(identifier: true)]
     public ?string $id = null;
 
-    #[Groups(["read", "write"])]
-    #[Assert\NotBlank(groups: ["anonymous"], normalizer: "trim")]
-    #[NotExists(groups: ["anonymous"], field: "username", class: User::class, message: "Ce pseudo est utilisé par un utilisateur")]
+    #[Groups(['read', 'write'])]
+    #[Assert\NotBlank(groups: ['anonymous'], normalizer: 'trim')]
+    #[NotExists(groups: ['anonymous'], field: 'username', class: User::class, message: 'Ce pseudo est utilisé par un utilisateur')]
     public ?string $username = null;
 
-    #[Assert\NotBlank(normalizer: "trim")]
-    #[Groups(["read", "write"])]
-    #[Assert\Length(min: 4, normalizer: "trim")]
+    #[Assert\NotBlank(normalizer: 'trim')]
+    #[Groups(['read', 'write'])]
+    #[Assert\Length(min: 4, normalizer: 'trim')]
     public string $content = '';
 
-    #[Groups(["read"])]
+    #[Groups(['read'])]
     public string $html = '';
 
-    #[Groups(["read"])]
+    #[Groups(['read'])]
     public ?string $avatar = null;
 
-    #[Groups(["write"])]
+    #[Groups(['write'])]
     public ?string $target = null;
 
-    #[Groups(["read"])]
+    #[Groups(['read'])]
     public int $createdAt = 0;
 
-    #[Groups(["read", 'write'])]
+    #[Groups(['read', 'write'])]
     public ?string $parent = null;
 
     /**
@@ -81,10 +79,10 @@ class CommentResource extends CommentData
      */
     public ?Comment $entity = null;
 
-    #[Groups(["read"])]
+    #[Groups(['read'])]
     public ?string $userId = null;
 
-    public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): CommentResource
+    public static function fromComment(Comment $comment, UploaderHelper $uploaderHelper = null): CommentResource
     {
         $resource = new self();
         $author = $comment->getAuthor();

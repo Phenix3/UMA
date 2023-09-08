@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Application\Entity\Traits;
@@ -17,9 +18,6 @@ trait ToggleableTrait
         return $this->enabled;
     }
 
-    /**
-     * @param bool $enabled
-     */
     public function setEnabled(?bool $enabled): void
     {
         $this->enabled = (bool) $enabled;

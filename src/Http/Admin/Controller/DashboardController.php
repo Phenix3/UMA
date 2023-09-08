@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Admin\Controller;
 
@@ -11,10 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response 
+    public function index(): Response
     {
         $this->pageVariable
             ->setTitle('Admin Dashboard');
+
         return $this->render('admin/dashboard/index.html.twig');
     }
 }

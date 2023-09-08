@@ -21,6 +21,18 @@
     "apy/breadcrumbtrail-bundle": {
         "version": "v1.9.0"
     },
+    "dama/doctrine-test-bundle": {
+        "version": "7.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "2c920f73a217f30bd4a37833c91071f4d3dc1ecd"
+        },
+        "files": [
+            "config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -66,6 +78,18 @@
             "ref": "b131e6cbfe1b898a508987851963fff485986285"
         }
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.25",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
+    },
     "hautelook/alice-bundle": {
         "version": "2.11",
         "recipe": {
@@ -78,6 +102,9 @@
             "config/packages/hautelook_alice.yaml",
             "fixtures/.gitignore"
         ]
+    },
+    "knplabs/doctrine-behaviors": {
+        "version": "dev-master"
     },
     "knplabs/knp-paginator-bundle": {
         "version": "v6.0.0"
@@ -146,6 +173,18 @@
             "config/routes/dev/pentatrion_vite.yaml"
         ]
     },
+    "phpstan/phpstan": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "d74d4d719d5f53856c9c13544aa22d44144b1819"
+        },
+        "files": [
+            "phpstan.neon"
+        ]
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {
@@ -173,6 +212,18 @@
         },
         "files": [
             "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        },
+        "files": [
+            "phpcs.xml.dist"
         ]
     },
     "stof/doctrine-extensions-bundle": {
@@ -262,6 +313,15 @@
         "files": [
             "config/packages/messenger.yaml"
         ]
+    },
+    "symfony/panther": {
+        "version": "2.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "292a3236e81f55b545b09b9954ab097248972ab3"
+        }
     },
     "symfony/phpunit-bridge": {
         "version": "6.2",
@@ -471,6 +531,18 @@
         },
         "files": [
             "config/packages/vich_uploader.yaml"
+        ]
+    },
+    "zenstruck/foundry": {
+        "version": "1.35",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.10",
+            "ref": "37c2f894cc098ab4c08874b80cccc8e2f8de7976"
+        },
+        "files": [
+            "config/packages/zenstruck_foundry.yaml"
         ]
     }
 }

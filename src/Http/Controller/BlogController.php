@@ -43,11 +43,12 @@ class BlogController extends AbstractController
     {
         // dump($count, $layout);
         $tpl = 'front/';
-        if ($layout === 'blog_show') {
+        if ('blog_show' === $layout) {
             $tpl .= 'blog/_posts_latest.html.twig';
         } else {
             $tpl .= 'home/_posts_latest.html.twig';
         }
+
         return $this->render($tpl, [
             'recentPosts' => $this->postRepository->findRecent($count),
         ]);
@@ -58,6 +59,7 @@ class BlogController extends AbstractController
     {
         $title = $category->getName();
         $query = $this->postRepository->queryAll($category);
+
         return $this->renderListing($query, $request, ['category' => $category]);
     }
 
@@ -67,18 +69,12 @@ class BlogController extends AbstractController
     {
         return $this->render('front/blog/show.html.twig', [
             'post' => $post,
-            'recentPosts' => $this->postRepository->findRecent(3)
+            'recentPosts' => $this->postRepository->findRecent(3),
         ]);
     }
 
     /**
-     * Undocumented function
-     *
-     * @param string $title
-     * @param Query $query
-     * @param Request $request
-     * @param array $params
-     * @return Response
+     * Undocumented function.
      */
     private function renderListing(Query $query, Request $request, array $params = []): Response
     {
@@ -89,12 +85,11 @@ class BlogController extends AbstractController
             10
         );
 
-
         /* if ($page > 1) {
             $title .= ", page {$page}";
         } */
         if (0 === $posts->count()) {
-            throw new NotFoundHttpException("No post corresponding to this page");
+            throw new NotFoundHttpException('No post corresponding to this page');
         }
 
         $categories = $this->categoryRepository->findWithCount();

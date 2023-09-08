@@ -77,10 +77,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param  self $user
-     * @return boolean
+     * @param self $user
      */
     public function isEqualTo(UserInterface $user): bool
     {
@@ -120,7 +119,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
 
         return $this;
     }
-
 
     public function getCurrentPassword(): ?string
     {

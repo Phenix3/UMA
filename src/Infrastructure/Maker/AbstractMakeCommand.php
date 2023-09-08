@@ -39,10 +39,10 @@ abstract class AbstractMakeCommand extends Command
             $directory = "{$this->projectDir}/src";
             $pattern = $pattern;
         } else {
-            $directory = "{$this->projectDir}/src/".join('/', array_slice($paths, 0, -1));
+            $directory = "{$this->projectDir}/src/" . join('/', array_slice($paths, 0, -1));
             $pattern = join('/', array_slice($paths, -1));
         }
-        $files = (new Finder())->in($directory)->name($pattern.'.php')->files();
+        $files = (new Finder())->in($directory)->name($pattern . '.php')->files();
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
             $filename = str_replace('.php', '', $file->getBasename());

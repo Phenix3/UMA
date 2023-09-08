@@ -10,12 +10,15 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class SliderComponent
 {
     public string $slug;
-    
-    public function __construct(private EntityManagerInterface $manager) {}
-    
+
+    public function __construct(private EntityManagerInterface $manager)
+    {
+    }
+
     public function getSlider()
     {
         $repo = $this->manager->getRepository(Slider::class);
+
         return $repo->findWithItemsBy(['slug' => $this->slug]);
     }
 }

@@ -21,8 +21,6 @@ class TwigRepositoryExtension extends AbstractExtension
 
     /**
      * @param class-string<object> $repositoryClass
-     *
-     * @return mixed
      */
     public function repositoryCall(string $repositoryClass, string $method, array $params = [])
     {

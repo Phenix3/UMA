@@ -15,20 +15,21 @@ class SecurityController extends BaseController
     {
         if ($this->getUser()) {
             $this->addFlash('danger', 'alerts.already_logged_in');
+
             return $this->redirect('/');
         }
 
         $this->pageVariable
             ->setTitle('Login');
+
         return $this->render('front/security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
-            'error' => $authenticationUtils->getLastAuthenticationError()
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 
     #[Route('/logout', 'logout')]
     public function logout()
     {
-        
     }
 }

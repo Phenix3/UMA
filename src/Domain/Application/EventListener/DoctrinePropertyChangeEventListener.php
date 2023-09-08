@@ -9,7 +9,6 @@ class DoctrinePropertyChangeEventListener
 {
     public function __construct(private array $listeners, private PropertyAccessorInterface $propertyAccessor)
     {
-        
     }
 
     public function prePersist($entity)

@@ -14,18 +14,18 @@ trait HasSeoMetaTrait
     private ?string $metaDescription = '';
 
     /**
-     * Get the value of metaKeywords
-     */ 
+     * Get the value of metaKeywords.
+     */
     public function getMetaKeywords(): ?string
     {
         return $this->metaKeywords;
     }
 
     /**
-     * Set the value of metaKeywords
+     * Set the value of metaKeywords.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setMetaKeywords(?string $metaKeywords)
     {
         $this->metaKeywords = $metaKeywords;
@@ -34,18 +34,18 @@ trait HasSeoMetaTrait
     }
 
     /**
-     * Get the value of metaDescription
-     */ 
+     * Get the value of metaDescription.
+     */
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
     }
 
     /**
-     * Set the value of metaDescription
+     * Set the value of metaDescription.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setMetaDescription(?string $metaDescription)
     {
         $this->metaDescription = $metaDescription;

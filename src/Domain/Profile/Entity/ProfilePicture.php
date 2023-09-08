@@ -9,8 +9,6 @@ use App\Domain\Application\Entity\Traits\TimestampableTrait;
 use App\Domain\Auth\Entity\Traits\BlameableTrait;
 use App\Domain\Profile\Repository\ProfilePictureRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,7 +56,7 @@ class ProfilePicture implements ImageUploadInterface
         return $this->file;
     }
 
-    public function setFile(?File $file = null): static
+    public function setFile(File $file = null): static
     {
         $this->file = $file;
 

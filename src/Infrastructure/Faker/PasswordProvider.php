@@ -8,15 +8,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordProvider extends BaseProvider
 {
-
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
-        
     }
 
     public function password(string $plainPassword)
     {
         return $this->passwordHasher->hashPassword(new User(), $plainPassword);
     }
-
 }

@@ -1,0 +1,6 @@
+# knp_doctrine_behaviors:
+#     blameable:      false
+#     geocodable:     ~     # Here null is converted to false
+#     loggable:       ~
+#     sluggable:      false
+#     soft_deletable: false

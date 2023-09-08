@@ -58,8 +58,6 @@ class CommentApiProvider implements ProviderInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param int|array $id
      */
     public function getItem(

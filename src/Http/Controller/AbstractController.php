@@ -8,8 +8,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Messenger\Envelope;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -39,7 +37,6 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
         }
         $this->addFlash('error', implode("\n", $messages));
     }
-
 
     protected function getUserOrThrow(): User
     {

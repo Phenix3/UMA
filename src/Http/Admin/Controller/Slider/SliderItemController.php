@@ -6,6 +6,7 @@ use App\Domain\Slider\Entity\Slider;
 use App\Domain\Slider\Entity\SliderItem;
 use App\Http\Admin\Controller\CrudController;
 use App\Http\Admin\Data\SliderItemCrudData;
+use App\Http\Admin\Form\SliderItemForm;
 use App\Http\Grid\Slider\SliderItemGrid;
 use Prezent\Grid\GridFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route("/slider/slider-items", name: "slider_slider_item_")]
+#[Route('/slider/slider-items', name: 'slider_slider_item_')]
 class SliderItemController extends CrudController
 {
     protected string $templatePath = 'slider/slider_items';
@@ -23,13 +24,13 @@ class SliderItemController extends CrudController
     protected string $routePrefix = 'admin_slider_slider_item';
     protected string $searchField = 'name';
 
-    #[Route("/", name: "index")]
+    #[Route('/', name: 'index')]
     public function index(GridFactory $gridFactory): Response
     {
         $query = $this->getRepository()
             ->createQueryBuilder('row')
             ->orderBy('row.id', 'DESC')
-            ;
+        ;
         $grid = $gridFactory->createGrid(SliderItemGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
 
@@ -38,11 +39,10 @@ class SliderItemController extends CrudController
             ->setSubtitle('La liste de tous les elements d\'un slider')
             ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_new');
 
-
         return $this->crudIndex($query);
     }
 
-    #[Route("/new/{slider_id?}", name: "new")]
+    #[Route('/new/{slider_id?}', name: 'new')]
     #[ParamConverter('slider', Slider::class, options: ['id' => 'slider_id'])]
     public function new(Request $request, Slider $slider = null): Response
     {
@@ -53,48 +53,60 @@ class SliderItemController extends CrudController
         $data = new SliderItemCrudData($sliderItem);
         $form = $this->createForm($data->getFormClass(), $sliderItem);
         $form->handleRequest($request);
-        
-        if($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($sliderItem);
             $this->em->flush();
             if ($this->events['create'] ?? null) {
                 $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
             }
-            
+
             $this->addFlash('success', 'Le contenu a bien été créé');
-            
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $sliderItem->getId()]);
+
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $sliderItem->getId()]);
         }
 
-        
         $this->pageVariable
            ->setTitle('Add new Slider Item')
            ->setSubtitle('La liste de tous les elements d\'un slider')
            ->addAction('slider_item_list', 'Add Slider', 'admin_slider_slider_item_index');
 
-
         return $this->render('admin/slider/slider_items/new.html.twig', compact('form', 'sliderItem'));
     }
 
-    #[Route("/{id}", name: "delete", methods: ["DELETE"])]
+    #[Route('/{id}', name: 'delete', methods: ['DELETE'])]
     #[Entity('item', class: SliderItem::class, expr: 'repository.find(id)')]
     public function delete(SliderItem $item): Response
     {
         return $this->crudDelete($item);
     }
 
-    #[Route("/{id}", name: "edit")]
+    #[Route('/{id}/edit', name: 'edit')]
     #[Entity('sliderItem', expr: 'repository.find(id)')]
-    public function edit(SliderItem $sliderItem): Response
+    public function edit(Request $request, SliderItem $sliderItem): Response
     {
+        $form = $this->createForm(SliderItemForm::class, $sliderItem);
+
         $data = new SliderItemCrudData($sliderItem);
+        $form = $this->createForm($data->getFormClass(), $sliderItem);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->flush();
+            if ($this->events['create'] ?? null) {
+                $this->dispatcher->dispatch(new $this->events['create']($data->getEntity()));
+            }
+
+            $this->addFlash('success', 'Le contenu a bien été créé');
+
+            return $this->redirectToRoute($this->routePrefix . '_index');
+        }
 
         $this->pageVariable
            ->setTitle('Edit Slider Item')
            ->setSubtitle('La liste de tous les elements d\'un slider')
            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index');
 
-
-        return $this->crudEdit($data);
+        return $this->render('admin/slider/slider_items/edit.html.twig', compact('form', 'sliderItem'));
     }
 }

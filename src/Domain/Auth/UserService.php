@@ -11,9 +11,7 @@ class UserService
     public function __construct(
         private UserRepository $repository,
         private UserPasswordHasherInterface $passwordHasher
-    )
-    {
-        
+    ) {
     }
 
     public function create(User $user)

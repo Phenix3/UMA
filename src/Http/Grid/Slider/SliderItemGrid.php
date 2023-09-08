@@ -2,11 +2,11 @@
 
 namespace App\Http\Grid\Slider;
 
-use Prezent\Grid\BaseGridType;
-use Prezent\Grid\GridBuilder;
-use Prezent\Grid\Extension\Core\Type\StringType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Http\Grid\Type\ImageType;
+use Prezent\Grid\BaseGridType;
+use Prezent\Grid\Extension\Core\Type\StringType;
+use Prezent\Grid\GridBuilder;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SliderItemGrid extends BaseGridType
 {
@@ -19,25 +19,25 @@ class SliderItemGrid extends BaseGridType
             ->addColumn('image', ImageType::class)
             ->addAction('edit', [
                 'route' => $options['routePrefix'] . '_edit',
-				'route_parameters' => [
-					'id' => '{id}'
-				]
+                'route_parameters' => [
+                    'id' => '{id}',
+                ],
             ])
             ->addAction('delete', [
                 'route' => $options['routePrefix'] . '_delete',
-				'route_parameters' => [
-					'id' => '{id}'
-				]
+                'route_parameters' => [
+                    'id' => '{id}',
+                ],
             ])
-            
-            ;
+
+        ;
     }
-    
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
-			->setRequired('routePrefix')
-			->setAllowedTypes('routePrefix', 'string')
-			;
+            ->setRequired('routePrefix')
+            ->setAllowedTypes('routePrefix', 'string')
+        ;
     }
 }

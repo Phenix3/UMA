@@ -6,13 +6,11 @@ use App\Domain\Blog\Entity\Category;
 use App\Domain\Blog\Entity\Post;
 use App\Infrastructure\ORM\AbstractRepository;
 use App\Infrastructure\ORM\IterableQueryBuilder;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 class PostRepository extends AbstractRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
@@ -43,19 +41,18 @@ class PostRepository extends AbstractRepository
             ->setMaxResults($limit);
     }
 
-    public function queryAll(?Category $category = null): Query
+    public function queryAll(Category $category = null): Query
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
             ->where('p.createdAt < NOW()')
             ->orderBy('p.createdAt', 'DESC')
-            ;
-            if ($category) {
-                $query = $query->andWhere('p.categories IN (:categories)')
-                    ->setParameter('categories', [$category]);
-            }
+        ;
+        if ($category) {
+            $query = $query->andWhere('p.categories IN (:categories)')
+                ->setParameter('categories', [$category]);
+        }
 
         return $query->getQuery();
     }
-
 }

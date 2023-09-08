@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domain\Auth\Security;
 
 use App\Domain\Auth\Entity\User;

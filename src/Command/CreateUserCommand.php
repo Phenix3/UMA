@@ -25,18 +25,15 @@ class CreateUserCommand extends Command
 
     protected function configure(): void
     {
-        
         $this
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
             ->addArgument('password', InputArgument::REQUIRED, 'User password')
             ->addArgument('username', InputArgument::REQUIRED, 'User username')
             ->addOption('admin', null, InputOption::VALUE_NONE, 'Make the user as administrator');
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
         $password = $input->getArgument('password');
@@ -58,6 +55,5 @@ class CreateUserCommand extends Command
         $io->success('The User has been created with email: ' . $email);
 
         return Command::SUCCESS;
-
     }
 }

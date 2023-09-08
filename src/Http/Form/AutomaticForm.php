@@ -11,12 +11,9 @@ use App\Http\Admin\Form\Field\UserChoiceType;
 use App\Http\Type\DateTimeType;
 use App\Http\Type\EditorType;
 use App\Http\Type\SwitchType;
-use DateTimeInterface;
-use ReflectionClass;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,7 +35,7 @@ class AutomaticForm extends AbstractType
         'float' => NumberType::class,
         Attachment::class => AttachmentType::class,
         User::class => UserChoiceType::class,
-        DateTimeInterface::class => DateTimeType::class,
+        \DateTimeInterface::class => DateTimeType::class,
         UploadedFile::class => VichFileType::class,
     ];
 
@@ -60,7 +57,7 @@ class AutomaticForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $data = $options['data'];
-        $refClass = new ReflectionClass($data);
+        $refClass = new \ReflectionClass($data);
         $classProperties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
         foreach ($classProperties as $property) {
             $name = $property->getName();
@@ -80,8 +77,8 @@ class AutomaticForm extends AbstractType
                     'required' => true,
                     'choices' => array_flip([]),
                 ]);
-            // Input spécifique au nom du champs
-            } elseif ($name === 'image') {
+                // Input spécifique au nom du champs
+            } elseif ('image' === $name) {
                 $builder->add('image', AttachmentType::class, [
                     'required' => false,
                 ]);

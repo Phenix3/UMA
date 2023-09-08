@@ -13,7 +13,6 @@ class ExistsValidator extends ConstraintValidator
     }
 
     /**
-     * @param mixed  $value
      * @param Exists $constraint
      */
     public function validate($value, Constraint $constraint): void

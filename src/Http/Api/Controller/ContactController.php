@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Api\Controller;
 
@@ -15,14 +17,13 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class ContactController extends AbstractController
 {
-    #[Route("/contact", name: "api_contact", methods: ['POST'])]
+    #[Route('/contact', name: 'api_contact', methods: ['POST'])]
     public function create(
         DenormalizerInterface $denormalizer,
         ValidatorInterface $validator,
         ContactService $contactService,
         Request $request
-    ): JsonResponse 
-    {
+    ): JsonResponse {
         $data = json_decode((string) $request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         $contactData = $denormalizer->denormalize($data, ContactData::class);

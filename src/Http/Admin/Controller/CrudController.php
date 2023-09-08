@@ -81,17 +81,17 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
 
-            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
         }
 
-        return $this->renderForm("admin/{$this->templatePath}/edit.html.twig", [
+        return $this->render("admin/{$this->templatePath}/edit.html.twig", [
             'form' => $form,
             'entity' => $data->getEntity(),
             'menu' => $this->menuItem,
         ]);
     }
 
-    public function crudNew(CrudDataInterface $data, ?string $redirectRoute = null): Response
+    public function crudNew(CrudDataInterface $data, string $redirectRoute = null): Response
     {
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
@@ -108,7 +108,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_edit'), ['id' => $entity->getId()]);
+            return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_edit'), ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
@@ -118,7 +118,7 @@ abstract class CrudController extends BaseController
         ]);
     }
 
-    public function crudDelete(object $entity, ?string $redirectRoute = null): RedirectResponse
+    public function crudDelete(object $entity, string $redirectRoute = null): RedirectResponse
     {
         $this->em->remove($entity);
         if ($this->events['delete'] ?? null) {
@@ -127,7 +127,7 @@ abstract class CrudController extends BaseController
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
 
-        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_index'));
+        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_index'));
     }
 
     public function getRepository(): EntityRepository
@@ -142,6 +142,6 @@ abstract class CrudController extends BaseController
     {
         return $query
             ->where("LOWER(row.{$this->searchField}) LIKE :search")
-            ->setParameter('search', '%'.strtolower($search).'%');
+            ->setParameter('search', '%' . strtolower($search) . '%');
     }
 }

@@ -200,15 +200,23 @@ npm-watch: ## Watch assets.
 .PHONY: npm-watch
 #---------------------------------------------#
 
-
-## === 🔎  TESTS =================================================
-tests: ## Run tests.
-	$(PHPUNIT) --testdox
+tests:
+	symfony console doctrine:database:drop --if-exists --force --env=test || true
+	symfony console doctrine:database:create --env=test
+	symfony console doctrine:schema:update --complete  --force --env=test
+# symfony console doctrine:fixtures:load -n --env=test
+	symfony php vendor/bin/pest
 .PHONY: tests
 
-tests-coverage: ## Run tests with coverage.
-	$(PHPUNIT) --coverage-html var/coverage
-.PHONY: tests-coverage
+
+## === 🔎  TESTS =================================================
+# tests: ## Run tests.
+# 	$(PHPUNIT) --testdox
+# .PHONY: tests
+
+# tests-coverage: ## Run tests with coverage.
+# 	$(PHPUNIT) --coverage-html var/coverage
+# .PHONY: tests-coverage
 #---------------------------------------------#
 
 reset-db: ## Reset database.
