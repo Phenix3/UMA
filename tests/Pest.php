@@ -15,6 +15,7 @@ use App\Tests\WebTestCase;
 use PHPUnit\Framework\TestCase;
 
 uses(WebTestCase::class)->in('Feature');
+uses(WebTestCase::class)->in('Http');
 uses(TestCase::class)->in('Unit/*/*.php');
 
 /*

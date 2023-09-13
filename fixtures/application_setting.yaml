@@ -8,3 +8,9 @@ App\Domain\Application\Entity\Setting:
   site_adress:
    keyName: 'site_adress'
    value: 'Kongola, Maroua, Cameroun, 2013 MRA CMR'
+  site_phone_1:
+   keyName: 'site_phone_1'
+   value: '+237600000000'
+  site_phone_2:
+   keyName: 'site_phone_2'
+   value: '+237600000000'

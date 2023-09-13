@@ -20,6 +20,7 @@
         "illuminate/collections": "^9.45",
         "intervention/image": "^2.7",
         "knplabs/doctrine-behaviors": "dev-master",
+        "knplabs/knp-menu-bundle": "^3.2",
         "knplabs/knp-paginator-bundle": "^6.0",
         "league/commonmark": "^2.4",
         "league/glide": "^2.2",

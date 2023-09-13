@@ -1,8 +1,5 @@
-
 {% extends 'admin/base.html.twig' %}
 
-
 {% block content %}
-  {% include 'admin/slider/slider_items/_form.html.twig' %}
+	{% include 'admin/pages/_form.html.twig' with {form} only %}
 {% endblock %}
-

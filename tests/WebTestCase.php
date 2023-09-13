@@ -2,20 +2,22 @@
 
 namespace App\Tests;
 
-use App\Domain\Auth\User;
+use App\Domain\Auth\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
+    use FixturesTrait;
+
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->client = self::createClient();
+        $this->client = self::createClient([], ['HTTP_HOST' => '127.0.0.1:8000']);
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $this->em = $em;
@@ -89,7 +91,7 @@ class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
     {
         $crawler = $this->client->getCrawler();
         $this->assertEquals(
-            $title . ' | UMA',
+            $title . ' | ' . $_ENV['APP_NAME'],
             $crawler->filter('title')->text(),
             '<title> missmatch',
         );

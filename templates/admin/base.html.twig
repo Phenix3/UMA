@@ -2,7 +2,7 @@
 <html class="js">
 	<head>
 		<title>
-			{{ page.title }}
+			{{ global_page.title }}
 			| UMA
 		</title>
 		{{ encore_entry_link_tags('app') }}
@@ -28,19 +28,19 @@
 											<div class="nk-block-between">
 												<div class="nk-block-head-content">
 													<h3 class="nk-block-title page-title">
-														{{ page.title }}
+														{{ global_page.title }}
 													</h3>
 													<div class="nk-block-des text-soft">
 														<p>
-															{{ page.subtitle ?? '' }}
+															{{ global_page.subtitle ?? '' }}
 														</p>
 													</div>
 												</div>
 												<!-- .nk-block-head-content -->
-												{% if page.actions is not empty %}
+												{% if global_page.actions is not empty %}
 													<div class="nk-block-head-content">
 														<ul class="nk-block-tools g-3">
-															{% for k, v in page.actions %}
+															{% for k, v in global_page.actions %}
 																<li class="nk-block-tools-opt">
 																	<a href="{{ v.target }}" class="btn btn-icon btn-primary d-md-none">
 																		<em class="icon ni ni-plus"></em>
@@ -69,7 +69,7 @@
 									<div class="nk-block">
 										<div class="card card-bordered card-stretch">
 											<div class="card-inner-group">
-												{% if page.actions %}
+												{% if global_page.actions %}
 													<div class="card-inner position-relative card-tools-toggle">
 														<div class="card-search search-wrap" data-search="search">
 															<div class="card-body">
@@ -102,8 +102,8 @@
 
 			{{ encore_entry_script_tags('app') }}
 			{{ encore_entry_script_tags('app-admin') }}
-<script type="text/javascript" src="{{ asset('assets/js/bundle.js?ver=3.1.0') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/scripts.js?ver=3.1.0') }}"></script>
+            <script type="text/javascript" src="{{ asset('assets/js/bundle.js?ver=3.1.0') }}"></script>
+			<script type="text/javascript" src="{{ asset('assets/js/scripts.js?ver=3.1.0') }}"></script>
 			{% block js %}
 			{% endblock %}
 

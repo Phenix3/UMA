@@ -43,7 +43,7 @@ class PostController extends CrudController
 
         $this->pageVariable
             ->setTitle('Add List')
-            ->setSubtitle('Input new Patient information carefully.')
+            ->setSubtitle('Input new post information carefully.')
             ->addAction('add_post', 'Add List', 'admin_blog_post_index');
 
         return $this->crudNew($data);

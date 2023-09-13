@@ -105,7 +105,13 @@ class SliderItemController extends CrudController
         $this->pageVariable
            ->setTitle('Edit Slider Item')
            ->setSubtitle('La liste de tous les elements d\'un slider')
-           ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index');
+           ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index')
+           ->addAction(
+               'slider_item_new',
+               'Add Slider Item',
+               'admin_slider_slider_item_new',
+               ['slider_id' => $sliderItem->getSlider()->getId()]
+           );
 
         return $this->render('admin/slider/slider_items/edit.html.twig', compact('form', 'sliderItem'));
     }

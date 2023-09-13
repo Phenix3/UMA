@@ -17,7 +17,8 @@ class TwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('icon', [$this, 'svgIcon'], ['is_safe' => ['html']]),
+            new TwigFunction('active_locale', [$this, 'activeLocale'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new TwigFunction('isoToEmoji', [$this, 'isoToEmoji'], ['is_safe' => ['html']]),
             new TwigFunction('menu_active', [$this, 'menuActive'], ['is_safe' => ['html'], 'needs_context' => true]),
         ];
     }
@@ -25,16 +26,24 @@ class TwigExtension extends AbstractExtension
     /**
      * Génère le code HTML pour une icone SVG.
      */
-    public function svgIcon(string $name, int $size = null): string
+    public function activeLocale(array $context, string $locale): string
     {
-        $attrs = '';
-        if ($size) {
-            $attrs = " width=\"{$size}px\" height=\"{$size}px\"";
-        }
+        /** @var Request $request */
+        $request = $context['app']->getRequest();
+        $requestLocale = $request->getLocale();
 
-        return <<<HTML
-        <em class="{$name}"{$attrs}></em>
-        HTML;
+        return $locale === $requestLocale ? ' active ' : '';
+    }
+
+    public function isoToEmoji(string $code)
+    {
+        return implode(
+            '',
+            array_map(
+                fn ($letter) => mb_chr(ord($letter) % 32 + 0x1F1E5),
+                str_split($code)
+            )
+        );
     }
 
     private function matchRoute(Request $request, array $patterns)
@@ -57,11 +66,6 @@ class TwigExtension extends AbstractExtension
          }
 */
         // return '';
-    }
-
-    private function isPath($paths)
-    {
-        return $this->is($paths);
     }
 
     private function isRoute()

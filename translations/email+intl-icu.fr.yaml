@@ -1,0 +1,6 @@
+registration_confirmation:
+    subject: __registration_confirmation.subject
+reset_password:
+    subject: __reset_password.subject
+account_deletion:
+    subject: __account_deletion.subject

@@ -2,7 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
         enabled_locales: '%kernel.enabled_locales%'
-        page: '@App\Http\Twig\PageVariable'
+        global_page: '@App\Http\Twig\PageVariable'
 
     form_themes: ['bootstrap_5_layout.html.twig']
 

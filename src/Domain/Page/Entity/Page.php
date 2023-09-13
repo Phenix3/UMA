@@ -6,13 +6,16 @@ use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Page\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
+
+use function Symfony\Component\String\u;
+
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-
-use function Symfony\Component\String\u;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @method PageTranslation translate()
@@ -20,21 +23,29 @@ use function Symfony\Component\String\u;
 #[ORM\Entity(repositoryClass: PageRepository::class)]
 #[ORM\Table('`page_pages`')]
 #[Gedmo\TranslationEntity(class: PageTranslation::class)]
+#[Gedmo\SoftDeleteable()]
 class Page implements TranslatableInterface
 {
     use IdentifiableTrait;
     use TimestampableEntity;
     use ToggleableTrait;
     use TranslatableTrait;
+    use SoftDeleteableEntity;
+
+    #[Assert\Valid()]
+    protected $translations;
 
     public function __call($method, $arguments)
     {
-        echo $method;
-
         if (u($method)->startsWith('set')) {
             return PropertyAccess::createPropertyAccessor()->setValue($this->translate(), $method, $arguments);
         }
 
         return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $method);
+    }
+
+    public function __get($name)
+    {
+        return PropertyAccess::createPropertyAccessor()->getValue($this->translate(), $name);
     }
 }

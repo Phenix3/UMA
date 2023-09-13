@@ -28,6 +28,13 @@ import 'froala-editor/css/themes/royal.min.css';
 
 export default class WysiwygEditor extends HTMLTextAreaElement {
     connectedCallback() {
-        new FroalaEditor(this);
+        this.instance = new FroalaEditor(this, {
+            fullPage: this.dataset.fullPage ? true : false,
+            charCounterCount: true
+        });
+    }
+
+    disconnectedCallback() {
+        this.instance?.destroy();
     }
 }

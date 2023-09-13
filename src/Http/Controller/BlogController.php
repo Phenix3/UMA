@@ -15,7 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/blog', name: 'blog_')]
+#[Route([
+    'fr' => 'blog',
+    'en' => 'news'
+], name: 'blog_')]
 class BlogController extends AbstractController
 {
     public function __construct(
@@ -63,7 +66,7 @@ class BlogController extends AbstractController
         return $this->renderListing($query, $request, ['category' => $category]);
     }
 
-    #[Route('/{slug<[a-z0-9\-.]+>}', name: 'show')]
+    #[Route('/{slug<[a-z0-9\-]+>}', name: 'show')]
     #[IsGranted('show', subject: 'post')]
     public function show(Post $post): Response
     {

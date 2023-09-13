@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as BaseKernelTestCase;
 
 class KernelTestCase extends BaseKernelTestCase
 {
+    use FixturesTrait;
+
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 

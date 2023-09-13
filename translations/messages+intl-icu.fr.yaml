@@ -1,0 +1,37 @@
+ui:
+    menu:
+        users: Utilisateurs
+        agencies: Agences
+        buses: 'Les bus'
+        agency_paths: "Trajets d'agence"
+        paths: Trajets
+        info_state: "Infos d'etat"
+        info_contact: 'Infos de contact'
+        info_general: 'Infos generale'
+    buttons:
+        save: Sauvegarder
+        items: Elements
+    forms:
+        email: 'Adresse E-mail'
+    posts: Articles
+    posts_list: 'Lite des articles'
+    new_post: 'Creer un article'
+    blog: Blog
+    posts_add: Ajouter un article
+    categories_list: Liste des categories
+    pages: Pages
+    pages_add: Ajouter une page
+    pages_list: Liste des pages
+    sliders: Sliders
+    sliders_list: Liste des sliders
+    add_slider: Ajouter un slider
+    add_slider_item: Ajouter un element
+    logout: Deconnexion
+    login: Login
+    contact_us: Contactez nous
+    home: Accueil
+    contact: Contact
+edit: Modifier
+delete: Supprimer
+id: ID
+title: Titre

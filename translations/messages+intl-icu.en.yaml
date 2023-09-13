@@ -1,0 +1,17 @@
+ui:
+    blog: News
+    posts_add: Add new post
+    posts_list: Posts list
+    categories_list: Categories list
+    pages: Pages
+    pages_add: Add new page
+    pages_list: Pages list
+    sliders: Sliders
+    sliders_list: Sliders list
+    add_slider: Add slider
+    add_slider_item: Add slider item
+    logout: Logout
+    login: Sign in
+    contact_us: Contact us
+    home: Home
+    contact: Contact

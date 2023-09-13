@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+{% set app_locale = app.request.attributes.get('_locale') %}
+<html lang="{{ app_locale }}"></html>
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>
-			{% block title page.title|trans  %}
+			{% block title global_page.title|trans  %}
 			| UMA
 		</title>
-
-
 		{% block css %}
 			{{ encore_entry_link_tags('app') }}
 			{{ encore_entry_link_tags('app-front') }}
@@ -18,7 +17,7 @@
 
 	</head>
 	<body>
-		{% include "front/includes/_header.html.twig" %}
+        {% include "front/includes/_header.html.twig" with {app_locale} %}
 		<main>
 
 			{% block body %}
