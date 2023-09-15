@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Profile\Entity;
 
 use App\Domain\Application\Entity\ImageUploadInterface;
@@ -19,9 +21,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class ProfilePicture implements ImageUploadInterface
 {
-    use IdentifiableTrait;
     use BlameableTrait;
     use FilePropertiesTrait;
+    use IdentifiableTrait;
     use TimestampableTrait;
 
     #[Vich\UploadableField(

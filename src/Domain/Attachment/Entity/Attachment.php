@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
@@ -34,6 +36,11 @@ class Attachment implements \Stringable
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $createdAt;
 
+    public function __toString(): string
+    {
+        return $this->fileName;
+    }
+
     public function getFileName(): string
     {
         return $this->fileName;
@@ -63,7 +70,7 @@ class Attachment implements \Stringable
         return $this->file;
     }
 
-    public function setFile(?File $file): Attachment
+    public function setFile(?File $file): self
     {
         $this->file = $file;
 
@@ -75,15 +82,10 @@ class Attachment implements \Stringable
         return $this->fileSize;
     }
 
-    public function setFileSize(?int $fileSize): Attachment
+    public function setFileSize(?int $fileSize): self
     {
         $this->fileSize = $fileSize ?: 0;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->fileName;
     }
 }

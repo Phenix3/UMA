@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application;
 
 use App\Domain\Application\Entity\Setting;
@@ -10,9 +12,10 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class SettingManager
 {
-    public function __construct(private EntityManagerInterface $entityManager, private EventDispatcherInterface $eventDispatcher)
-    {
-    }
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private EventDispatcherInterface $eventDispatcher
+    ) {}
 
     public function get(string $keyName, string $default = null): ?string
     {
@@ -21,13 +24,14 @@ class SettingManager
         return null === $setting ? $default : $setting->getValue();
     }
 
-    public function set(string $keyName, string $value)
+    public function set(string $keyName, string $value): void
     {
         $setting = $this->entityManager->getRepository(Setting::class)->find($keyName);
         if (null === $setting) {
             $setting = (new Setting())
                 ->setKeyName($keyName)
-                ->setValue($value);
+                ->setValue($value)
+            ;
             $this->entityManager->persist($setting);
         } else {
             $setting->setValue($value);
@@ -57,7 +61,7 @@ class SettingManager
             ]);
         }
 
-        $settingsByKey = array_reduce($settings, function (array $acc, Setting $setting) {
+        $settingsByKey = array_reduce($settings, static function (array $acc, Setting $setting) {
             $acc[$setting->getKeyName()] = $setting->getValue();
 
             return $acc;
@@ -67,7 +71,7 @@ class SettingManager
             return $settingsByKey;
         }
 
-        return array_reduce($keys, function (array $acc, string $key) use ($settingsByKey) {
+        return array_reduce($keys, static function (array $acc, string $key) use ($settingsByKey) {
             $acc[$key] = $settingsByKey[$key] ?? null;
 
             return $acc;

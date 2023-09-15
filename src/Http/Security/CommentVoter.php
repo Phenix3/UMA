@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Security;
 
 use App\Domain\Auth\Entity\User;
@@ -15,16 +17,14 @@ class CommentVoter extends Voter
     final public const DELETE = 'delete';
     final public const UPDATE = 'update';
 
-    public function __construct(private Security $security)
-    {
-    }
+    public function __construct(private Security $security) {}
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [
+        return \in_array($attribute, [
             self::DELETE,
             self::UPDATE,
-        ]) && ($subject instanceof Comment || $subject instanceof CommentResource);
+        ], true) && ($subject instanceof Comment || $subject instanceof CommentResource);
     }
 
     /**

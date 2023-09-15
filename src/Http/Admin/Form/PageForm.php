@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
@@ -10,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PageForm extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('translations', TranslationsType::class, [
@@ -20,7 +22,7 @@ class PageForm extends AbstractType
                     'content' => [
                         'attr' => [
                             'is' => 'wysiwyg-editor',
-                            'data-full-page' => true
+                            'data-full-page' => true,
                         ],
                     ],
                     'slug' => [
@@ -38,6 +40,7 @@ class PageForm extends AbstractType
         $resolver
             ->setDefaults([
                 'data_class' => Page::class,
-            ]);
+            ])
+        ;
     }
 }

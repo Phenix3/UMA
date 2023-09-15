@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Blog\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;

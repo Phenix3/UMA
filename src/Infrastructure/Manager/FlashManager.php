@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Manager;
 
 use App\Infrastructure\Enum\ColorTypeEnum;
@@ -19,8 +21,7 @@ final class FlashManager
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly RequestStack $requestStack
-    ) {
-    }
+    ) {}
 
     public function flash(
         string $type,
@@ -33,6 +34,9 @@ final class FlashManager
         $session = $this->requestStack->getSession();
         $translationType = \in_array($type, self::ALLOWED_FLASH_TYPES, true) ? $type : ColorTypeEnum::Info->value;
 
-        $session->getFlashBag()->add($translationType, $this->translator->trans($message, $parameters, $translationDomain, $locale));
+        $session->getFlashBag()->add(
+            $translationType,
+            $this->translator->trans($message, $parameters, $translationDomain, $locale)
+        );
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Blog\Repository;
 
 use App\Domain\Blog\Entity\Category;
@@ -13,7 +15,7 @@ class CategoryRepository extends AbstractRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function save(Category $entity, ?bool $flush = false)
+    public function save(Category $entity, ?bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
         if ($flush) {
@@ -21,7 +23,7 @@ class CategoryRepository extends AbstractRepository
         }
     }
 
-    public function remove(Category $entity, ?bool $flush = false)
+    public function remove(Category $entity, ?bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
         if ($flush) {
@@ -39,7 +41,7 @@ class CategoryRepository extends AbstractRepository
             ->getResult()
         ;
 
-        return array_map(function (array $d) {
+        return array_map(static function (array $d) {
             $d[0]->setPostsCount((int) $d['count']);
 
             return $d[0];

@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Page\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
 use App\Domain\Application\Entity\Traits\ToggleableTrait;
 use App\Domain\Page\Repository\PageRepository;
 use Doctrine\ORM\Mapping as ORM;
-
-use function Symfony\Component\String\u;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -16,6 +15,8 @@ use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use function Symfony\Component\String\u;
 
 /**
  * @method PageTranslation translate()
@@ -27,10 +28,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Page implements TranslatableInterface
 {
     use IdentifiableTrait;
+    use SoftDeleteableEntity;
     use TimestampableEntity;
     use ToggleableTrait;
     use TranslatableTrait;
-    use SoftDeleteableEntity;
 
     #[Assert\Valid()]
     protected $translations;

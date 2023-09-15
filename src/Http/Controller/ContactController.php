@@ -14,7 +14,8 @@ class ContactController extends AbstractController
     public function index(): Response
     {
         $this->pageVariable
-            ->setTitle('Contact');
+            ->setTitle('Contact')
+        ;
 
         return $this->render('front/pages/contact.html.twig');
     }

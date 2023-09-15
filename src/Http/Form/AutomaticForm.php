@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Form;
 
 use App\Domain\Attachment\Entity\Attachment;
@@ -43,9 +45,9 @@ class AutomaticForm extends AbstractType
         'content' => EditorType::class,
         'description' => TextareaType::class,
         'short' => TextareaType::class,
-//        'mainTechnologies' => TechnologiesType::class,
-//        'secondaryTechnologies' => TechnologiesType::class,
-//        'chapters' => ChaptersForm::class,
+        //        'mainTechnologies' => TechnologiesType::class,
+        //        'secondaryTechnologies' => TechnologiesType::class,
+        //        'chapters' => ChaptersForm::class,
         'color' => ColorType::class,
         'links' => TextareaType::class,
         'categories' => CategoryChoiceType::class,
@@ -61,7 +63,8 @@ class AutomaticForm extends AbstractType
         $classProperties = $refClass->getProperties(\ReflectionProperty::IS_PUBLIC);
         foreach ($classProperties as $property) {
             $name = $property->getName();
-            /** @var \ReflectionNamedType|null $type */
+
+            /** @var null|\ReflectionNamedType $type */
             $type = $property->getType();
             if (null === $type) {
                 return;
@@ -82,16 +85,21 @@ class AutomaticForm extends AbstractType
                 $builder->add('image', AttachmentType::class, [
                     'required' => false,
                 ]);
-            } elseif (array_key_exists($name, self::NAMES)) {
+            } elseif (\array_key_exists($name, self::NAMES)) {
                 $builder->add($name, self::NAMES[$name], [
                     'required' => false,
                 ]);
-            } elseif (array_key_exists($type->getName(), self::TYPES)) {
+            } elseif (\array_key_exists($type->getName(), self::TYPES)) {
                 $builder->add($name, self::TYPES[$type->getName()], [
                     'required' => !$type->allowsNull() && 'bool' !== $type->getName(),
                 ]);
             } else {
-                throw new \RuntimeException(sprintf('Impossible de trouver le champs associé au type %s dans %s::%s', $type->getName(), $data::class, $name));
+                throw new \RuntimeException(sprintf(
+                    'Impossible de trouver le champs associé au type %s dans %s::%s',
+                    $type->getName(),
+                    $data::class,
+                    $name
+                ));
             }
         }
     }

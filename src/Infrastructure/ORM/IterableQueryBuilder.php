@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\ORM;
 
 use Doctrine\ORM\QueryBuilder;
@@ -42,7 +44,7 @@ class IterableQueryBuilder extends QueryBuilder implements \IteratorAggregate, \
 
     public function offsetExists(mixed $offset): bool
     {
-        return array_key_exists($offset, $this->getResults());
+        return \array_key_exists($offset, $this->getResults());
     }
 
     public function offsetGet(mixed $offset): mixed

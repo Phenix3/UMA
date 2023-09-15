@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
@@ -33,11 +35,11 @@ class Comment
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
     private ?User $author = null;
 
-    #[ORM\ManyToOne(targetEntity: Comment::class, inversedBy: 'replies', fetch: 'LAZY')]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies', fetch: 'LAZY')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     /**
      * @var Collection<string, Comment>
      */
@@ -62,7 +64,7 @@ class Comment
         return $this->username ?: '';
     }
 
-    public function setUsername(?string $username): Comment
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 
@@ -74,7 +76,7 @@ class Comment
         return $this->content;
     }
 
-    public function setContent(string $content): Comment
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
@@ -86,7 +88,7 @@ class Comment
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): Comment
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -98,7 +100,7 @@ class Comment
         return $this->author;
     }
 
-    public function setAuthor(?User $author): Comment
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 
@@ -110,7 +112,7 @@ class Comment
         return $this->parent;
     }
 
-    public function setParent(?self $parent): Comment
+    public function setParent(?self $parent): self
     {
         $this->parent = $parent;
 
@@ -129,7 +131,7 @@ class Comment
         return $this;
     }
 
-    public function addReply(Comment $comment): self
+    public function addReply(self $comment): self
     {
         if (!$this->replies->contains($comment)) {
             $this->replies->add($comment);

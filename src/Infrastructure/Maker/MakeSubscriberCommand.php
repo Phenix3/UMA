@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -29,15 +31,15 @@ class MakeSubscriberCommand extends AbstractMakeCommand
 
         /** @var string $subscriberPath */
         $subscriberPath = $input->getArgument('subscriberName');
-        if ('Subscriber' !== substr($subscriberPath, -1 * strlen('Subscriber'))) {
+        if ('Subscriber' !== substr($subscriberPath, -1 * \strlen('Subscriber'))) {
             $subscriberPath .= 'Subscriber';
         }
-        if (!is_string($subscriberPath)) {
+        if (!\is_string($subscriberPath)) {
             throw new \RuntimeException('subscriberPath doit être une chaine de caractère');
         }
         $parts = explode('/', $subscriberPath);
-        $namespace = '\\' . implode('\\', array_slice($parts, 0, -1));
-        $className = $parts[count($parts) - 1];
+        $namespace = '\\'.implode('\\', \array_slice($parts, 0, -1));
+        $className = $parts[\count($parts) - 1];
         $basePath = 'src/';
         $params = [
             'events' => $events,
@@ -46,7 +48,11 @@ class MakeSubscriberCommand extends AbstractMakeCommand
         ];
 
         $this->createFile('eventSubscriber', $params, "{$basePath}{$subscriberPath}.php");
-        $this->createFile('eventSubscriber.test', $params, str_replace('src/', 'tests/', $basePath) . "{$subscriberPath}Test.php");
+        $this->createFile(
+            'eventSubscriber.test',
+            $params,
+            str_replace('src/', 'tests/', $basePath)."{$subscriberPath}Test.php"
+        );
 
         $io->success('Le subscriber a bien été créé');
 

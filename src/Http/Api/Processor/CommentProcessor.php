@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Api\Processor;
 
 use ApiPlatform\Metadata\DeleteOperationInterface;
@@ -20,8 +22,7 @@ class CommentProcessor implements ProcessorInterface
         private readonly ValidatorInterface $validator,
         private readonly Security $security,
         private readonly CommentService $service
-    ) {
-    }
+    ) {}
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Blog\Entity\Category;
@@ -17,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route([
     'fr' => 'blog',
-    'en' => 'news'
+    'en' => 'news',
 ], name: 'blog_')]
 class BlogController extends AbstractController
 {
@@ -26,8 +28,7 @@ class BlogController extends AbstractController
         private PostRepository $postRepository,
         private CategoryRepository $categoryRepository,
         private PaginatorInterface $paginator,
-    ) {
-    }
+    ) {}
 
     #[Route('/', name: 'index')]
     public function index(Request $request)
@@ -36,7 +37,8 @@ class BlogController extends AbstractController
         $this->pageVariable
             ->setTitle('Blog')
             ->setSubtitle('')
-            ->setMetaDescription('');
+            ->setMetaDescription('')
+        ;
 
         return $this->renderListing($query, $request);
     }

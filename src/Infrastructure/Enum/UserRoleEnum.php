@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Enum;
 
 use App\Infrastructure\Enum\Traits\UtilsTrait;

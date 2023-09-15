@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Domain\Auth\Entity\User;
@@ -29,7 +31,8 @@ class CreateUserCommand extends Command
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
             ->addArgument('password', InputArgument::REQUIRED, 'User password')
             ->addArgument('username', InputArgument::REQUIRED, 'User username')
-            ->addOption('admin', null, InputOption::VALUE_NONE, 'Make the user as administrator');
+            ->addOption('admin', null, InputOption::VALUE_NONE, 'Make the user as administrator')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -43,7 +46,8 @@ class CreateUserCommand extends Command
             $user = (new User())
                 ->setEmail($email)
                 ->setPassword($password)
-                ->setUsername($username);
+                ->setUsername($username)
+            ;
         }
 
         if ($input->getOption('admin')) {
@@ -52,7 +56,7 @@ class CreateUserCommand extends Command
 
         $this->userService->create($user);
 
-        $io->success('The User has been created with email: ' . $email);
+        $io->success('The User has been created with email: '.$email);
 
         return Command::SUCCESS;
     }

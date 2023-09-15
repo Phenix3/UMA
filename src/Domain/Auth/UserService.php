@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth;
 
 use App\Domain\Auth\Entity\User;
@@ -11,10 +13,9 @@ class UserService
     public function __construct(
         private UserRepository $repository,
         private UserPasswordHasherInterface $passwordHasher
-    ) {
-    }
+    ) {}
 
-    public function create(User $user)
+    public function create(User $user): void
     {
         $user->setPassword(
             $this->passwordHasher->hashPassword($user, $user->getPassword())

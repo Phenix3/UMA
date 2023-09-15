@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\Event;
 
 use App\Domain\Application\Entity\Content;
 
 class ContentUpdatedEvent
 {
-    public function __construct(private readonly Content $content, private readonly Content $previous)
-    {
-    }
+    public function __construct(private readonly Content $content, private readonly Content $previous) {}
 
     public function getContent(): Content
     {

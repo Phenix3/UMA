@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Twig\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,14 +12,16 @@ use Twig\TwigFunction;
 
 class TwigExtension extends AbstractExtension
 {
-    public function __construct(private UrlMatcherInterface $urlMatcher, private UrlGeneratorInterface $urlGenerator)
-    {
-    }
+    public function __construct(private UrlMatcherInterface $urlMatcher, private UrlGeneratorInterface $urlGenerator) {}
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('active_locale', [$this, 'activeLocale'], ['is_safe' => ['html'], 'needs_context' => true]),
+            new TwigFunction(
+                'active_locale',
+                [$this, 'activeLocale'],
+                ['is_safe' => ['html'], 'needs_context' => true]
+            ),
             new TwigFunction('isoToEmoji', [$this, 'isoToEmoji'], ['is_safe' => ['html']]),
             new TwigFunction('menu_active', [$this, 'menuActive'], ['is_safe' => ['html'], 'needs_context' => true]),
         ];
@@ -40,15 +44,10 @@ class TwigExtension extends AbstractExtension
         return implode(
             '',
             array_map(
-                fn ($letter) => mb_chr(ord($letter) % 32 + 0x1F1E5),
+                static fn ($letter) => mb_chr(\ord($letter) % 32 + 0x1F1E5),
                 str_split($code)
             )
         );
-    }
-
-    private function matchRoute(Request $request, array $patterns)
-    {
-        return $this->is($request, $patterns);
     }
 
     /**
@@ -68,15 +67,6 @@ class TwigExtension extends AbstractExtension
         // return '';
     }
 
-    private function isRoute()
-    {
-    }
-
-    private function decodedPath(Request $request)
-    {
-        return rawurldecode($this->path($request));
-    }
-
     public function path(Request $request)
     {
         $pattern = trim($request->getPathInfo(), '/');
@@ -88,7 +78,7 @@ class TwigExtension extends AbstractExtension
      * Determine if a given string contains a given substring.
      *
      * @param string                  $haystack
-     * @param string|iterable<string> $needles
+     * @param iterable<string>|string $needles
      * @param bool                    $ignoreCase
      */
     public static function contains($haystack, $needles, $ignoreCase = false): bool
@@ -117,7 +107,7 @@ class TwigExtension extends AbstractExtension
     /**
      * Determine if a given string matches a given pattern.
      *
-     * @param string|iterable<string> $pattern
+     * @param iterable<string>|string $pattern
      * @param string                  $value
      */
     public static function strIs($pattern, $value): bool
@@ -145,7 +135,7 @@ class TwigExtension extends AbstractExtension
             // pattern such as "library/*", making any string check convenient.
             $pattern = str_replace('\*', '.*', $pattern);
 
-            if (1 === preg_match('#^' . $pattern . '\z#u', $value)) {
+            if (1 === preg_match('#^'.$pattern.'\z#u', $value)) {
                 return true;
             }
         }
@@ -153,12 +143,23 @@ class TwigExtension extends AbstractExtension
         return false;
     }
 
+    private function matchRoute(Request $request, array $patterns)
+    {
+        return $this->is($request, $patterns);
+    }
+
+    private function isRoute(): void {}
+
+    private function decodedPath(Request $request)
+    {
+        return rawurldecode($this->path($request));
+    }
+
     private function is(Request $request, array $patterns)
     {
         $path = $this->decodedPath($request);
-        $is = collect($patterns)->contains(fn ($pattern) => $this->strIs($pattern, $path));
 
+        return collect($patterns)->contains(fn ($pattern) => $this->strIs($pattern, $path));
         // dd($path);
-        return $is;
     }
 }

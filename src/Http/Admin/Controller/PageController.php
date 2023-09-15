@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Page\Entity\Page;
@@ -8,7 +10,6 @@ use App\Domain\Page\Event\PageDeletedEvent;
 use App\Domain\Page\Event\PageUpdatedEvent;
 use App\Http\Admin\Form\PageForm;
 use App\Http\Grid\PageGrid;
-use Doctrine\ORM\EntityManagerInterface;
 use Prezent\Grid\GridFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -88,7 +89,7 @@ class PageController extends CrudController
         $this->pageVariable
             ->setTitle($pageEntity->getTitle())
             ->setMetaDescription($pageEntity->getDescription())
-            ;
+        ;
 
         return $this->render('admin/pages/edit.html.twig', compact('form', 'pageEntity'));
     }

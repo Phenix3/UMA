@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Application\Entity\Setting;
@@ -33,7 +35,8 @@ class SettingController extends CrudController
     {
         $query = $this->getRepository()
             ->createQueryBuilder('row')
-            ->orderBy('row.keyName', 'DESC');
+            ->orderBy('row.keyName', 'DESC')
+        ;
 
         $grid = $gridFactory->createGrid(SettingGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
@@ -41,7 +44,8 @@ class SettingController extends CrudController
         $this->pageVariable
             ->setTitle('Manage Settings')
             ->setSubtitle('Manage all settings')
-            ->addAction('add_setting', 'Add new settting', 'admin_setting_new');
+            ->addAction('add_setting', 'Add new settting', 'admin_setting_new')
+        ;
 
         return $this->crudIndex($query);
     }
@@ -55,7 +59,8 @@ class SettingController extends CrudController
         $this->pageVariable
             ->setTitle('Add Setting')
             ->setSubtitle('Add new settings')
-            ->addAction('add_setting', 'Manage setttings', 'admin_setting_index');
+            ->addAction('add_setting', 'Manage setttings', 'admin_setting_index')
+        ;
 
         return $this->crudNew($data);
     }
@@ -77,7 +82,8 @@ class SettingController extends CrudController
         $this->pageVariable
             ->setTitle('Edit Setting')
             ->setSubtitle('Edit settings')
-            ->addAction('edit_setting', 'Manage setttings', 'admin_setting_index');
+            ->addAction('edit_setting', 'Manage setttings', 'admin_setting_index')
+        ;
 
         return $this->crudEdit($data);
     }

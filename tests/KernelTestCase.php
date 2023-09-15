@@ -1,19 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as BaseKernelTestCase;
 
-class KernelTestCase extends BaseKernelTestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class KernelTestCase extends BaseKernelTestCase
 {
     use FixturesTrait;
 
     protected KernelBrowser $client;
     protected EntityManagerInterface $em;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->em = self::getContainer()->get(EntityManagerInterface::class);

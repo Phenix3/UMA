@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
@@ -14,16 +16,18 @@ class CommentService
         private readonly AuthService $auth,
         private readonly EntityManagerInterface $em,
         private readonly EventDispatcherInterface $dispatcher
-    ) {
-    }
+    ) {}
 
     public function create(CommentData $data): Comment
     {
         // On crée un nouveau commentaire
         /** @var Content $target */
         $target = $this->em->getRepository(Content::class)->find($data->target);
-        /** @var Comment|null $parent */
-        $parent = $data->parent ? $this->em->getRepository(Comment::class)->findPartial($data->parent) : null; // $this->em->getReference(Comment::class, Uuid::fromString($data->parent)) : null;
+
+        /** @var null|Comment $parent */
+        $parent = $data->parent
+            ? $this->em->getRepository(Comment::class)->findPartial($data->parent)
+            : null;
 
         $comment = (new Comment())
             ->setAuthor($this->auth->getUserOrNull())
@@ -31,7 +35,8 @@ class CommentService
             ->setCreatedAt(new \DateTime())
             ->setContent($data->content)
             ->setParent($parent)
-            ->setTarget($target);
+            ->setTarget($target)
+        ;
         /* if ($data->parent && is_string($data->parent)) {
             $comment->setParent($data->parent);
         } */

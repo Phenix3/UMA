@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller;
 
 use App\Http\Controller\AbstractController;
@@ -7,6 +9,4 @@ use App\Http\Controller\AbstractController;
 /**
  * @method getUser() App\Domain\Auth\User
  */
-abstract class BaseController extends AbstractController
-{
-}
+abstract class BaseController extends AbstractController {}

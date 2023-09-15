@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\EventListener;
 
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -7,11 +9,9 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class DoctrinePropertyChangeEventListener
 {
-    public function __construct(private array $listeners, private PropertyAccessorInterface $propertyAccessor)
-    {
-    }
+    public function __construct(private array $listeners, private PropertyAccessorInterface $propertyAccessor) {}
 
-    public function prePersist($entity)
+    public function prePersist($entity): void
     {
         $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
@@ -22,13 +22,13 @@ class DoctrinePropertyChangeEventListener
             if ($value = $this->propertyAccessor->getValue($entity, $key)) {
                 foreach ($propertyListeners as $listener) {
                     $method = $listener['method'];
-                    $listener['listener']->$method($entity, $value, null);
+                    $listener['listener']->{$method}($entity, $value, null);
                 }
             }
         }
     }
 
-    public function preUpdate($entity, PreUpdateEventArgs $event)
+    public function preUpdate($entity, PreUpdateEventArgs $event): void
     {
         $listeners = $this->listeners[$entity::class] ?? null;
         if (null === $listeners) {
@@ -37,10 +37,10 @@ class DoctrinePropertyChangeEventListener
 
         $changeSet = $event->getEntityChangeSet();
         foreach ($listeners as $key => $propertyListeners) {
-            if (in_array($key, array_keys($changeSet))) {
+            if (\in_array($key, array_keys($changeSet), true)) {
                 foreach ($propertyListeners as $listener) {
                     $method = $listener['method'];
-                    $listener['listener']->$method($entity, $changeSet[$key][1], $changeSet[$key][0]);
+                    $listener['listener']->{$method}($entity, $changeSet[$key][1], $changeSet[$key][0]);
                 }
             }
         }

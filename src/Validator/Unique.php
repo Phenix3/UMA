@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
@@ -17,7 +19,7 @@ class Unique extends Constraint
     public string $message = 'Cette valeur est déjà utilisée';
 
     /**
-     * @var class-string<object>|null
+     * @var null|class-string<object>
      */
     public ?string $entityClass = null;
 

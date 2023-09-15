@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\Event;
 
 use App\Domain\Application\Entity\Content;
 
 class ContentDeletedEvent
 {
-    public function __construct(private Content $content)
-    {
-    }
+    public function __construct(private Content $content) {}
 
     public function getContent(): Content
     {

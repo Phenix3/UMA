@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Blog\Repository;
 
 use App\Domain\Blog\Entity\Category;
@@ -16,7 +18,7 @@ class PostRepository extends AbstractRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function save(Post $entity, ?bool $flush = false)
+    public function save(Post $entity, ?bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
         if ($flush) {
@@ -24,7 +26,7 @@ class PostRepository extends AbstractRepository
         }
     }
 
-    public function remove(Post $entity, ?bool $flush = false)
+    public function remove(Post $entity, ?bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
         if ($flush) {
@@ -38,7 +40,8 @@ class PostRepository extends AbstractRepository
             ->select('p')
             ->where('p.createdAt < NOW()')
             ->orderBy('p.createdAt', 'DESC')
-            ->setMaxResults($limit);
+            ->setMaxResults($limit)
+        ;
     }
 
     public function queryAll(Category $category = null): Query
@@ -50,7 +53,8 @@ class PostRepository extends AbstractRepository
         ;
         if ($category) {
             $query = $query->andWhere('p.categories IN (:categories)')
-                ->setParameter('categories', [$category]);
+                ->setParameter('categories', [$category])
+            ;
         }
 
         return $query->getQuery();

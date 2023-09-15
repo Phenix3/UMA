@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Normalizer;
 
 use App\Domain\Attachment\Attachment;
@@ -9,9 +11,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class AttachmentApiNormalizer extends Normalizer
 {
-    public function __construct(private readonly UploaderHelper $uploaderHelper, private readonly ImageResizer $resizer)
-    {
-    }
+    public function __construct(private readonly UploaderHelper $uploaderHelper, private readonly ImageResizer $resizer) {}
 
     /**
      * @param Attachment $object
@@ -20,7 +20,7 @@ class AttachmentApiNormalizer extends Normalizer
     {
         $info = pathinfo($object->getFileName());
         $filenameParts = explode('-', $info['filename']);
-        $filenameParts = array_slice($filenameParts, 0, -1);
+        $filenameParts = \array_slice($filenameParts, 0, -1);
         $filename = implode('-', $filenameParts);
         $extension = $info['extension'] ?? '';
 

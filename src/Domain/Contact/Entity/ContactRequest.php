@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Contact\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
@@ -94,7 +96,7 @@ class ContactRequest
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): ContactRequest
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Form;
 
 use App\Domain\Slider\Entity\SliderItem;
@@ -46,7 +48,7 @@ class SliderItemForm extends AbstractType implements DataTransformerInterface
         return $value->getEntity();
     }
 
-    public function reverseTransform(mixed $value)
+    public function reverseTransform(mixed $value): void
     {
         dd('reverseTransform', $value->getEntity());
     }

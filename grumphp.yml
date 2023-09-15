@@ -17,14 +17,14 @@ grumphp:
       detect_key_conflicts: true
     phpcpd:
       directory: ['src']
-    phpcs:
-      standard: "PSR12"
-      warning_severity: 0
-      whitelist_patterns:
-        - 'src'
-        - 'tests'
+    # phpcs:
+    #   standard: "PSR12"
+    #   warning_severity: 0
+    #   whitelist_patterns:
+    #     - 'src'
+    #     - 'tests'
     phpcsfixer2:
-      config: '.php_cs'
+      config: '.php-cs-fixer.dist.php'
       verbose: true
       diff: true
       triggered_by: ['php']

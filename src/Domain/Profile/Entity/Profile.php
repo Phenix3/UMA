@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Profile\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
@@ -25,8 +27,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Profile
 {
-    use IdentifiableTrait;
     use BlameableTrait;
+    use IdentifiableTrait;
     use TimestampableTrait;
 
     #[ORM\Column(type: Types::STRING, length: 50)]

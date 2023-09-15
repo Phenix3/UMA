@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller\Blog;
 
 use App\Domain\Blog\Entity\Post;
@@ -28,7 +30,8 @@ class PostController extends CrudController
         $this->pageVariable
             ->setTitle('Blog posts list')
             ->setSubtitle('You have')
-            ->addAction('add_post', 'Add Post', 'admin_blog_post_new');
+            ->addAction('add_post', 'Add Post', 'admin_blog_post_new')
+        ;
 
         // dump($this->pageVariable);
 
@@ -44,7 +47,8 @@ class PostController extends CrudController
         $this->pageVariable
             ->setTitle('Add List')
             ->setSubtitle('Input new post information carefully.')
-            ->addAction('add_post', 'Add List', 'admin_blog_post_index');
+            ->addAction('add_post', 'Add List', 'admin_blog_post_index')
+        ;
 
         return $this->crudNew($data);
     }
@@ -63,7 +67,8 @@ class PostController extends CrudController
         $this->pageVariable
             ->setTitle('Edit post')
             ->setSubtitle('Input new Patient information carefully.')
-            ->addAction('edit_post', 'Post List', 'admin_blog_post_index');
+            ->addAction('edit_post', 'Post List', 'admin_blog_post_index')
+        ;
 
         return $this->crudEdit($data);
     }

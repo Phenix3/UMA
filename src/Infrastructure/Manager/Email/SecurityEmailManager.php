@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Manager\Email;
 
 use App\Domain\Auth\Entity\User;
@@ -17,8 +19,7 @@ final class SecurityEmailManager
         private readonly MailerInterface $mailer,
         private readonly TranslatorInterface $translator,
         private readonly RequestStack $requestStack
-    ) {
-    }
+    ) {}
 
     public function sendRegisterEmailConfirmation(User $user): void
     {

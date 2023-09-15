@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller\Blog;
 
 use App\Domain\Blog\Entity\Category;
@@ -24,7 +26,8 @@ class CategoryController extends CrudController
     {
         $query = $this->getRepository()
             ->createQueryBuilder('row')
-            ->orderBy('row.id', 'DESC');
+            ->orderBy('row.id', 'DESC')
+        ;
 
         $grid = $gridFactory->createGrid(CategoryGrid::class, ['routePrefix' => $this->routePrefix]);
         $this->vars['gridData'] = $grid->createView();
@@ -32,7 +35,8 @@ class CategoryController extends CrudController
         $this->pageVariable
             ->setTitle('Manage Blog Categories')
             ->setSubtitle('Manage all blog category')
-            ->addAction('add_category', 'Add new category', 'admin_blog_category_new');
+            ->addAction('add_category', 'Add new category', 'admin_blog_category_new')
+        ;
 
         return $this->crudIndex($query);
     }
@@ -46,7 +50,8 @@ class CategoryController extends CrudController
         $this->pageVariable
             ->setTitle('Add Blog Categories')
             ->setSubtitle('Add a blog category')
-            ->addAction('list_category', 'List categories', 'admin_blog_category_index');
+            ->addAction('list_category', 'List categories', 'admin_blog_category_index')
+        ;
 
         return $this->crudNew($data);
     }
@@ -65,7 +70,8 @@ class CategoryController extends CrudController
         $this->pageVariable
             ->setTitle('Edit Blog Categories')
             ->setSubtitle('Edit a blog category')
-            ->addAction('list_category', 'List categories', 'admin_blog_category_index');
+            ->addAction('list_category', 'List categories', 'admin_blog_category_index')
+        ;
 
         return $this->crudEdit($data);
     }

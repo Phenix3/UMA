@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Comment;
 
 use App\Domain\Auth\Entity\User;
@@ -29,7 +31,12 @@ class CommentRepository extends AbstractRepository
         $this->_em->getReference(\App\Domain\Blog\Entity\Post::class, Uuid::fromString($contentId));
 
         return $this->createQueryBuilder('c')
-            ->select('partial c.{id, username, email, content, createdAt, parent}', 'partial u.{id, username, email}', 't', 'p')
+            ->select(
+                'partial c.{id, username, email, content, createdAt, parent}',
+                'partial u.{id, username, email}',
+                't',
+                'p'
+            )
             ->orderBy('c.createdAt', 'ASC')
             ->where('t = :content')
             ->leftJoin('c.author', 'u')
@@ -38,11 +45,14 @@ class CommentRepository extends AbstractRepository
             ->setParameter('content', Uuid::fromString($contentId)->toBinary())
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     /**
      * Renvoie un commentaire en évitant la liaison content.
+     *
+     * @param mixed $id
      */
     public function findPartial($id): ?Comment
     {
@@ -54,7 +64,8 @@ class CommentRepository extends AbstractRepository
             ->setMaxResults(1)
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
     }
 
     public function queryLatest(): Query
@@ -65,7 +76,8 @@ class CommentRepository extends AbstractRepository
             ->leftJoin('c.author', 'a')
             ->addSelect('t', 'a')
             ->setMaxResults(7)
-            ->getQuery();
+            ->getQuery()
+        ;
     }
 
     public function findLastByUser(User $user): array
@@ -76,6 +88,7 @@ class CommentRepository extends AbstractRepository
             ->setMaxResults(4)
             ->setParameter('user', $user)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 }

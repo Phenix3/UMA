@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Application;
@@ -27,6 +29,7 @@ class MakeEntityCommand extends AbstractMakeCommand
     {
         $io = new SymfonyStyle($input, $output);
         $domain = $this->askDomain($io);
+
         /** @var string $entity */
         $entity = $input->getArgument('entityName');
 
@@ -35,7 +38,7 @@ class MakeEntityCommand extends AbstractMakeCommand
         $command = $application->find('make:entity');
         $arguments = [
             'command' => 'make:entity',
-            'name' => "\\App\\Domain\\$domain\\Entity\\$entity",
+            'name' => "\\App\\Domain\\{$domain}\\Entity\\{$entity}",
         ];
         $greetInput = new ArrayInput($arguments);
 

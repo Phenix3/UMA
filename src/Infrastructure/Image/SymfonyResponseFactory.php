@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Image;
 
 use League\Flysystem\FilesystemOperator;
@@ -9,9 +11,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SymfonyResponseFactory implements ResponseFactoryInterface
 {
-    public function __construct(protected ?Request $request = null)
-    {
-    }
+    public function __construct(protected ?Request $request = null) {}
 
     /**
      * Create the response.
@@ -35,7 +35,7 @@ class SymfonyResponseFactory implements ResponseFactoryInterface
             $response->isNotModified($this->request);
         }
 
-        $response->setCallback(function () use ($stream) {
+        $response->setCallback(static function () use ($stream): void {
             if (0 !== ftell($stream)) {
                 rewind($stream);
             }

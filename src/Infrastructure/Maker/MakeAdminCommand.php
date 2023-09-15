@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -43,7 +45,7 @@ class MakeAdminCommand extends AbstractMakeCommand
 
         $paths = ['_form', 'edit', 'new', 'index'];
         foreach ($paths as $path) {
-            $this->createFile("admin/$path.html", $params, "templates/admin/$slug/$path.html.twig");
+            $this->createFile("admin/{$path}.html", $params, "templates/admin/{$slug}/{$path}.html.twig");
         }
 
         $io->success("L'administration a bien été créé");

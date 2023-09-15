@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Repository;
 
 use App\Domain\Attachment\Entity\Attachment;
@@ -19,15 +21,17 @@ class AttachmentRepository extends AbstractRepository
     public function findYearsMonths(): array
     {
         $rows = $this->createQueryBuilder('a')
-            ->select('EXTRACT(MONTH FROM a.createdAt) as month, EXTRACT(YEAR FROM a.createdAt) as year, COUNT(a.id) as count')
+            ->select('EXTRACT(MONTH FROM a.createdAt) as month,
+                EXTRACT(YEAR FROM a.createdAt) as year, COUNT(a.id) as count')
             ->groupBy('month', 'year')
             ->orderBy('month', 'DESC')
             ->orderBy('year', 'DESC')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
 
-        return array_map(fn (array $row) => [
-            'path' => $row['year'] . '/' . str_pad($row['month'], 2, '0', STR_PAD_LEFT),
+        return array_map(static fn (array $row) => [
+            'path' => $row['year'].'/'.str_pad($row['month'], 2, '0', STR_PAD_LEFT),
             'count' => $row['count'],
         ], $rows);
     }
@@ -50,7 +54,8 @@ class AttachmentRepository extends AbstractRepository
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(50)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     /**
@@ -62,7 +67,8 @@ class AttachmentRepository extends AbstractRepository
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(25)
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 
     /**
@@ -74,8 +80,9 @@ class AttachmentRepository extends AbstractRepository
             ->where('a.fileName LIKE :search')
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults(25)
-            ->setParameter('search', "%$q%")
+            ->setParameter('search', "%{$q}%")
             ->getQuery()
-            ->getResult();
+            ->getResult()
+        ;
     }
 }

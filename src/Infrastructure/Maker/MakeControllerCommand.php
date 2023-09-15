@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -27,21 +29,22 @@ class MakeControllerCommand extends AbstractMakeCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         /** @var string $controllerPath */
         $controllerPath = $input->getArgument('controllerName');
-        if ('Controller' !== substr($controllerPath, -1 * strlen('Controller'))) {
+        if ('Controller' !== substr($controllerPath, -1 * \strlen('Controller'))) {
             $controllerPath .= 'Controller';
         }
-        if (!is_string($controllerPath)) {
+        if (!\is_string($controllerPath)) {
             throw new \RuntimeException('controllerPath doit être une chaine de caractère');
         }
         $parts = explode('/', $controllerPath);
-        if (1 === count($parts)) {
+        if (1 === \count($parts)) {
             $namespace = '';
             $className = $parts[0];
         } else {
-            $namespace = '\\' . implode('\\', array_slice($parts, 0, -1));
-            $className = $parts[count($parts) - 1];
+            $namespace = '\\'.implode('\\', \array_slice($parts, 0, -1));
+            $className = $parts[\count($parts) - 1];
         }
 
         $api = $input->getOption('api');
@@ -58,7 +61,11 @@ class MakeControllerCommand extends AbstractMakeCommand
         ];
 
         $this->createFile('controller', $params, "{$basePath}{$controllerPath}.php");
-        $this->createFile('controller.test', $params, str_replace('src/', 'tests/', $basePath) . "{$controllerPath}Test.php");
+        $this->createFile(
+            'controller.test',
+            $params,
+            str_replace('src/', 'tests/', $basePath)."{$controllerPath}Test.php"
+        );
 
         $io->success('Le controller a bien été créé');
 

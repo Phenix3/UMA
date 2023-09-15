@@ -28,6 +28,7 @@ class ContactController extends AbstractController
 
         $contactData = $denormalizer->denormalize($data, ContactData::class);
         $validator->validate($contactData);
+
         try {
             $contactService->send($contactData, $request);
         } catch (TooManyContactException) {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\ORM;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -51,8 +53,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('o')
-            ->andWhere(join(' AND ', $conditionString))
+            ->andWhere(implode(' AND ', $conditionString))
             ->setParameters($parameters)
-            ->getQuery();
+            ->getQuery()
+        ;
     }
 }

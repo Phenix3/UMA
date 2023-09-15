@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth\Entity;
 
 use App\Domain\Application\Entity\Traits\IdentifiableTrait;
@@ -68,7 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         ];
     }
 
-    public function __unserialize(array $data)
+    public function __unserialize(array $data): void
     {
         $this->id = $data['id'] ?? null;
         $this->email = $data['email'] ?? null;
@@ -91,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Equatab
         return $this->email;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         $this->plainPassword = null;
     }

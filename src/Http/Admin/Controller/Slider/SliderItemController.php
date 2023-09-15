@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller\Slider;
 
 use App\Domain\Slider\Entity\Slider;
@@ -37,7 +39,8 @@ class SliderItemController extends CrudController
         $this->pageVariable
             ->setTitle('Slider Item list')
             ->setSubtitle('La liste de tous les elements d\'un slider')
-            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_new');
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_new')
+        ;
 
         return $this->crudIndex($query);
     }
@@ -63,13 +66,14 @@ class SliderItemController extends CrudController
 
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $sliderItem->getId()]);
+            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $sliderItem->getId()]);
         }
 
         $this->pageVariable
-           ->setTitle('Add new Slider Item')
-           ->setSubtitle('La liste de tous les elements d\'un slider')
-           ->addAction('slider_item_list', 'Add Slider', 'admin_slider_slider_item_index');
+            ->setTitle('Add new Slider Item')
+            ->setSubtitle('La liste de tous les elements d\'un slider')
+            ->addAction('slider_item_list', 'Add Slider', 'admin_slider_slider_item_index')
+        ;
 
         return $this->render('admin/slider/slider_items/new.html.twig', compact('form', 'sliderItem'));
     }
@@ -99,19 +103,20 @@ class SliderItemController extends CrudController
 
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($this->routePrefix . '_index');
+            return $this->redirectToRoute($this->routePrefix.'_index');
         }
 
         $this->pageVariable
-           ->setTitle('Edit Slider Item')
-           ->setSubtitle('La liste de tous les elements d\'un slider')
-           ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index')
-           ->addAction(
-               'slider_item_new',
-               'Add Slider Item',
-               'admin_slider_slider_item_new',
-               ['slider_id' => $sliderItem->getSlider()->getId()]
-           );
+            ->setTitle('Edit Slider Item')
+            ->setSubtitle('La liste de tous les elements d\'un slider')
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_item_index')
+            ->addAction(
+                'slider_item_new',
+                'Add Slider Item',
+                'admin_slider_slider_item_new',
+                ['slider_id' => $sliderItem->getSlider()->getId()]
+            )
+        ;
 
         return $this->render('admin/slider/slider_items/edit.html.twig', compact('form', 'sliderItem'));
     }

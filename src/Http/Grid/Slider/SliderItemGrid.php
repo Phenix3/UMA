@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Grid\Slider;
 
 use App\Http\Grid\Type\ImageType;
@@ -18,18 +20,17 @@ class SliderItemGrid extends BaseGridType
             ->addColumn('link', StringType::class)
             ->addColumn('image', ImageType::class)
             ->addAction('edit', [
-                'route' => $options['routePrefix'] . '_edit',
+                'route' => $options['routePrefix'].'_edit',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
-
         ;
     }
 

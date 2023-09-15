@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests;
 
 use App\Helper\PathHelper;
@@ -21,7 +23,8 @@ trait FixturesTrait
     public function loadFixtures(array $fixtures): array
     {
         $fixturePath = $this->getFixturesPath();
-        $files = array_map(fn ($fixture) => PathHelper::join($fixturePath, $fixture . '.yaml'), $fixtures);
+        $files = array_map(static fn ($fixture) => PathHelper::join($fixturePath, $fixture.'.yaml'), $fixtures);
+
         /** @var LoaderInterface $loader */
         $loader = static::getContainer()->get('fidry_alice_data_fixtures.loader.doctrine');
 
@@ -30,6 +33,6 @@ trait FixturesTrait
 
     public function getFixturesPath()
     {
-        return __DIR__ . '/fixtures/';
+        return __DIR__.'/fixtures/';
     }
 }

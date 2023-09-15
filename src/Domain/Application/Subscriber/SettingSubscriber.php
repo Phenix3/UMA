@@ -11,9 +11,7 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class SettingSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private TagAwareCacheInterface $cache)
-    {
-    }
+    public function __construct(private TagAwareCacheInterface $cache) {}
 
     public static function getSubscribedEvents(): array
     {
@@ -33,7 +31,7 @@ class SettingSubscriber implements EventSubscriberInterface
         $this->invalidateCahce();
     }
 
-    public function invalidateCahce()
+    public function invalidateCahce(): void
     {
         $this->cache->invalidateTags(['global_settings_tag']);
     }

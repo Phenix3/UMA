@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Form\Field;
 
 use App\Domain\Slider\Entity\Slider;
@@ -19,6 +21,7 @@ class SliderChoiceType extends EntityType
                     // 'is' => 'select-select2',
                     'class' => 'js-select2',
                 ],
-            ]);
+            ])
+        ;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Validator;
 
 use App\Domain\Attachment\Attachment;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Twig;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -20,8 +22,7 @@ class PageVariable
     public function __construct(
         private UrlMatcherInterface $urlMatcher,
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     /**
      * Get the value of title.
@@ -58,6 +59,8 @@ class PageVariable
     /**
      * Set the value of metaKeywords.
      *
+     * @param mixed $metaKeywords
+     *
      * @return self
      */
     public function setMetaKeywords($metaKeywords)
@@ -77,6 +80,8 @@ class PageVariable
 
     /**
      * Set the value of metaDescription.
+     *
+     * @param mixed $metaDescription
      *
      * @return self
      */
@@ -99,7 +104,7 @@ class PageVariable
         return $this;
     }
 
-    public function addExtra(string $key, string $value)
+    public function addExtra(string $key, string $value): void
     {
         $this->extra[$key] = $value;
     }
@@ -153,6 +158,7 @@ class PageVariable
     public function addAction(string $key, string $label, string $target, ?array $routeParams = []): self
     {
         $data = [];
+
         try {
             $this->urlMatcher->match($target);
             $data['target'] = $target;

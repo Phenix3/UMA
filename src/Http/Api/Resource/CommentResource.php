@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Api\Resource;
 
 use ApiPlatform\Metadata\ApiProperty;
@@ -51,7 +53,13 @@ class CommentResource extends CommentData
 
     #[Groups(['read', 'write'])]
     #[Assert\NotBlank(groups: ['anonymous'], normalizer: 'trim')]
-    #[NotExists(groups: ['anonymous'], field: 'username', class: User::class, message: 'Ce pseudo est utilisé par un utilisateur')]
+    #[NotExists(
+        groups: ['anonymous'],
+        field: 'username',
+        class: User::class,
+        message: 'Ce pseudo est utilisé par un utilisateur'
+    )
+    ]
     public ?string $username = null;
 
     #[Assert\NotBlank(normalizer: 'trim')]
@@ -82,7 +90,7 @@ class CommentResource extends CommentData
     #[Groups(['read'])]
     public ?string $userId = null;
 
-    public static function fromComment(Comment $comment, UploaderHelper $uploaderHelper = null): CommentResource
+    public static function fromComment(Comment $comment, UploaderHelper $uploaderHelper = null): self
     {
         $resource = new self();
         $author = $comment->getAuthor();

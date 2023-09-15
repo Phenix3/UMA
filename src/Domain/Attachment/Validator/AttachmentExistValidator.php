@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Validator;
 
 use App\Domain\Attachment\Entity\Attachment;
@@ -21,6 +23,7 @@ class AttachmentExistValidator extends ConstraintValidator
         $this->context
             ->buildViolation($constraint->message)
             ->setParameter('{{ id }}', (string) $value->getId())
-            ->addViolation();
+            ->addViolation()
+        ;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Contact;
 
 use App\Domain\Contact\Entity\ContactRequest;
@@ -16,8 +18,7 @@ class ContactService
         private readonly ContactRequestRepository $repository,
         private readonly EntityManagerInterface $em,
         private readonly MailerInterface $mailer
-    ) {
-    }
+    ) {}
 
     public function send(ContactData $data, Request $request): void
     {
@@ -26,7 +27,8 @@ class ContactService
             ->setRawIp($request->getClientIp())
             ->setName($data->name)
             ->setEmail($data->email)
-            ->setContent($data->content);
+            ->setContent($data->content)
+        ;
         $lastRequest = $this->repository->findLastRequestForIp($contactRequest->getIp());
         if ($lastRequest && $lastRequest->getCreatedAt() > new \DateTime('- 1 hour')) {
             throw new TooManyContactException();
@@ -42,7 +44,8 @@ class ContactService
             ->subject("UMA::Contact : {$data->name}")
             ->from('noreply@univ-maroua.cm')
             ->replyTo(new Address($data->email, $data->name))
-            ->to('contact@univ-maroua.cm');
+            ->to('contact@univ-maroua.cm')
+        ;
         $this->mailer->send($message);
     }
 }

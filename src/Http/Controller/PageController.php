@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Page\Entity\Page;
@@ -15,6 +17,7 @@ class PageController extends AbstractController
     {
         $locale = $request->getLocale();
         $page = $page->translate($locale);
+
         return $this->render('front/pages/show.html.twig', compact('page'));
     }
 }

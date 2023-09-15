@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth\EventSubscriber;
 
 use App\Domain\Auth\Entity\User;
@@ -10,9 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
-    {
-    }
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher) {}
 
     public function getSubscribedEvents(): array
     {

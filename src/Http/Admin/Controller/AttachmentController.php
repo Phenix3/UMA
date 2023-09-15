@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Attachment\Entity\Attachment;
@@ -20,9 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route('/attachment', name: 'attachment_')]
 class AttachmentController extends BaseController
 {
-    public function __construct(private readonly ValidatorInterface $validator)
-    {
-    }
+    public function __construct(private readonly ValidatorInterface $validator) {}
 
     public function validateRequest(Request $request): array
     {
@@ -93,7 +93,11 @@ class AttachmentController extends BaseController
         ]);
         $resolver->setAllowedTypes('path', ['string', 'null']);
         $resolver->setAllowedTypes('q', ['string', 'null']);
-        $resolver->setAllowedValues('path', fn ($value) => null === $value || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0);
+        $resolver->setAllowedValues(
+            'path',
+            static fn ($value) => null === $value
+            || preg_match('/^2\d{3}\/(1[0-2]|0[1-9])$/', $value) > 0
+        );
 
         try {
             return $resolver->resolve($request->query->all());

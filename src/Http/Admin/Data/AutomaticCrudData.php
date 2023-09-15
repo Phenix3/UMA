@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Data;
 
 use App\Http\Form\AutomaticForm;
@@ -23,7 +25,8 @@ abstract class AutomaticCrudData implements CrudDataInterface
         $accessor = new PropertyAccessor();
         foreach ($properties as $property) {
             $name = $property->getName();
-            /** @var \ReflectionNamedType|null $type */
+
+            /** @var null|\ReflectionNamedType $type */
             $type = $property->getType();
             if (
                 $type
@@ -62,6 +65,7 @@ abstract class AutomaticCrudData implements CrudDataInterface
         if (method_exists($this->entity, 'getId')) {
             return $this->entity->getId();
         }
+
         throw new \RuntimeException("L'entité doit avoir une méthode getId()");
     }
 }

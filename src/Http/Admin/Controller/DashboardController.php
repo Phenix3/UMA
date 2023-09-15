@@ -16,7 +16,8 @@ class DashboardController extends AbstractController
     public function index(): Response
     {
         $this->pageVariable
-            ->setTitle('Admin Dashboard');
+            ->setTitle('Admin Dashboard')
+        ;
 
         return $this->render('admin/dashboard/index.html.twig');
     }

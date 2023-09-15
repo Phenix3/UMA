@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Auth\Entity\User;
@@ -12,14 +14,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Service\Attribute\Required;
 
 /**
- * @method \App\Domain\Auth\Entity\User|null getUser()
+ * @method null|\App\Domain\Auth\Entity\User getUser()
  */
 abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     public PageVariable $pageVariable;
 
     #[Required]
-    public function setPageVariable(PageVariable $pageVariable)
+    public function setPageVariable(PageVariable $pageVariable): void
     {
         $this->pageVariable = $pageVariable;
     }
@@ -41,7 +43,7 @@ abstract class AbstractController extends \Symfony\Bundle\FrameworkBundle\Contro
     protected function getUserOrThrow(): User
     {
         $user = $this->getUser();
-        if (!($user instanceof User)) {
+        if (!$user instanceof User) {
             throw new AccessDeniedException();
         }
 

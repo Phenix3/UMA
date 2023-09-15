@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Infrastructure\Image\SymfonyResponseFactory;
@@ -22,18 +24,23 @@ class ImageController extends AbstractController
     {
         $projectDir = $parameterBag->get('kernel.project_dir');
         $resizeKey = $parameterBag->get('image_resize_key');
-        if (!is_string($projectDir)) {
+        if (!\is_string($projectDir)) {
             throw new \RuntimeException('Parameter kernel.project_dir is not a string');
         }
-        if (!is_string($resizeKey)) {
+        if (!\is_string($resizeKey)) {
             throw new \RuntimeException('Parameter image_resize_key is not a string');
         }
-        $this->cachePath = $projectDir . '/var/images';
-        $this->publicPath = $projectDir . '/public';
+        $this->cachePath = $projectDir.'/var/images';
+        $this->publicPath = $projectDir.'/public';
         $this->resizeKey = $resizeKey;
     }
 
-    #[Route('/media/resize/{width}/{height}/{path}', requirements: ['width' => "\d+", 'height' => "\d+", 'path' => '.+'], name: 'image_resizer')]
+    #[Route(
+        '/media/resize/{width}/{height}/{path}',
+        requirements: ['width' => '\\d+', 'height' => '\\d+', 'path' => '.+'],
+        name: 'image_resizer'
+    )
+    ]
     public function image(int $width, int $height, string $path, Request $request): Response
     {
         $server = ServerFactory::create([
@@ -48,6 +55,7 @@ class ImageController extends AbstractController
             ],
         ]);
         [$url] = explode('?', $request->getRequestUri());
+
         try {
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 
@@ -72,6 +80,7 @@ class ImageController extends AbstractController
             ],
         ]);
         [$url] = explode('?', $request->getRequestUri());
+
         try {
             SignatureFactory::create($this->resizeKey)->validateRequest($url, ['s' => $request->get('s')]);
 

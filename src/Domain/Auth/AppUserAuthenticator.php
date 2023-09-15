@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth;
 
 use App\Infrastructure\Manager\FlashManager;
@@ -26,8 +28,7 @@ class AppUserAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
         private FlashManager $flashBag
-    ) {
-    }
+    ) {}
 
     public function authenticate(Request $request): Passport
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller;
 
 use App\Domain\Application\Entity\Content;
@@ -41,17 +43,18 @@ abstract class CrudController extends BaseController
         protected PaginatorInterface $paginator,
         protected readonly EventDispatcherInterface $dispatcher,
         private readonly RequestStack $requestStack
-    ) {
-    }
+    ) {}
 
     public function crudIndex(QueryBuilder $query = null): Response
     {
         $data = [];
+
         /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
         $query = $query ?: $this->getRepository()
             ->createQueryBuilder('row')
-            ->orderBy('row.createdAt', 'DESC');
+            ->orderBy('row.createdAt', 'DESC')
+        ;
         if ($request->get('q')) {
             $query = $this->applySearch(trim($request->get('q')), $query);
         }
@@ -81,7 +84,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été modifié');
 
-            return $this->redirectToRoute($this->routePrefix . '_edit', ['id' => $entity->getId()]);
+            return $this->redirectToRoute($this->routePrefix.'_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/edit.html.twig", [
@@ -108,7 +111,7 @@ abstract class CrudController extends BaseController
             }
             $this->addFlash('success', 'Le contenu a bien été créé');
 
-            return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_edit'), ['id' => $entity->getId()]);
+            return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_edit'), ['id' => $entity->getId()]);
         }
 
         return $this->render("admin/{$this->templatePath}/new.html.twig", [
@@ -127,21 +130,20 @@ abstract class CrudController extends BaseController
         $this->em->flush();
         $this->addFlash('success', 'Le contenu a bien été supprimé');
 
-        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix . '_index'));
+        return $this->redirectToRoute($redirectRoute ?: ($this->routePrefix.'_index'));
     }
 
     public function getRepository(): EntityRepository
     {
-        /** @var EntityRepository $repository */
-        $repository = $this->em->getRepository($this->entity); /* @phpstan-ignore-line */
-
-        return $repository;
+        // @var EntityRepository $repository
+        return $this->em->getRepository($this->entity); // @phpstan-ignore-line
     }
 
     protected function applySearch(string $search, QueryBuilder $query): QueryBuilder
     {
         return $query
             ->where("LOWER(row.{$this->searchField}) LIKE :search")
-            ->setParameter('search', '%' . strtolower($search) . '%');
+            ->setParameter('search', '%'.strtolower($search).'%')
+        ;
     }
 }

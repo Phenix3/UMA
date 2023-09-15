@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Twig\Extension;
 
 use App\Domain\Application\SettingManager;
@@ -11,9 +13,7 @@ use Twig\TwigFunction;
 
 class TwigSettingExtension extends AbstractExtension implements GlobalsInterface
 {
-    public function __construct(private SettingManager $settingManager, private TagAwareCacheInterface $cache)
-    {
-    }
+    public function __construct(private SettingManager $settingManager, private TagAwareCacheInterface $cache) {}
 
     public function getFunctions(): array
     {

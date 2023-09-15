@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Security;
 
 use App\Domain\Blog\Entity\Post;
@@ -12,7 +14,7 @@ class PostVoter extends Voter
 
     public function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::POST_SHOW]) && ($subject instanceof Post);
+        return \in_array($attribute, [self::POST_SHOW], true) && ($subject instanceof Post);
     }
 
     public function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool

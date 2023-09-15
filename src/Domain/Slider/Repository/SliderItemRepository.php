@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Slider\Repository;
 
 use App\Domain\Slider\Entity\SliderItem;
@@ -9,8 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<SliderItem>
  *
- * @method SliderItem|null find($id, $lockMode = null, $lockVersion = null)
- * @method SliderItem|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|SliderItem find($id, $lockMode = null, $lockVersion = null)
+ * @method null|SliderItem findOneBy(array $criteria, array $orderBy = null)
  * @method SliderItem[]    findAll()
  * @method SliderItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

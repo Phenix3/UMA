@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Maker;
 
 use Symfony\Component\Console\Command\Command;
@@ -18,11 +20,11 @@ abstract class AbstractMakeCommand extends Command
 
     protected function createFile(string $template, array $params, string $output): void
     {
-        $content = $this->twig->render("@maker/$template.twig", $params);
+        $content = $this->twig->render("@maker/{$template}.twig", $params);
         $filename = "{$this->projectDir}/{$output}";
-        $directory = dirname($filename);
+        $directory = \dirname($filename);
         if (!file_exists($directory)) {
-            mkdir($directory, 0777, true);
+            mkdir($directory, 0o777, true);
         }
         file_put_contents($filename, $content);
     }
@@ -35,14 +37,15 @@ abstract class AbstractMakeCommand extends Command
         // On construit la liste utilisé pour l'autocompletion
         $classes = [];
         $paths = explode('/', $pattern);
-        if (1 === count($paths)) {
+        if (1 === \count($paths)) {
             $directory = "{$this->projectDir}/src";
             $pattern = $pattern;
         } else {
-            $directory = "{$this->projectDir}/src/" . join('/', array_slice($paths, 0, -1));
-            $pattern = join('/', array_slice($paths, -1));
+            $directory = "{$this->projectDir}/src/".implode('/', \array_slice($paths, 0, -1));
+            $pattern = implode('/', \array_slice($paths, -1));
         }
-        $files = (new Finder())->in($directory)->name($pattern . '.php')->files();
+        $files = (new Finder())->in($directory)->name($pattern.'.php')->files();
+
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
             $filename = str_replace('.php', '', $file->getBasename());
@@ -84,6 +87,7 @@ abstract class AbstractMakeCommand extends Command
         // On construit la liste utilisé pour l'autocompletion
         $domains = [];
         $files = (new Finder())->in("{$this->projectDir}/src/Domain")->depth(0)->directories();
+
         /** @var SplFileInfo $file */
         foreach ($files as $file) {
             $domains[] = $file->getBasename();

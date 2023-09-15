@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Page\Entity;
 
 use App\Domain\Application\Entity\Traits\HasSeoMetaTrait;
@@ -15,9 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`page_page_translations`')]
 class PageTranslation implements TranslationInterface
 {
+    use HasSeoMetaTrait;
     // use IdentifiableTrait;
     use TranslationTrait;
-    use HasSeoMetaTrait;
 
     #[ORM\Id]
     #[ORM\Column(type: Types::INTEGER)]

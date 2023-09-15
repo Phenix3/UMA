@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Grid\Blog;
 
 use Prezent\Grid\BaseGridType;
@@ -19,13 +21,13 @@ class CategoryGrid extends BaseGridType
                 'sortable' => true,
             ])
             ->addAction('edit', [
-                'route' => $options['routePrefix'] . '_edit',
+                'route' => $options['routePrefix'].'_edit',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],

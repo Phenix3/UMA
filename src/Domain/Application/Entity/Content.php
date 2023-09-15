@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\Entity;
 
 use App\Domain\Application\Entity\Traits\HasSeoMetaTrait;
@@ -18,10 +20,10 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 abstract class Content
 {
+    use HasSeoMetaTrait;
     use IdentifiableTrait;
     use TimestampableEntity;
     use ToggleableTrait;
-    use HasSeoMetaTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $title = '';

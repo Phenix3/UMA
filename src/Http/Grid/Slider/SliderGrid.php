@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Grid\Slider;
 
 use Prezent\Grid\BaseGridType;
@@ -10,9 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class SliderGrid extends BaseGridType
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
-    {
-    }
+    public function __construct(private UrlGeneratorInterface $urlGenerator) {}
 
     public function buildGrid(GridBuilder $builder, array $options = []): void
     {
@@ -22,24 +22,23 @@ class SliderGrid extends BaseGridType
             ->addColumn('slug', StringType::class)
             ->addAction('items', [
                 'label' => 'ui.buttons.items',
-                'route' => $options['routePrefix'] . '_items',
+                'route' => $options['routePrefix'].'_items',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
-                ])
+            ])
             ->addAction('edit', [
-                'route' => $options['routePrefix'] . '_edit',
+                'route' => $options['routePrefix'].'_edit',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
-
         ;
     }
 

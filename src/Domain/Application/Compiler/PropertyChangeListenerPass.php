@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Application\Compiler;
 
 use App\Domain\Application\EventListener\DoctrinePropertyChangeEventListener;
@@ -44,13 +46,18 @@ class PropertyChangeListenerPass implements CompilerPassInterface
         $definition = new Definition(DoctrinePropertyChangeEventListener::class);
         foreach ($entities as $entity => $listeners) {
             $properties[$entity] = [];
+
             /**
              * @var string                                                  $listenerId
              * @var array{entity: string, method: string, property: string} $listenerAttributes
              */
             foreach ($listeners as $listenerId => $listenerAttributes) {
-                $properties[$entity][$listenerAttributes['property']] = $properties[$listenerAttributes['property']] ?? [];
-                $properties[$entity][$listenerAttributes['property']][] = array_merge($listenerAttributes, ['listener' => new Reference($listenerId)]);
+                $properties[$entity][$listenerAttributes['property']] = $properties[$listenerAttributes['property']]
+                    ?? [];
+                $properties[$entity][$listenerAttributes['property']][] = array_merge(
+                    $listenerAttributes,
+                    ['listener' => new Reference($listenerId)]
+                );
             }
             $definition->addTag('doctrine.orm.entity_listener', [
                 'event' => 'preUpdate',

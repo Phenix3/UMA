@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Attachment\Type;
 
 use App\Domain\Attachment\Entity\Attachment;
@@ -21,8 +23,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
         private readonly EntityManagerInterface $em,
         private readonly UploaderHelper $uploaderHelper,
         private readonly string $adminPrefix
-    ) {
-    }
+    ) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -45,7 +46,7 @@ class AttachmentType extends TextType implements DataTransformerInterface
             'required' => false,
             'attr' => [
                 'is' => 'input-attachment',
-                'data-endpoint' => '/' . trim($this->adminPrefix, '/') . '/attachment',
+                'data-endpoint' => '/'.trim($this->adminPrefix, '/').'/attachment',
             ],
             'constraints' => [
                 new AttachmentExist(),

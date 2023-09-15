@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Grid;
 
 use Prezent\Grid\BaseGridType;
@@ -19,7 +21,7 @@ class SettingGrid extends BaseGridType
                 'sortable' => false,
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],

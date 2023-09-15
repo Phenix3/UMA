@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Faker;
 
 use App\Entity\User\User;
@@ -8,9 +10,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PasswordProvider extends BaseProvider
 {
-    public function __construct(private UserPasswordHasherInterface $passwordHasher)
-    {
-    }
+    public function __construct(private UserPasswordHasherInterface $passwordHasher) {}
 
     public function password(string $plainPassword)
     {

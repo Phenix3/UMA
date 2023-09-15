@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Profile\Repository;
 
 use App\Domain\Profile\Entity\ProfilePicture;
@@ -10,8 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<ProfilePicture>
  *
- * @method ProfilePicture|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProfilePicture|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|ProfilePicture find($id, $lockMode = null, $lockVersion = null)
+ * @method null|ProfilePicture findOneBy(array $criteria, array $orderBy = null)
  * @method ProfilePicture[]    findAll()
  * @method ProfilePicture[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

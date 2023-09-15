@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Twig\Extension;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
@@ -10,9 +12,7 @@ use Twig\TwigFunction;
 
 class TwigPaginationExtension extends AbstractExtension
 {
-    public function __construct(private readonly Processor $processor)
-    {
-    }
+    public function __construct(private readonly Processor $processor) {}
 
     public function getFunctions(): array
     {

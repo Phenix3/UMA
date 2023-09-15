@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Twig\Components;
 
 use App\Domain\Slider\Entity\Slider;
@@ -11,9 +13,7 @@ final class SliderComponent
 {
     public string $slug;
 
-    public function __construct(private EntityManagerInterface $manager)
-    {
-    }
+    public function __construct(private EntityManagerInterface $manager) {}
 
     public function getSlider()
     {

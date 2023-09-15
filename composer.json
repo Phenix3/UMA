@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "phenix3/uma",
+    "description": "Site web de l'Universite de Maroua(UMA)",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,

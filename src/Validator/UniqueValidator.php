@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Validator;
 
 use App\Http\Admin\Data\CrudDataInterface;
@@ -11,12 +13,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueValidator extends ConstraintValidator
 {
-    public function __construct(private readonly EntityManagerInterface $em)
-    {
-    }
+    public function __construct(private readonly EntityManagerInterface $em) {}
 
     /**
-     * @param object|null $obj
+     * @param null|object $obj
      * @param Unique      $constraint
      */
     public function validate(mixed $obj, Constraint $constraint): void
@@ -26,14 +26,25 @@ class UniqueValidator extends ConstraintValidator
         }
 
         if (!$constraint instanceof Unique) {
-            throw new \RuntimeException(sprintf('%s ne peut pas valider des contraintes %s', self::class, $constraint::class));
+            throw new \RuntimeException(sprintf(
+                '%s ne peut pas valider des contraintes %s',
+                self::class,
+                $constraint::class
+            ));
         }
 
         if (!method_exists($obj, 'getId')) {
-            throw new \RuntimeException(sprintf('%s ne peut pas être utilisé sur l\'objet %s car il ne possède pas de méthode getId()', self::class, $obj::class));
+            throw new \RuntimeException(
+                sprintf(
+                    '%s ne peut pas être utilisé sur l\'objet %s car il ne possède pas de méthode getId()',
+                    self::class,
+                    $obj::class
+                )
+            );
         }
 
         $accessor = new PropertyAccessor();
+
         /** @var class-string<object> $entityClass */
         $entityClass = $constraint->entityClass;
         if ($obj instanceof CrudDataInterface) {
@@ -59,7 +70,8 @@ class UniqueValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->atPath($constraint->field)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth;
 
 use App\Domain\Auth\Entity\User;
@@ -20,8 +22,7 @@ class AuthService
         private readonly Security $security,
         private readonly TokenStorageInterface $tokenStorage,
         private readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     public function getUser(): User
     {
@@ -37,7 +38,7 @@ class AuthService
     {
         $user = $this->security->getUser();
 
-        if (!($user instanceof UserInterface)) {
+        if (!$user instanceof UserInterface) {
             return null;
         }
 

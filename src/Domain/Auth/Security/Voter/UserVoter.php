@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth\Security\Voter;
 
 use App\Domain\Auth\Entity\User;
@@ -15,13 +17,15 @@ final class UserVoter extends Voter
     public const EDIT_ROLES = 'EDIT_ROLES';
     public const DELETE = 'DELETE_USER';
 
-    public function __construct(private readonly Security $security)
-    {
-    }
+    public function __construct(private readonly Security $security) {}
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return \in_array($attribute, [self::EDIT, self::EDIT_ROLES, self::DELETE], true) && $subject instanceof UserInterface;
+        return \in_array(
+            $attribute,
+            [self::EDIT, self::EDIT_ROLES, self::DELETE],
+            true
+        ) && $subject instanceof UserInterface;
     }
 
     /**
@@ -50,7 +54,14 @@ final class UserVoter extends Voter
     {
         return
             $this->security->isGranted(UserRoleEnum::SuperAdmin->value)
-            || ($this->security->isGranted(UserRoleEnum::Admin->value) && !\in_array(UserRoleEnum::SuperAdmin->value, $subject->getRoles(), true));
+            || (
+                $this->security->isGranted(UserRoleEnum::Admin->value)
+                && !\in_array(
+                    UserRoleEnum::SuperAdmin->value,
+                    $subject->getRoles(),
+                    true
+                )
+            );
     }
 
     /**
@@ -66,6 +77,7 @@ final class UserVoter extends Voter
      */
     private function canDeleteUser(UserInterface $subject): bool
     {
-        return $this->security->isGranted(UserRoleEnum::SuperAdmin->value) && !\in_array(UserRoleEnum::SuperAdmin->value, $subject->getRoles(), true);
+        return $this->security->isGranted(UserRoleEnum::SuperAdmin->value)
+            && !\in_array(UserRoleEnum::SuperAdmin->value, $subject->getRoles(), true);
     }
 }

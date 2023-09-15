@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Domain\Blog\Repository\PostRepository;
@@ -17,14 +19,14 @@ class HomeController extends AbstractController
 
         $this->pageVariable
             ->setTitle('Home page')
-            ->setMetaDescription('La description');
+            ->setMetaDescription('La description')
+        ;
 
         return $this->render('front/home/index.html.twig', compact('recentPosts'));
     }
 
     public function changeLocale(LocaleSwitcher $localeSwitcher): Response
     {
-
         return $this->redirectBack('home_index');
     }
 }

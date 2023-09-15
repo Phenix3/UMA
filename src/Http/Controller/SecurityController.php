@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controller;
 
 use App\Http\Admin\Controller\BaseController;
@@ -20,7 +22,8 @@ class SecurityController extends BaseController
         }
 
         $this->pageVariable
-            ->setTitle('Login');
+            ->setTitle('Login')
+        ;
 
         return $this->render('front/security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
@@ -29,7 +32,5 @@ class SecurityController extends BaseController
     }
 
     #[Route('/logout', 'logout')]
-    public function logout()
-    {
-    }
+    public function logout(): void {}
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Api\Provider;
 
 use ApiPlatform\Exception\RuntimeException;
@@ -20,8 +22,7 @@ class CommentApiProvider implements ProviderInterface
         private readonly RequestStack $requestStack,
         private readonly CommentRepository $commentRepository,
         private readonly UploaderHelper $uploaderHelper
-    ) {
-    }
+    ) {}
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
@@ -58,7 +59,7 @@ class CommentApiProvider implements ProviderInterface
     }
 
     /**
-     * @param int|array $id
+     * @param array|int $id
      */
     public function getItem(
         string $resourceClass,
@@ -66,7 +67,7 @@ class CommentApiProvider implements ProviderInterface
         string $operationName = null,
         array $context = []
     ): ?CommentResource {
-        if (is_array($id)) {
+        if (\is_array($id)) {
             throw new RuntimeException('id as array not expected');
         }
 

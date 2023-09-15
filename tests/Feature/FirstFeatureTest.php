@@ -1,24 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Domain\Page\Entity\Page;
 use App\Domain\Page\Entity\PageTranslation;
 
-it('Feature test 1', function () {
+it('Feature test 1', function (): void {
     $repo = $this->em->getRepository(Page::class);
     $pages = $repo->findAll();
-    echo \get_class($repo);
+    echo $repo::class;
     $this->assertTrue(true);
     expect(count($pages))->toBeInt()->toBe(0);
     // $this->asset
 });
 
-it('test 2', function () {
+it('test 2', static function (): void {
     $r = 1 + 4;
 
     expect($r)->toBeInt()->toBe(5);
 });
 
-it('Able to save translated page', function () {
+it('Able to save translated page', function (): void {
     $repo = $this->em->getRepository(Page::class);
 
     $page = new Page();
@@ -39,7 +41,7 @@ it('Able to save translated page', function () {
     expect(count($tpages))->toBeInt()->toBe(1);
 });
 
-it('Able to save multiple translation of the same page', function () {
+it('Able to save multiple translation of the same page', function (): void {
     $repo = $this->em->getRepository(Page::class);
 
     $page = new Page();

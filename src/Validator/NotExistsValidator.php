@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Validator;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -8,12 +10,11 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class NotExistsValidator extends ConstraintValidator
 {
-    public function __construct(private readonly EntityManagerInterface $em)
-    {
-    }
+    public function __construct(private readonly EntityManagerInterface $em) {}
 
     /**
      * @param NotExists $constraint
+     * @param mixed     $value
      */
     public function validate($value, Constraint $constraint): void
     {
@@ -28,7 +29,8 @@ class NotExistsValidator extends ConstraintValidator
         if (null !== $entity) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
-                ->addViolation();
+                ->addViolation()
+            ;
         }
     }
 }

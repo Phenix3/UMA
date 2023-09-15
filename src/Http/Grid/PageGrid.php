@@ -21,13 +21,13 @@ class PageGrid extends BaseGridType
                 'sortable' => false,
             ])
             ->addAction('edit', [
-                'route' => $options['routePrefix'] . '_edit',
+                'route' => $options['routePrefix'].'_edit',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],

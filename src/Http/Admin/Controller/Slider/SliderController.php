@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Admin\Controller\Slider;
 
 use App\Domain\Slider\Entity\Slider;
@@ -35,7 +37,8 @@ class SliderController extends CrudController
         $this->pageVariable
             ->setTitle('Sliders list')
             ->setSubtitle('La liste de tous les sliders')
-            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_new');
+            ->addAction('add_slider', 'Add Slider', 'admin_slider_slider_new')
+        ;
 
         return $this->crudIndex($query);
     }
@@ -49,7 +52,8 @@ class SliderController extends CrudController
         $this->pageVariable
             ->setTitle('Add new slider')
             ->setSubtitle('Ajouter un nouveau slider')
-            ->addAction('add_list', 'Slides List', 'admin_slider_slider_index');
+            ->addAction('add_list', 'Slides List', 'admin_slider_slider_index')
+        ;
 
         return $this->crudNew($data);
     }
@@ -64,7 +68,13 @@ class SliderController extends CrudController
         $this->pageVariable
             ->setTitle('Slider Item list')
             ->setSubtitle('La liste de tous les elements d\'un slider')
-            ->addAction('add_slider', 'Add Slider Item', 'admin_slider_slider_item_new', ['slider_id' => $slider->getId()]);
+            ->addAction(
+                'add_slider',
+                'Add Slider Item',
+                'admin_slider_slider_item_new',
+                ['slider_id' => $slider->getId()]
+            )
+        ;
 
         return $this->render('admin/slider/sliders/items.html.twig', compact('slider', 'gridData'));
     }
@@ -89,7 +99,8 @@ class SliderController extends CrudController
                 'Add Slider Item',
                 'admin_slider_slider_item_new',
                 ['slider_id' => $slider->getId()]
-            );
+            )
+        ;
 
         return $this->crudEdit($data);
     }

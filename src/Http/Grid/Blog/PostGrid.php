@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Grid\Blog;
 
 use Prezent\Grid\BaseGridType;
@@ -18,13 +20,13 @@ class PostGrid extends BaseGridType
             ->addColumn('title', StringType::class)
             ->addColumn('slug', StringType::class)
             ->addAction('edit', [
-                'route' => $options['routePrefix'] . '_edit',
+                'route' => $options['routePrefix'].'_edit',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],
             ])
             ->addAction('delete', [
-                'route' => $options['routePrefix'] . '_delete',
+                'route' => $options['routePrefix'].'_delete',
                 'route_parameters' => [
                     'id' => '{id}',
                 ],

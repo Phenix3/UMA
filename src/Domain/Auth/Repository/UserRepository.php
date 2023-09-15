@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domain\Auth\Repository;
 
 use App\Domain\Auth\Entity\User;
@@ -9,8 +11,8 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<ContactRequest>
  *
- * @method ContactRequest|null find($id, $lockMode = null, $lockVersion = null)
- * @method ContactRequest|null findOneBy(array $criteria, array $orderBy = null)
+ * @method null|ContactRequest find($id, $lockMode = null, $lockVersion = null)
+ * @method null|ContactRequest findOneBy(array $criteria, array $orderBy = null)
  * @method ContactRequest[]    findAll()
  * @method ContactRequest[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
