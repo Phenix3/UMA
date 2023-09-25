@@ -2,13 +2,11 @@ parameters:
     level: max
     paths:
         - %currentWorkingDirectory%/src/
-    excludes_analyse:
+    excludePaths:
         - %currentWorkingDirectory%/src/Kernel.php
         - %currentWorkingDirectory%/src/Migrations
         - %currentWorkingDirectory%/tests
         - %currentWorkingDirectory%/config
         - %currentWorkingDirectory%/public
-    autoload_files:
-        - %currentWorkingDirectory%/vendor/autoload.php
 
     ignoreErrors:
