@@ -20,6 +20,8 @@ services:
         bind:
             string $projectDir: '%kernel.project_dir%'
             string $adminPrefix: '%admin_prefix%'
+            string $locales: '%app.locales%'
+            string $defaultLocale: '%app.locale%'
 
 
     # makes classes in src/ available to be used as services

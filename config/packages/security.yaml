@@ -19,8 +19,8 @@ security:
         admin:
             lazy: true
             pattern: ^/admin
-            # provider: app_admin_provider
-            # custom_authenticator: App\Security\AppAdminAuthenticator
+            provider: app_user_provider
+            custom_authenticator: App\Domain\Auth\AppUserAuthenticator
             # logout:
                 # path: app_admin_logout
                 
