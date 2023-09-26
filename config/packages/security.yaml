@@ -15,15 +15,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
-        admin:
-            lazy: true
-            pattern: ^/admin
-            provider: app_user_provider
-            custom_authenticator: App\Domain\Auth\AppUserAuthenticator
+
+        # admin:
+        #     lazy: true
+        #     pattern: '^/(%app.locales%)/admin'
+        #     provider: app_user_provider
+        #     custom_authenticator: App\Domain\Auth\AppUserAuthenticator
             # logout:
                 # path: app_admin_logout
-                
+
         main:
             lazy: true
             # form_login:
@@ -54,8 +54,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: '^/(%app.locales%)/admin', roles: ROLE_ADMIN }
+        - { path: '^/(%app.locales%)/admin/login', roles: PUBLIC_ACCESS }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

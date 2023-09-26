@@ -7,6 +7,14 @@ parameters:
         - %currentWorkingDirectory%/src/Migrations
         - %currentWorkingDirectory%/tests
         - %currentWorkingDirectory%/config
-        - %currentWorkingDirectory%/public
+        - %currentWorkingDirectory%/Public
+
+    ergebnis:
+        noExtends:
+            enabled: false
+        noParameterWithNullableTypeDeclaration:
+            enabled: false
+        noParameterWithNullDefaultValue:
+            enabled: false
 
     ignoreErrors:

@@ -5,8 +5,11 @@ declare(strict_types=1);
 $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(false)
     ->ignoreVCSIgnored(true)
-    ->exclude(['dev-tools/phpstan', 'tests/Fixtures', 'src/Infrastructure/Migrations'])
-    ->in(__DIR__)
+    ->exclude([
+        'dev-tools/phpstan',
+        'tests/Fixtures',
+        'src/Infrastructure/Migrations',
+    ])->in(__DIR__)
 ;
 
 $config = new PhpCsFixer\Config();

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Comment;
 
+use Symfony\Component\Uid\Uuid;
+
 abstract class CommentData
 {
-    public ?string $id = null;
+    public mixed $id = null;
 
     public ?string $username = null;
 
@@ -14,15 +16,15 @@ abstract class CommentData
 
     public ?string $avatar = null;
 
-    public ?string $target = null;
+    public Uuid|string|null $target = null;
 
     public ?string $email = null;
 
     public int $createdAt = 0;
 
-    public ?string $parent = null;
+    public Uuid|string|null $parent = null;
 
     public ?Comment $entity = null;
 
-    public ?string $userId = null;
+    public ?Uuid $userId = null;
 }

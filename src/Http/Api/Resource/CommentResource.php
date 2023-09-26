@@ -13,14 +13,16 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Domain\Auth\Entity\User;
 use App\Domain\Comment\Comment;
-use App\Domain\Comment\CommentData;
 use App\Http\Api\Processor\CommentProcessor;
 use App\Http\Api\Provider\CommentApiProvider;
 use App\Validator\NotExists;
 // use Parsedown;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
+
+// use Symfony\Component\Uid\Uuid
 
 #[ApiResource(
     provider: CommentApiProvider::class,
@@ -45,11 +47,11 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
         ),
     ]
 )]
-class CommentResource extends CommentData
+final class CommentResource
 {
     #[Groups(['read'])]
     #[ApiProperty(identifier: true)]
-    public ?string $id = null;
+    public mixed $id = null;
 
     #[Groups(['read', 'write'])]
     #[Assert\NotBlank(groups: ['anonymous'], normalizer: 'trim')]
@@ -74,13 +76,13 @@ class CommentResource extends CommentData
     public ?string $avatar = null;
 
     #[Groups(['write'])]
-    public ?string $target = null;
+    public Uuid|string|null $target = null;
 
     #[Groups(['read'])]
     public int $createdAt = 0;
 
     #[Groups(['read', 'write'])]
-    public ?string $parent = null;
+    public Uuid|string|null $parent = null;
 
     /**
      * Garde une trace de l'entité qui a servi à créer la resource.
@@ -88,9 +90,9 @@ class CommentResource extends CommentData
     public ?Comment $entity = null;
 
     #[Groups(['read'])]
-    public ?string $userId = null;
+    public ?Uuid $userId = null;
 
-    public static function fromComment(Comment $comment, UploaderHelper $uploaderHelper = null): self
+    public static function fromComment(Comment $comment, ?UploaderHelper $uploaderHelper = null): self
     {
         $resource = new self();
         $author = $comment->getAuthor();
@@ -112,7 +114,7 @@ class CommentResource extends CommentData
             $resource->avatar = '/images/default.png';
         } */
         $resource->entity = $comment;
-        $resource->userId = $author ? $author->getId() : null;
+        $resource->userId = null !== $author ? $author->getId() : null;
 
         return $resource;
     }

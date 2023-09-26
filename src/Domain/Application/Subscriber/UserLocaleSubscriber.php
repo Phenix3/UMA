@@ -17,7 +17,8 @@ use function Symfony\Component\String\u;
  */
 final class UserLocaleSubscriber implements EventSubscriberInterface
 {
-    private $locales;
+    /** @var array<int, string> */
+    private string|array $locales;
     private string $defaultLocale = 'fr';
 
     public function __construct(
@@ -45,7 +46,7 @@ final class UserLocaleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest',
+            KernelEvents::REQUEST => [['onKernelRequest', 21]],
         ];
     }
 
@@ -53,10 +54,14 @@ final class UserLocaleSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$event->isMainRequest() || '/' !== $request->getPathInfo()) {
+        if (
+            !$event->isMainRequest()
+            || '/' !== $request->getPathInfo()
+        ) {
             return;
         }
         $referer = $request->headers->get('referer');
+
         if (
             null !== $referer
             && u($referer)
@@ -76,6 +81,10 @@ final class UserLocaleSubscriber implements EventSubscriberInterface
                 )
             );
             $event->setResponse($response);
+        } else {
+            $request->getSession()->set('_locale', $preferredLanguage);
+            $request->attributes->set('_locale', $preferredLanguage);
+            $request->setLocale($preferredLanguage);
         }
     }
 }

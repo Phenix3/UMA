@@ -1,11 +1,7 @@
-controllers:
-  resource: ../src/Http/Controller/
-  type: attribute
-  prefix: /{_locale}
-  # name_prefix: app_
+
 admin_controllers:
   name_prefix: admin_
-  prefix: '%admin_prefix%'
+  prefix: '/{_locale}%admin_prefix%'
   resource: ../src/Http/Admin/Controller/
   type: attribute
 api_controllers:
@@ -13,3 +9,9 @@ api_controllers:
   prefix: /api
   resource: ../src/Http/Api/Controller/
   type: attribute
+
+controllers:
+  resource: ../src/Http/Controller/
+  type: attribute
+  prefix: /{_locale}
+  # name_prefix: app_

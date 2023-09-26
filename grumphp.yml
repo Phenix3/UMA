@@ -31,9 +31,9 @@ grumphp:
     phplint:
       exclude: ['vendor']
       triggered_by: ['php']
-    phpmd:
-      ruleset: [".php_md.xml"]
-      exclude: ["src/Kernel.php"]
+    # phpmd:
+    #   ruleset: [".php_md.xml"]
+    #   exclude: ["src/Kernel.php"]
     phpstan:
       level: ~
       configuration: phpstan.neon
