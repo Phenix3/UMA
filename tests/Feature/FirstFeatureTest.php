@@ -8,13 +8,12 @@ use App\Domain\Page\Entity\PageTranslation;
 it('Feature test 1', function (): void {
     $repo = $this->em->getRepository(Page::class);
     $pages = $repo->findAll();
-    echo $repo::class;
     $this->assertTrue(true);
     expect(count($pages))->toBeInt()->toBe(0);
     // $this->asset
 });
 
-it('test 2', static function (): void {
+it('test 2', function (): void {
     $r = 1 + 4;
 
     expect($r)->toBeInt()->toBe(5);
@@ -48,7 +47,7 @@ it('Able to save multiple translation of the same page', function (): void {
     $page->translate()->setTitle('Title 1 en');
     $page->translate()->setSlug('title-1-en');
     $page->translate()->setDescription('Description 1 en');
-    $page->translate()->setContent('COntent 1 en');
+    $page->translate()->setContent('Content 1 en');
 
     $page->translate('fr')->setTitle('Title 1 en');
     $page->translate('fr')->setSlug('title-1-en');
@@ -58,7 +57,7 @@ it('Able to save multiple translation of the same page', function (): void {
     $page->translate('de')->setTitle('Title 1 en');
     $page->translate('de')->setSlug('title-1-en');
     $page->translate('de')->setDescription('Description 1 en');
-    $page->translate('de')->setContent('COntent 1 en');
+    $page->translate('de')->setContent('Content 1 en');
 
     $page->mergeNewTranslations();
     $repo->save($page, true);

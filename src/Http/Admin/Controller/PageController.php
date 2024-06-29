@@ -52,6 +52,7 @@ class PageController extends CrudController
         $form = $this->createForm(PageForm::class, $pageEntity)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pageEntity->mergeNewTranslations();
             $this->em->persist($pageEntity);
             $this->em->flush();
 

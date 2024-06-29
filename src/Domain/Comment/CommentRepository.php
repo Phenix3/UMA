@@ -13,7 +13,7 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @extends AbstractRepository<Comment>
  */
-class CommentRepository extends AbstractRepository
+final class CommentRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -28,7 +28,7 @@ class CommentRepository extends AbstractRepository
     public function findForApi(mixed $contentId): array
     {
         // Force l'enregistrement de l'entité dans l'entity manager pour éviter les requêtes supplémentaires
-        $this->_em->getReference(\App\Domain\Blog\Entity\Post::class, Uuid::fromString($contentId));
+        $this->_em->getReference(\App\Domain\Application\Entity\Content::class, Uuid::fromString($contentId));
 
         return $this->createQueryBuilder('c')
             ->select(
@@ -52,7 +52,7 @@ class CommentRepository extends AbstractRepository
     /**
      * Renvoie un commentaire en évitant la liaison content.
      *
-     * @param mixed $id
+     * @param Uuid $id
      */
     public function findPartial($id): ?Comment
     {
@@ -60,7 +60,7 @@ class CommentRepository extends AbstractRepository
             ->select('partial c.{id, username, email, content, createdAt}, partial u.{id, username, email}')
             ->where('c.id = :id')
             ->leftJoin('c.author', 'u')
-            ->setParameter('id', Uuid::fromString($id)->toBinary())
+            ->setParameter('id', $id->toBinary())
             ->setMaxResults(1)
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)

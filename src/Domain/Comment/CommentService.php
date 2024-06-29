@@ -6,11 +6,12 @@ namespace App\Domain\Comment;
 
 use App\Domain\Application\Entity\Content;
 use App\Domain\Auth\AuthService;
+use App\Http\Api\Resource\CommentResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Uid\Uuid;
 
-class CommentService
+final class CommentService
 {
     public function __construct(
         private readonly AuthService $auth,
@@ -18,7 +19,7 @@ class CommentService
         private readonly EventDispatcherInterface $dispatcher
     ) {}
 
-    public function create(CommentData $data): Comment
+    public function create(CommentResource $data): Comment
     {
         // On crée un nouveau commentaire
         /** @var Content $target */

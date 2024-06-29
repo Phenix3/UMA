@@ -8,11 +8,13 @@ import {Alert, FloatingAlert} from '@@/js/elements/Alert.js';
 import InputAttachment from '@admin/js/elements/InputAttachment.js';
 import { CommentsElement } from '../../react/controllers/Comments.jsx';
 import { ContactFormElement } from '../../react/controllers/ContactForm.jsx';
+import MarkdownEditor from './MarkdownEditor.js';
 
 customElements.get('input-attachment') || customElements.define('input-attachment', InputAttachment, { extends: 'input' });
 
 
 customElements.get('wysiwyg-editor') || customElements.define('wysiwyg-editor', WysiwygEditor, { extends: 'textarea' });
+customElements.get('markdown-editor') || customElements.define('markdown-editor', MarkdownEditor, {extends: 'textarea'});
 // customElements.get('select-selectize') || customElements.define('select-selectize', SelectSelectize, { extends: 'select' });
 customElements.get('select-select2') || customElements.define('select-select2', SelectSelect2, { extends: 'select' });
 customElements.get('date-time-picker') || customElements.define('date-time-picker', DatePicker, { extends: 'input' });

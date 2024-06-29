@@ -21,7 +21,7 @@ class PageForm extends AbstractType
                     'description' => [],
                     'content' => [
                         'attr' => [
-                            'is' => 'wysiwyg-editor',
+                            'is' => 'markdown-editor',
                             'data-full-page' => true,
                         ],
                     ],

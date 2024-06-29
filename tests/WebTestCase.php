@@ -9,12 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
-/**
- * @internal
- *
- * @coversNothing
- */
-final class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
     use FixturesTrait;
 

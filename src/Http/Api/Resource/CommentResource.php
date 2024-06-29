@@ -36,7 +36,7 @@ use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
     operations: [
         new GetCollection(),
         new Post(processor: CommentProcessor::class),
-        new Get(read: false, output: false),
+        new Get(processor: CommentProcessor::class),
         new Delete(
             processor: CommentProcessor::class,
             security: "is_granted('ROLE_ADMIN') or object.userId == user"
@@ -107,7 +107,7 @@ final class CommentResource
             '<p><pre><code><ul><ol><li>'
         ); */
         $resource->createdAt = $comment->getCreatedAt()->getTimestamp();
-        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : '0';
+        $resource->parent = null !== $comment->getParent() ? $comment->getParent()->getId() : null;
         /* if ($author && $uploaderHelper && $author->getAvatarName()) {
             $resource->avatar = $uploaderHelper->asset($author, 'avatarFile');
         } else {

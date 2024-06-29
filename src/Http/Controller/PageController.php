@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/', name: 'page_')]
-class PageController extends AbstractController
+final class PageController extends AbstractController
 {
-    #[Route('/{slug}', name: 'show')]
+    #[Route('/{slug<[a-z0-9\-]+>}', name: 'show', priority: 0)]
     public function show(Request $request, Page $page): Response
     {
         $locale = $request->getLocale();

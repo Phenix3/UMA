@@ -7,7 +7,7 @@ namespace App\Http\Type;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EditorType extends TextareaType
+final class EditorType extends TextareaType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -18,7 +18,7 @@ class EditorType extends TextareaType
                 'class' => 'full',
             ],
             'attr' => [
-                'is' => 'wysiwyg-editor',
+                'is' => 'markdown-editor',
             ],
         ]);
     }
